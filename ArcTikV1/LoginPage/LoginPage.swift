@@ -100,6 +100,8 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         loginButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -50).isActive = true;
         loginButton.topAnchor.constraint(equalTo: self.passwordField.bottomAnchor, constant: 25).isActive = true;
         loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true;
+        
+        loginButton.addTarget(self, action: #selector(self.handleLogin), for: .touchUpInside);
     }
     
     fileprivate func setupLogoImage(){
@@ -153,5 +155,10 @@ extension LoginPage{
     @objc func handleToForgotPassword(){
         let forgotPasswordPage = ForgotPasswordPage1();
         self.navigationController?.pushViewController(forgotPasswordPage, animated: true);
+    }
+    
+    @objc func handleLogin(){
+        let tabBar = CustomTabBar();
+        self.present(tabBar, animated: true, completion: nil);
     }
 }
