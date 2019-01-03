@@ -28,9 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loginViewController = LoginPage();
         let startingNavigationController = UINavigationController(rootViewController: loginViewController);
         startingNavigationController.isNavigationBarHidden = true;
-        
-        
+
+
         window?.rootViewController = startingNavigationController;
+        
+//        let customTabBar = CustomTabBar();
+//         window?.rootViewController = customTabBar;
         
         return true
     }
