@@ -45,7 +45,9 @@ class LoginPage: UIViewController, SignUpViewDelegate{
     }()
     
     var loginButton: NormalUIButton = {
-        let loginButton = NormalUIButton(backgroundColor: .appBlue, title: "Login", font: .montserratSemiBold(fontSize: 16), fontColor: .white);
+//        let loginButton = NormalUIButton(backgroundColor: .appBlue, title: "Login", font: .montserratSemiBold(fontSize: 16), fontColor: .white);
+        let loginButton = NormalUIButton(type: .system);
+        loginButton.setButtonProperties(backgroundColor: .appBlue, title: "Login", font: .montserratSemiBold(fontSize: 16), fontColor: .white);
         loginButton.layer.borderWidth = 2;
         loginButton.layer.borderColor = UIColor.white.cgColor;
         loginButton.layer.cornerRadius = 5;
@@ -103,8 +105,13 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         self.view.addSubview(logoImageView);
         logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true;
         logoImageView.bottomAnchor.constraint(equalTo: self.emailField.topAnchor, constant: -25).isActive = true;
-        logoImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true;
-        logoImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true;
+        if(UIScreenWidth == 375){
+            logoImageView.heightAnchor.constraint(equalToConstant: 140).isActive = true;
+            logoImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true;
+        }else{
+            logoImageView.heightAnchor.constraint(equalToConstant: 180).isActive = true;
+            logoImageView.widthAnchor.constraint(equalToConstant: 140).isActive = true;
+        }
     }
     
     fileprivate func setupForgotPassword(){

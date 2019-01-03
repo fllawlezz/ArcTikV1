@@ -15,6 +15,7 @@
 		872E432B21DD8DB10051F563 /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432A21DD8DB10051F563 /* SignUpPage.swift */; };
 		872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432C21DD915E0051F563 /* SignUpFields.swift */; };
 		872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432E21DD92720051F563 /* SignUpFieldCell.swift */; };
+		872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E433321DDC9970051F563 /* SignUpTermsView.swift */; };
 		87CE757221DD801B00968357 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE755F21DD801900968357 /* Montserrat-Bold.ttf */; };
 		87CE757321DD801B00968357 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */; };
 		87CE757421DD801B00968357 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */; };
@@ -72,6 +73,7 @@
 		872E432A21DD8DB10051F563 /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		872E432C21DD915E0051F563 /* SignUpFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFields.swift; sourceTree = "<group>"; };
 		872E432E21DD92720051F563 /* SignUpFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldCell.swift; sourceTree = "<group>"; };
+		872E433321DDC9970051F563 /* SignUpTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsView.swift; sourceTree = "<group>"; };
 		87CE755F21DD801900968357 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			children = (
 				872E433021DD92750051F563 /* SignUpCollectionView */,
 				872E432A21DD8DB10051F563 /* SignUpPage.swift */,
+				872E433321DDC9970051F563 /* SignUpTermsView.swift */,
 			);
 			path = SignUpPage;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,
 				872E432821DD8BF10051F563 /* SignUpView.swift in Sources */,
+				872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */,
 				87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */,
 				87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */,
 				8718CA2C21DD7E7500C00916 /* UITextViewNoResponse.swift in Sources */,

@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+var UIScreenWidth: CGFloat?;
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds);
         window?.makeKeyAndVisible();
+        
+        UIScreenWidth = UIScreen.main.bounds.width;
         
         let loginViewController = LoginPage();
         let startingNavigationController = UINavigationController(rootViewController: loginViewController);

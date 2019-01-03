@@ -15,15 +15,10 @@ class NormalUIButton: UIButton{
     var selfFont: UIFont!;
     var fontColor: UIColor!;
     
-    init(backgroundColor: UIColor, title: String, font: UIFont, fontColor: UIColor){
-        super.init(frame: .zero);
-        self.selfBackgroundColor = backgroundColor;
-        self.titleString = title;
-        self.selfFont = font;
-        self.fontColor = fontColor;
+    override init(frame: CGRect) {
+        super.init(frame: frame);
         setup();
     }
-    
     override var buttonType: UIButtonType{
         return .system;
     }
@@ -32,12 +27,20 @@ class NormalUIButton: UIButton{
         fatalError();
     }
     
-    fileprivate func setup(){
-        self.translatesAutoresizingMaskIntoConstraints = false;
+    func setButtonProperties(backgroundColor: UIColor, title: String, font: UIFont, fontColor: UIColor){
+        self.selfBackgroundColor = backgroundColor;
+        self.titleString = title;
+        self.selfFont = font;
+        self.fontColor = fontColor;
+        
         self.backgroundColor = selfBackgroundColor;
         self.setTitle(titleString, for: .normal);
         self.titleLabel?.font = selfFont;
         self.setTitleColor(fontColor, for: .normal);
+    }
+    
+    fileprivate func setup(){
+        self.translatesAutoresizingMaskIntoConstraints = false;
         self.layer.cornerRadius = 4;
     }
     
