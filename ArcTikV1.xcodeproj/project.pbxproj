@@ -16,6 +16,8 @@
 		872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432C21DD915E0051F563 /* SignUpFields.swift */; };
 		872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432E21DD92720051F563 /* SignUpFieldCell.swift */; };
 		872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E433321DDC9970051F563 /* SignUpTermsView.swift */; };
+		87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */; };
+		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87CE757221DD801B00968357 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE755F21DD801900968357 /* Montserrat-Bold.ttf */; };
 		87CE757321DD801B00968357 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */; };
 		87CE757421DD801B00968357 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */; };
@@ -74,6 +76,8 @@
 		872E432C21DD915E0051F563 /* SignUpFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFields.swift; sourceTree = "<group>"; };
 		872E432E21DD92720051F563 /* SignUpFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldCell.swift; sourceTree = "<group>"; };
 		872E433321DDC9970051F563 /* SignUpTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsView.swift; sourceTree = "<group>"; };
+		87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage1.swift; sourceTree = "<group>"; };
+		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87CE755F21DD801900968357 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -175,6 +179,15 @@
 			path = SignUpCollectionView;
 			sourceTree = "<group>";
 		};
+		87B31F0C21DDD1410054254C /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */,
+				87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */,
+			);
+			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
 		87CE755E21DD800200968357 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +239,7 @@
 		87D89B8E21DCA552009160A3 /* ArcTikV1 */ = {
 			isa = PBXGroup;
 			children = (
+				87B31F0C21DDD1410054254C /* ForgotPassword */,
 				872E432921DD8DA20051F563 /* SignUpPage */,
 				872E432621DD8BDA0051F563 /* LoginPage */,
 				87D89B8F21DCA552009160A3 /* AppDelegate.swift */,
@@ -415,10 +429,12 @@
 				87CE757E21DD801B00968357 /* FontExtensions.swift in Sources */,
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
+				87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */,
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,
 				872E432821DD8BF10051F563 /* SignUpView.swift in Sources */,
 				872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */,
+				87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */,
 				87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */,
 				87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */,
 				8718CA2C21DD7E7500C00916 /* UITextViewNoResponse.swift in Sources */,

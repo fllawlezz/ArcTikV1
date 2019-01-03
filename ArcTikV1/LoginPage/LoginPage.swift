@@ -58,6 +58,7 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         let forgotPasswordLabel = NormalUILabel(textColor: .white, font: UIFont.italicSystemFont(ofSize: 12), textAlign: .center);
         forgotPasswordLabel.text = "Forgot Password";
         forgotPasswordLabel.textColor = UIColor.white;
+        forgotPasswordLabel.isUserInteractionEnabled = true;
         return forgotPasswordLabel;
     }()
     
@@ -120,6 +121,9 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         forgotPasswordLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -50).isActive = true;
         forgotPasswordLabel.topAnchor.constraint(equalTo: self.loginButton.bottomAnchor, constant: 10).isActive = true;
         forgotPasswordLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true;
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleToForgotPassword));
+        forgotPasswordLabel.addGestureRecognizer(tapGesture);
     }
     
     fileprivate func setupSignUpView(){
@@ -144,5 +148,10 @@ extension LoginPage{
     func handleToSignUp(){
         let signUpPage = SignUpPage();
         self.navigationController?.pushViewController(signUpPage, animated: true);
+    }
+    
+    @objc func handleToForgotPassword(){
+        let forgotPasswordPage = ForgotPasswordPage1();
+        self.navigationController?.pushViewController(forgotPasswordPage, animated: true);
     }
 }
