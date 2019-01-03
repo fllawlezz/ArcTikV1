@@ -21,6 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds);
         window?.makeKeyAndVisible();
         
+        let loginViewController = LoginPage();
+        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
+        startingNavigationController.isNavigationBarHidden = true;
+        
+        
+        window?.rootViewController = startingNavigationController;
+        
         return true
     }
 
