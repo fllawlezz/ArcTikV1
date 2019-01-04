@@ -36,7 +36,7 @@ class EventsAroundYouCell: UICollectionViewCell{
         let descriptionTextView = UITextView();
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false;
         descriptionTextView.text = "Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up!"
-        descriptionTextView.font = UIFont.montserratRegular(fontSize: 12);
+        descriptionTextView.font = UIFont.montserratRegular(fontSize: 13.5);
         descriptionTextView.isEditable = false;
         descriptionTextView.isScrollEnabled = false;
         return descriptionTextView;

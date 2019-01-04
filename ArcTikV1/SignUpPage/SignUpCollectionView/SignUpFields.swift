@@ -32,6 +32,10 @@ class SignUpFields: UICollectionView, UICollectionViewDelegate, UICollectionView
         cell.setIndex(indexNumber: indexPath.item);
         cell.setCellPlaceholder(placeHolder: cellPlaceholders[indexPath.item]);
         
+        if(indexPath.item == 4){
+            cell.cellTextField.keyboardType = .numberPad
+        }
+        
         if(indexPath.item == 5){
             cell.handleHideBorder();
             cell.setDoneReturnKey();
