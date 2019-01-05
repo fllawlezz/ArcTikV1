@@ -25,15 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIScreenWidth = UIScreen.main.bounds.width;
         
-        let loginViewController = LoginPage();
-        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
-        startingNavigationController.isNavigationBarHidden = true;
-
-
-        window?.rootViewController = startingNavigationController;
+//        let loginViewController = LoginPage();
+//        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
+//        startingNavigationController.isNavigationBarHidden = true;
+//
+//
+//        window?.rootViewController = startingNavigationController;
         
-//        let customTabBar = CustomTabBar();
-//         window?.rootViewController = customTabBar;
+        let customTabBar = CustomTabBar();
+         window?.rootViewController = customTabBar;
         
         return true
     }

@@ -39,6 +39,7 @@ class EventsAroundYouCell: UICollectionViewCell{
         descriptionTextView.font = UIFont.montserratRegular(fontSize: 13.5);
         descriptionTextView.isEditable = false;
         descriptionTextView.isScrollEnabled = false;
+        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail;
         return descriptionTextView;
     }()
     

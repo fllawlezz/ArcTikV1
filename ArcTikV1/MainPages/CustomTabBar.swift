@@ -11,6 +11,8 @@ import UIKit
 class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
     
     var eventsAroundYouController: UINavigationController?
+    var messagesController: UINavigationController?;
+    var myEventsController: UINavigationController?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -20,8 +22,10 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         self.tabBar.tintColor = UIColor.black;
         
         setupEventsAroundYou();
+        setupMessages();
+        setupMyEvents();
         
-        viewControllers = [eventsAroundYouController!];
+        viewControllers = [eventsAroundYouController!, messagesController!, myEventsController!];
     }
     
     func setupEventsAroundYou(){
@@ -33,6 +37,29 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         eventsAroundYouController?.navigationBar.tintColor = UIColor.white;
         eventsAroundYouController?.title = "Events";
         eventsAroundYouController?.tabBarItem.image = UIImage(named: "events");
+    }
+    
+    fileprivate func setupMessages(){
+        let messagesPage = MessagesPage();
+        
+        messagesController = UINavigationController(rootViewController: messagesPage);
+        messagesController?.navigationBar.isTranslucent = false;
+        messagesController?.navigationBar.barTintColor = UIColor.appBlue;
+        messagesController?.navigationBar.tintColor = UIColor.white;
+        messagesController?.title = "Messages";
+        messagesController?.tabBarItem.image = UIImage(named: "chatRoomTab");
+        
+    }
+    
+    fileprivate func setupMyEvents(){
+        let myEventsPage = MyEventsPage();
+        
+        myEventsController = UINavigationController(rootViewController: myEventsPage);
+        myEventsController?.navigationBar.isTranslucent = false;
+        myEventsController?.navigationBar.barTintColor = UIColor.appBlue;
+        myEventsController?.navigationBar.tintColor = UIColor.white;
+        myEventsController?.title = "My Events";
+        myEventsController?.tabBarItem.image = UIImage(named: "applied");
     }
     
 }
