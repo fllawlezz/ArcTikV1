@@ -13,6 +13,7 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
     var eventsAroundYouController: UINavigationController?
     var messagesController: UINavigationController?;
     var myEventsController: UINavigationController?;
+    var userProfileController: UINavigationController?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -24,8 +25,8 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         setupEventsAroundYou();
         setupMessages();
         setupMyEvents();
-        
-        viewControllers = [eventsAroundYouController!, messagesController!, myEventsController!];
+        setupUserProfile()
+        viewControllers = [eventsAroundYouController!, messagesController!, myEventsController!, userProfileController!];
     }
     
     func setupEventsAroundYou(){
@@ -60,6 +61,17 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         myEventsController?.navigationBar.tintColor = UIColor.white;
         myEventsController?.title = "My Events";
         myEventsController?.tabBarItem.image = UIImage(named: "applied");
+    }
+    
+    fileprivate func setupUserProfile(){
+        let userProfilePage = UserProfilePage();
+        
+        userProfileController = UINavigationController(rootViewController: userProfilePage);
+        userProfileController?.navigationBar.isTranslucent = false;
+        userProfileController?.navigationBar.barTintColor = UIColor.appBlue;
+        userProfileController?.navigationBar.tintColor = UIColor.white;
+        userProfileController?.title = "Profile";
+        userProfileController?.tabBarItem.image = UIImage(named: "profile");
     }
     
 }
