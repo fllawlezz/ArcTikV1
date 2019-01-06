@@ -13,7 +13,7 @@ class UserProfileRatingView: UIView{
     var starImageView1: UIImageView = {
         let starImageView1 = UIImageView();
         starImageView1.translatesAutoresizingMaskIntoConstraints = false;
-        starImageView1.image = UIImage(named: "star");
+        starImageView1.image = UIImage(named: "whiteStarFilled");
         starImageView1.contentMode = .scaleAspectFill;
         return starImageView1;
     }()
@@ -21,7 +21,7 @@ class UserProfileRatingView: UIView{
     var starImageView2: UIImageView = {
         let starImageView2 = UIImageView();
         starImageView2.translatesAutoresizingMaskIntoConstraints = false;
-        starImageView2.image = UIImage(named: "star");
+        starImageView2.image = UIImage(named: "whiteStarFilled");
         starImageView2.contentMode = .scaleAspectFill;
         return starImageView2;
     }()
@@ -29,7 +29,7 @@ class UserProfileRatingView: UIView{
     var starImageView3: UIImageView = {
         let starImageView3 = UIImageView();
         starImageView3.translatesAutoresizingMaskIntoConstraints = false;
-        starImageView3.image = UIImage(named: "star");
+        starImageView3.image = UIImage(named: "whiteStarFilled");
         starImageView3.contentMode = .scaleAspectFill;
         return starImageView3;
     }()
@@ -37,7 +37,7 @@ class UserProfileRatingView: UIView{
     var starImageView4: UIImageView = {
         let starImageView4 = UIImageView();
         starImageView4.translatesAutoresizingMaskIntoConstraints = false;
-        starImageView4.image = UIImage(named: "star");
+        starImageView4.image = UIImage(named: "whiteStarFilled");
         starImageView4.contentMode = .scaleAspectFill;
         return starImageView4;
     }()

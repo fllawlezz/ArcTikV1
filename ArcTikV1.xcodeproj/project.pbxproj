@@ -27,6 +27,16 @@
 		874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794FD21E01F1400397271 /* UserProfilePage.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
+		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
+		877C92B021E1FB50005C4E88 /* FiltersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AF21E1FB50005C4E88 /* FiltersCollectionView.swift */; };
+		877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B121E1FBEA005C4E88 /* FiltersDistanceCell.swift */; };
+		877C92B621E1FC8C005C4E88 /* DistanceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B521E1FC8C005C4E88 /* DistanceCollectionView.swift */; };
+		877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B721E201A3005C4E88 /* DistanceCollectionViewCell.swift */; };
+		877C92BA21E2072A005C4E88 /* FiltersHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B921E2072A005C4E88 /* FiltersHeader.swift */; };
+		877C92BD21E20912005C4E88 /* FiltersCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92BC21E20912005C4E88 /* FiltersCategoryCell.swift */; };
+		877C92C021E20DB5005C4E88 /* FiltersPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92BF21E20DB5005C4E88 /* FiltersPriceCell.swift */; };
+		877C92C221E20DEA005C4E88 /* PriceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92C121E20DEA005C4E88 /* PriceCollectionView.swift */; };
+		877C92C421E20E38005C4E88 /* PriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92C321E20E38005C4E88 /* PriceCollectionViewCell.swift */; };
 		87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */; };
 		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1221DDED8D0054254C /* CustomTabBar.swift */; };
@@ -104,6 +114,16 @@
 		874794FD21E01F1400397271 /* UserProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePage.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
+		877C92AF21E1FB50005C4E88 /* FiltersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersCollectionView.swift; sourceTree = "<group>"; };
+		877C92B121E1FBEA005C4E88 /* FiltersDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersDistanceCell.swift; sourceTree = "<group>"; };
+		877C92B521E1FC8C005C4E88 /* DistanceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCollectionView.swift; sourceTree = "<group>"; };
+		877C92B721E201A3005C4E88 /* DistanceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCollectionViewCell.swift; sourceTree = "<group>"; };
+		877C92B921E2072A005C4E88 /* FiltersHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersHeader.swift; sourceTree = "<group>"; };
+		877C92BC21E20912005C4E88 /* FiltersCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersCategoryCell.swift; sourceTree = "<group>"; };
+		877C92BF21E20DB5005C4E88 /* FiltersPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPriceCell.swift; sourceTree = "<group>"; };
+		877C92C121E20DEA005C4E88 /* PriceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCollectionView.swift; sourceTree = "<group>"; };
+		877C92C321E20E38005C4E88 /* PriceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCollectionViewCell.swift; sourceTree = "<group>"; };
 		87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage1.swift; sourceTree = "<group>"; };
 		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87B31F1221DDED8D0054254C /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -277,6 +297,73 @@
 			path = UserProfileTopView;
 			sourceTree = "<group>";
 		};
+		877C92AA21E1FAF4005C4E88 /* EventsAroundYouCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				87F9AE2921DE98AB0094679F /* EventsAroundYouImageCell */,
+				87F9AE2621DE92820094679F /* EventsAroundYouCell */,
+				87F9AE2221DE889E0094679F /* EventsAroundYouCollectionView.swift */,
+			);
+			path = EventsAroundYouCollectionView;
+			sourceTree = "<group>";
+		};
+		877C92AB21E1FB09005C4E88 /* FiltersPage */ = {
+			isa = PBXGroup;
+			children = (
+				877C92AE21E1FB3E005C4E88 /* FiltersPageCollectionVIew */,
+				877C92AC21E1FB19005C4E88 /* FiltersPage.swift */,
+			);
+			path = FiltersPage;
+			sourceTree = "<group>";
+		};
+		877C92AE21E1FB3E005C4E88 /* FiltersPageCollectionVIew */ = {
+			isa = PBXGroup;
+			children = (
+				877C92B321E1FC74005C4E88 /* FiltersCell */,
+				877C92AF21E1FB50005C4E88 /* FiltersCollectionView.swift */,
+				877C92B921E2072A005C4E88 /* FiltersHeader.swift */,
+			);
+			path = FiltersPageCollectionVIew;
+			sourceTree = "<group>";
+		};
+		877C92B321E1FC74005C4E88 /* FiltersCell */ = {
+			isa = PBXGroup;
+			children = (
+				877C92BE21E20DA3005C4E88 /* PriceCell */,
+				877C92BB21E208FF005C4E88 /* CategoryCell */,
+				877C92B421E1FC7E005C4E88 /* DistanceCell */,
+			);
+			path = FiltersCell;
+			sourceTree = "<group>";
+		};
+		877C92B421E1FC7E005C4E88 /* DistanceCell */ = {
+			isa = PBXGroup;
+			children = (
+				877C92B121E1FBEA005C4E88 /* FiltersDistanceCell.swift */,
+				877C92B521E1FC8C005C4E88 /* DistanceCollectionView.swift */,
+				877C92B721E201A3005C4E88 /* DistanceCollectionViewCell.swift */,
+			);
+			path = DistanceCell;
+			sourceTree = "<group>";
+		};
+		877C92BB21E208FF005C4E88 /* CategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				877C92BC21E20912005C4E88 /* FiltersCategoryCell.swift */,
+			);
+			path = CategoryCell;
+			sourceTree = "<group>";
+		};
+		877C92BE21E20DA3005C4E88 /* PriceCell */ = {
+			isa = PBXGroup;
+			children = (
+				877C92BF21E20DB5005C4E88 /* FiltersPriceCell.swift */,
+				877C92C121E20DEA005C4E88 /* PriceCollectionView.swift */,
+				877C92C321E20E38005C4E88 /* PriceCollectionViewCell.swift */,
+			);
+			path = PriceCell;
+			sourceTree = "<group>";
+		};
 		87B31F0C21DDD1410054254C /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,10 +388,9 @@
 		87B31F1421DDEE6E0054254C /* EventsAroundYou */ = {
 			isa = PBXGroup;
 			children = (
-				87F9AE2921DE98AB0094679F /* EventsAroundYouImageCell */,
-				87F9AE2621DE92820094679F /* EventsAroundYouCell */,
+				877C92AB21E1FB09005C4E88 /* FiltersPage */,
+				877C92AA21E1FAF4005C4E88 /* EventsAroundYouCollectionView */,
 				87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */,
-				87F9AE2221DE889E0094679F /* EventsAroundYouCollectionView.swift */,
 			);
 			path = EventsAroundYou;
 			sourceTree = "<group>";
@@ -569,7 +655,10 @@
 				87F9AE2521DE88FD0094679F /* EventsAroundYouCell.swift in Sources */,
 				877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */,
 				87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */,
+				877C92C221E20DEA005C4E88 /* PriceCollectionView.swift in Sources */,
+				877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */,
 				8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */,
+				877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */,
 				87CE757E21DD801B00968357 /* FontExtensions.swift in Sources */,
 				874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */,
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
@@ -582,16 +671,23 @@
 				877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */,
 				87F9AE2B21DE98BD0094679F /* EventsAroundYouImageCell.swift in Sources */,
 				87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */,
+				877C92C421E20E38005C4E88 /* PriceCollectionViewCell.swift in Sources */,
 				874794F221DEFAAA00397271 /* MessagesCollectionView.swift in Sources */,
 				874794F421DEFAF800397271 /* MessagesCollectionViewCell.swift in Sources */,
+				877C92B621E1FC8C005C4E88 /* DistanceCollectionView.swift in Sources */,
 				874794FC21DF07A100397271 /* AppliedHeader.swift in Sources */,
+				877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */,
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,
 				872E432821DD8BF10051F563 /* SignUpView.swift in Sources */,
 				87F9AE2821DE92970094679F /* EventsAroundYouCellInfoView.swift in Sources */,
+				877C92C021E20DB5005C4E88 /* FiltersPriceCell.swift in Sources */,
 				872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */,
 				87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */,
+				877C92B021E1FB50005C4E88 /* FiltersCollectionView.swift in Sources */,
+				877C92BD21E20912005C4E88 /* FiltersCategoryCell.swift in Sources */,
 				87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */,
+				877C92BA21E2072A005C4E88 /* FiltersHeader.swift in Sources */,
 				87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */,
 				8718CA2C21DD7E7500C00916 /* UITextViewNoResponse.swift in Sources */,
 			);

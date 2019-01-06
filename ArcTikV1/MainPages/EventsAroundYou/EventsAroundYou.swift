@@ -27,7 +27,7 @@ class EventsAroundYou: UIViewController{
     }
     
     fileprivate func setupNavBar(){
-        let filtersButton = UIBarButtonItem(title: "Filters", style: .plain, target: nil, action: nil);
+        let filtersButton = UIBarButtonItem(title: "Filters", style: .plain, target: self, action: #selector(self.handleFiltersPressed));
         let plusButton = UIBarButtonItem(image: UIImage(named: "whitePlus"), style: .plain, target: nil, action: nil);
         
         selector.selectedSegmentIndex = 0;
@@ -47,4 +47,18 @@ class EventsAroundYou: UIViewController{
     
     
     
+}
+
+extension EventsAroundYou{
+    @objc func handleFiltersPressed(){
+        
+        let filtersPage = FiltersPage();
+        
+        let filtersNavigationController = UINavigationController(rootViewController: filtersPage);
+        filtersNavigationController.navigationBar.tintColor = UIColor.white;
+        filtersNavigationController.navigationBar.barTintColor = UIColor.appBlue;
+        filtersNavigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.montserratSemiBold(fontSize: 18)];
+        
+        self.present(filtersNavigationController, animated: true, completion: nil);
+    }
 }
