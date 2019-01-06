@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventsAroundYou: UIViewController{
+class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
     
     var selector = UISegmentedControl(items: ["Public","Private"])
     
@@ -43,6 +43,8 @@ class EventsAroundYou: UIViewController{
         eventsAroundYouList.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         eventsAroundYouList.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true;
         eventsAroundYouList.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true;
+        
+        eventsAroundYouList.eventsAroundYouDelegate = self;
     }
     
     
@@ -61,4 +63,11 @@ extension EventsAroundYou{
         
         self.present(filtersNavigationController, animated: true, completion: nil);
     }
+    
+    func handleToEventsInfoPage() {
+        let layout = UICollectionViewFlowLayout();
+        let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
+        self.navigationController?.pushViewController(eventsInfo, animated: true);
+    }
+    
 }

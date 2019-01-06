@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol EventsAroundYouCollectionViewDelegate{
+    func handleToEventsInfoPage();
+}
+
 class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     let eventsReuse = "eventsReuse";
     let eventsImageReuse = "eventsImageReuse";
+    
+    var eventsAroundYouDelegate: EventsAroundYouCollectionViewDelegate?;
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout);
@@ -58,5 +64,9 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        eventsAroundYouDelegate?.handleToEventsInfoPage();
     }
 }

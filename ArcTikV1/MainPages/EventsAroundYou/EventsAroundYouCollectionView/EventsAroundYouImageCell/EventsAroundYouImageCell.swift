@@ -23,12 +23,14 @@ class EventsAroundYouImageCell: UICollectionViewCell{
     var posterNameLabel: NormalUILabel = {
         let posterName = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 12), textAlign: .left);
         posterName.text = "Daniel Negreanu";
+        posterName.isUserInteractionEnabled = false;
         return posterName;
     }()
     
     var categoryLabel: NormalUILabel = {
         let categoryLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 12), textAlign: .right);
         categoryLabel.text = "Gambling";
+        categoryLabel.isUserInteractionEnabled = false;
         return categoryLabel;
     }()
     
@@ -38,6 +40,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         eventImageView.backgroundColor = UIColor.orange;
         eventImageView.contentMode = .scaleAspectFill;
         eventImageView.clipsToBounds = true;
+        eventImageView.isUserInteractionEnabled = false;
         return eventImageView;
     }()
     
@@ -49,6 +52,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         descriptionTextView.isEditable = false;
         descriptionTextView.isScrollEnabled = false;
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+        descriptionTextView.isUserInteractionEnabled = false;
         return descriptionTextView;
     }()
     

@@ -45,10 +45,7 @@ class DistanceCollectionViewCell: UICollectionViewCell{
     
     fileprivate func setupDistanceLabel(){
         self.addSubview(distanceLabel);
-        distanceLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
-        distanceLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true;
-        distanceLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
-        distanceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
+        distanceLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor);
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleCellPressed));
         distanceLabel.addGestureRecognizer(tapGesture);
