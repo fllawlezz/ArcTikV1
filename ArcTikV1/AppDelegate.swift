@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 var UIScreenWidth: CGFloat?;
+var UIScreenHeight: CGFloat?;
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,16 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible();
         
         UIScreenWidth = UIScreen.main.bounds.width;
+        UIScreenHeight = UIScreen.main.bounds.height;
         
-//        let loginViewController = LoginPage();
-//        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
-//        startingNavigationController.isNavigationBarHidden = true;
-//
-//
-//        window?.rootViewController = startingNavigationController;
-        
-        let customTabBar = CustomTabBar();
-         window?.rootViewController = customTabBar;
+        let loginViewController = LoginPage();
+        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
+        startingNavigationController.isNavigationBarHidden = true;
+
+
+        window?.rootViewController = startingNavigationController;
         
         return true
     }
