@@ -20,7 +20,11 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.dataSource = self;
         collectionView?.register(EventsInfoMainCell.self, forCellWithReuseIdentifier: eventsInfoCellReuse);
         self.collectionView?.register(EventsInfoHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCellReuse);
-        
+        collectionView?.contentInsetAdjustmentBehavior = .never;
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent;
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -32,7 +36,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: self.view.frame.height*(2/3))
+        return CGSize(width: self.view.frame.width, height: self.view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

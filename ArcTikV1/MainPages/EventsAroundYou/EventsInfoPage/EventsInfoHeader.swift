@@ -37,6 +37,11 @@ class EventsInfoHeader: UICollectionReusableView{
         return clearButton;
     }()
     
+    var profileView: EventsInfoProfileView = {
+        let profileView = EventsInfoProfileView();
+        return profileView;
+    }()
+    
     var delegate: EventsInfoHeaderDelegate?;
     
     override init(frame: CGRect) {
@@ -45,6 +50,7 @@ class EventsInfoHeader: UICollectionReusableView{
         setupEventsImageView();
         setupDarkView();
         setupClearButton();
+        setupProfileView();
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,17 +60,23 @@ class EventsInfoHeader: UICollectionReusableView{
     fileprivate func setupEventsImageView(){
         self.addSubview(eventsImageView);
         self.eventsImageView.fillSuperView();
-//        self.backgroundColor = UIColor.blue;
     }
     
     fileprivate func setupDarkView(){
         self.addSubview(darkView);
-        darkView.fillSuperView();
+//        darkView.fillSuperView();
+        darkView.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: -5, constantBottom: 2, width: 0, height: 0)
     }
     
     fileprivate func setupClearButton(){
         self.addSubview(clearButton);
         clearButton.anchor(left: self.leftAnchor, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 10, constantRight: 0, constantTop: 10, constantBottom: 0, width: 40, height: 40);
+        clearButton.addTarget(self, action: #selector(self.handleBack), for: .touchUpInside);
+    }
+    
+    fileprivate func setupProfileView(){
+        self.addSubview(profileView);
+        profileView.anchor(left: self.leftAnchor, right: nil, top: nil, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 250, height: 60);
     }
     
 }

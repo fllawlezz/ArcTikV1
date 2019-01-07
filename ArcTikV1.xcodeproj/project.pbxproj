@@ -41,6 +41,7 @@
 		877C92C921E29366005C4E88 /* EventsInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92C821E29366005C4E88 /* EventsInfoHeader.swift */; };
 		877C92CB21E295CD005C4E88 /* AnchoringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */; };
 		877C92CD21E29A87005C4E88 /* EventsInfoMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */; };
+		879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879902D121E2D76500372F46 /* EventsInfoProfileView.swift */; };
 		87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */; };
 		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1221DDED8D0054254C /* CustomTabBar.swift */; };
@@ -132,6 +133,7 @@
 		877C92C821E29366005C4E88 /* EventsInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoHeader.swift; sourceTree = "<group>"; };
 		877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoringExtension.swift; sourceTree = "<group>"; };
 		877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoMainCell.swift; sourceTree = "<group>"; };
+		879902D121E2D76500372F46 /* EventsInfoProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoProfileView.swift; sourceTree = "<group>"; };
 		87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage1.swift; sourceTree = "<group>"; };
 		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87B31F1221DDED8D0054254C /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				877C92C621E28ADB005C4E88 /* EventsInfoPage.swift */,
 				877C92C821E29366005C4E88 /* EventsInfoHeader.swift */,
 				877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */,
+				879902D121E2D76500372F46 /* EventsInfoProfileView.swift */,
 			);
 			path = EventsInfoPage;
 			sourceTree = "<group>";
@@ -686,6 +689,7 @@
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
 				87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
+				879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */,
 				874794FA21DF065900397271 /* MyEventsCollectionView.swift in Sources */,
 				87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */,
 				87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */,
