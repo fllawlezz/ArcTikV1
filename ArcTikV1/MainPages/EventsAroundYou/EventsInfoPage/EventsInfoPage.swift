@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, EventsInfoHeaderDelegate{
+class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, EventsInfoHeaderDelegate, EventsInfoMainCellDelegate{
     
     let headerCellReuse = "EventsInfoReuseHeader";
     let eventsInfoCellReuse = "EventsInfoCellReuse";
@@ -36,7 +36,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        return CGSize(width: self.view.frame.width, height: 600)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -45,6 +45,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsInfoCellReuse, for: indexPath) as! EventsInfoMainCell
+        cell.delegate = self;
         return cell;
     }
     
@@ -66,6 +67,14 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
 extension EventsInfoPage{
     func handleBack() {
         self.navigationController?.popViewController(animated: true);
+    }
+    
+    func handleApplied(){
+        let alert = UIAlertController(title: "Applied!", message: "You have applied to this event! We will send you a notifiation if you are accepted!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.navigationController?.popViewController(animated: true);
+        }))
+        self.present(alert, animated: true, completion: nil);
     }
     
 }

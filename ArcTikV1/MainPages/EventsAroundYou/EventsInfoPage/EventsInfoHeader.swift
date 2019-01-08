@@ -70,7 +70,7 @@ class EventsInfoHeader: UICollectionReusableView{
     
     fileprivate func setupClearButton(){
         self.addSubview(clearButton);
-        clearButton.anchor(left: self.leftAnchor, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 10, constantRight: 0, constantTop: 10, constantBottom: 0, width: 40, height: 40);
+        clearButton.anchor(left: self.leftAnchor, right: nil, top: self.safeAreaLayoutGuide.topAnchor, bottom: nil, constantLeft: 10, constantRight: 0, constantTop: 10, constantBottom: 0, width: 40, height: 40);
         clearButton.addTarget(self, action: #selector(self.handleBack), for: .touchUpInside);
     }
     

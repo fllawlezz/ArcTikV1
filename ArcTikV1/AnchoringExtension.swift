@@ -37,6 +37,34 @@ extension UIView{
             self.heightAnchor.constraint(equalToConstant: height).isActive = true;
         }
     }
+    
+    func anchorCenter(centerXanchor: NSLayoutXAxisAnchor?, centerYAnchor: NSLayoutYAxisAnchor?, topAnchor: NSLayoutYAxisAnchor?,bottomAnchor: NSLayoutYAxisAnchor?, width: CGFloat = 0.0, height: CGFloat = 0.0,centerXAnchorConstant: CGFloat = 0.0, centerYAnchorConstant: CGFloat = 0.0, topAnchorConstant: CGFloat = 0.0, bottomAnchorConstant: CGFloat = 0.0){
+        if let centerXAnchor = centerXanchor{
+            self.centerXAnchor.constraint(equalTo: centerXAnchor, constant: centerXAnchorConstant).isActive = true;
+        }
+        
+        if let centerYAnchor = centerYAnchor{
+            self.centerYAnchor.constraint(equalTo: centerYAnchor, constant: centerYAnchorConstant).isActive = true;
+        }
+        
+        if let topAnchor = topAnchor{
+            self.topAnchor.constraint(equalTo: topAnchor, constant: topAnchorConstant);
+        }
+        
+        if let bottomAnchor = bottomAnchor{
+            self.bottomAnchor.constraint(equalTo: bottomAnchor, constant: bottomAnchorConstant);
+        }
+        
+        if(width != 0){
+            self.widthAnchor.constraint(equalToConstant: width).isActive = true;
+        }
+        
+        if(height != 0){
+            self.heightAnchor.constraint(equalToConstant: height).isActive = true;
+        }
+        
+        
+    }
 
     func fillSuperView(){
         self.translatesAutoresizingMaskIntoConstraints = false;

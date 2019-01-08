@@ -67,6 +67,7 @@ extension EventsAroundYou{
     func handleToEventsInfoPage() {
         let layout = UICollectionViewFlowLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
+        eventsInfo.hidesBottomBarWhenPushed = true;
         self.navigationController?.pushViewController(eventsInfo, animated: true);
     }
     
