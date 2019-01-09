@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol MessagesCollectionViewDelegate{
+    func handleSelectedCell();
+}
+
 class MessagesCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     let messageReuse = "messageReuse";
+    
+    var messageViewDelegate: MessagesCollectionViewDelegate?;
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout);
@@ -51,6 +57,10 @@ class MessagesCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.frame.width, height: 100);
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        messageViewDelegate?.handleSelectedCell();
     }
     
 }

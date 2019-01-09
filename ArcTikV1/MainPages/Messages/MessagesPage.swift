@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessagesPage: UIViewController{
+class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
     
     var selector = UISegmentedControl(items: ["Direct","Group"]);
     
@@ -39,6 +39,17 @@ class MessagesPage: UIViewController{
         messagesList.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         messagesList.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true;
         messagesList.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
+        
+        messagesList.messageViewDelegate = self;
+    }
+    
+}
+
+extension MessagesPage{
+    func handleSelectedCell() {
+        let chatPage = ChatPage();
+        chatPage.hidesBottomBarWhenPushed = true;
+        self.navigationController?.pushViewController(chatPage, animated: true);
     }
     
 }

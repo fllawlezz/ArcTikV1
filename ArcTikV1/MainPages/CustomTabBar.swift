@@ -36,6 +36,7 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         eventsAroundYouController?.navigationBar.isTranslucent = false;
         eventsAroundYouController?.navigationBar.barTintColor = UIColor.appBlue;
         eventsAroundYouController?.navigationBar.tintColor = UIColor.white;
+        eventsAroundYouController?.navigationBar.barStyle = UIBarStyle.blackTranslucent;
         eventsAroundYouController?.title = "Events";
         eventsAroundYouController?.tabBarItem.image = UIImage(named: "events");
     }
@@ -47,6 +48,7 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         messagesController?.navigationBar.isTranslucent = false;
         messagesController?.navigationBar.barTintColor = UIColor.appBlue;
         messagesController?.navigationBar.tintColor = UIColor.white;
+        messagesController?.navigationBar.barStyle = UIBarStyle.blackTranslucent;
         messagesController?.title = "Messages";
         messagesController?.tabBarItem.image = UIImage(named: "chatRoomTab");
         

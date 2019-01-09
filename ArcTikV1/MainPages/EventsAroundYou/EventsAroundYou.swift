@@ -65,7 +65,6 @@ extension EventsAroundYou{
     }
     
     func handleToEventsInfoPage() {
-//        let layout = UICollectionViewFlowLayout();
         let layout = StretchyHeaderLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
         eventsInfo.hidesBottomBarWhenPushed = true;

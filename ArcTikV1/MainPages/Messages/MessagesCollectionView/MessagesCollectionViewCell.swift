@@ -17,18 +17,21 @@ class MessagesCollectionViewCell: UICollectionViewCell{
         profileImageView.clipsToBounds = true;
         profileImageView.layer.cornerRadius = 20;
         profileImageView.contentMode = .scaleAspectFill;
+        profileImageView.isUserInteractionEnabled = false;
         return profileImageView;
     }()
     
     var profileNameLabel: NormalUILabel = {
         let profileNameLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 14), textAlign: .left);
         profileNameLabel.text = "Daniel Negreanu";
+        profileNameLabel.isUserInteractionEnabled = false;
         return profileNameLabel;
     }()
     
     var timeLabel: NormalUILabel = {
         let timeLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 12), textAlign: .right);
         timeLabel.text = "1 min ago";
+        timeLabel.isUserInteractionEnabled = false;
         return timeLabel;
     }()
     
@@ -39,6 +42,7 @@ class MessagesCollectionViewCell: UICollectionViewCell{
         descriptionTextView.textColor = UIColor.gray;
         descriptionTextView.isScrollEnabled = false;
         descriptionTextView.isEditable = false;
+        descriptionTextView.isUserInteractionEnabled = false;
         descriptionTextView.textContainer.maximumNumberOfLines = 2;
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail;
         descriptionTextView.text = "Hello there, I see that you have applied for a seat in the tournament. Do you have the necessary skills that are required to actually play in the tournament?";
