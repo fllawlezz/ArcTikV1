@@ -65,9 +65,11 @@ extension EventsAroundYou{
     }
     
     func handleToEventsInfoPage() {
-        let layout = UICollectionViewFlowLayout();
+//        let layout = UICollectionViewFlowLayout();
+        let layout = StretchyHeaderLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
         eventsInfo.hidesBottomBarWhenPushed = true;
+        navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent;
         self.navigationController?.pushViewController(eventsInfo, animated: true);
     }
     

@@ -47,7 +47,7 @@ class EventsAroundYouCellInfoView: UIView {
         timeStampLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
         timeStampLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         timeStampLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
-        print(self.frame.width);
+        
     }
     
     fileprivate func setupPeopleLabel(){

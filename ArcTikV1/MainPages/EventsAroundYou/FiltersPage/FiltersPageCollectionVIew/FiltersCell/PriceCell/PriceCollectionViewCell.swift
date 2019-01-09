@@ -17,7 +17,7 @@ class PriceCollectionViewCell: UICollectionViewCell{
         let titleLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 14), textAlign: .center);
         titleLabel.text = "$";
         titleLabel.layer.borderColor = UIColor.black.cgColor;
-        titleLabel.layer.borderWidth = 2;
+        titleLabel.layer.borderWidth = 1;
         titleLabel.isUserInteractionEnabled = true;
         return titleLabel;
     }()

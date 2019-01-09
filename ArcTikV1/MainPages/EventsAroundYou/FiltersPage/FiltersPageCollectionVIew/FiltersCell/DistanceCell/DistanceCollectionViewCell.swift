@@ -25,7 +25,7 @@ class DistanceCollectionViewCell: UICollectionViewCell{
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
         self.layer.borderColor = UIColor.black.cgColor;
-        self.layer.borderWidth = 2;
+        self.layer.borderWidth = 1;
         addObservers();
         setupDistanceLabel();
     }

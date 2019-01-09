@@ -125,7 +125,7 @@ class EventsInfoMainCell: UICollectionViewCell{
     var descriptionTextView: UITextView = {
         let descriptionTextView = UITextView();
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false;
-        descriptionTextView.font = UIFont.montserratRegular(fontSize: 12);
+        descriptionTextView.font = UIFont.montserratRegular(fontSize: 14);
         //        requirementsTextView.isScrollEnabled = false;
         descriptionTextView.isEditable = false;
         descriptionTextView.isSelectable = false;
@@ -166,6 +166,7 @@ class EventsInfoMainCell: UICollectionViewCell{
     required init?(coder aDecoder: NSCoder) {
         fatalError();
     }
+    
     
     fileprivate func setupPeople(){
         self.addSubview(peopleImageView);

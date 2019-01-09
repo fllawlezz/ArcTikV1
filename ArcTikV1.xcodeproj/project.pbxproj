@@ -75,6 +75,7 @@
 		87D89BB321DCA553009160A3 /* ArcTikV1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BB221DCA553009160A3 /* ArcTikV1UITests.swift */; };
 		87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BC021DCA644009160A3 /* LoginPage.swift */; };
 		87D89BC321DCA707009160A3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BC221DCA707009160A3 /* Colors.swift */; };
+		87F6CB8121E587AF00A6F6AF /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F6CB8021E587AF00A6F6AF /* StretchyHeaderLayout.swift */; };
 		87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2221DE889E0094679F /* EventsAroundYouCollectionView.swift */; };
 		87F9AE2521DE88FD0094679F /* EventsAroundYouCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2421DE88FD0094679F /* EventsAroundYouCell.swift */; };
 		87F9AE2821DE92970094679F /* EventsAroundYouCellInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2721DE92970094679F /* EventsAroundYouCellInfoView.swift */; };
@@ -173,6 +174,7 @@
 		87D89BB421DCA553009160A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87D89BC021DCA644009160A3 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		87D89BC221DCA707009160A3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		87F6CB8021E587AF00A6F6AF /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		87F9AE2221DE889E0094679F /* EventsAroundYouCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouCollectionView.swift; sourceTree = "<group>"; };
 		87F9AE2421DE88FD0094679F /* EventsAroundYouCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouCell.swift; sourceTree = "<group>"; };
 		87F9AE2721DE92970094679F /* EventsAroundYouCellInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouCellInfoView.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				877C92C821E29366005C4E88 /* EventsInfoHeader.swift */,
 				877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */,
 				879902D121E2D76500372F46 /* EventsInfoProfileView.swift */,
+				87F6CB8021E587AF00A6F6AF /* StretchyHeaderLayout.swift */,
 			);
 			path = EventsInfoPage;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */,
 				877C92C921E29366005C4E88 /* EventsInfoHeader.swift in Sources */,
 				87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */,
+				87F6CB8121E587AF00A6F6AF /* StretchyHeaderLayout.swift in Sources */,
 				877C92C221E20DEA005C4E88 /* PriceCollectionView.swift in Sources */,
 				877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */,
 				8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */,
