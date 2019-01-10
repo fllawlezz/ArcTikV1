@@ -73,6 +73,7 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         userProfileController?.navigationBar.barTintColor = UIColor.appBlue;
         userProfileController?.navigationBar.tintColor = UIColor.white;
         userProfileController?.navigationBar.isHidden = true;
+        userProfileController?.navigationBar.barStyle = .blackTranslucent;
         userProfileController?.title = "Profile";
         userProfileController?.tabBarItem.image = UIImage(named: "profile");
     }

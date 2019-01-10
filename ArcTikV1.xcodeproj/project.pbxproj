@@ -25,6 +25,8 @@
 		874794FA21DF065900397271 /* MyEventsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794F921DF065900397271 /* MyEventsCollectionView.swift */; };
 		874794FC21DF07A100397271 /* AppliedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794FB21DF07A100397271 /* AppliedHeader.swift */; };
 		874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794FD21E01F1400397271 /* UserProfilePage.swift */; };
+		8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761321E5B0EA00041E32 /* MoreInfoPage.swift */; };
+		8752761721E5B1CC00041E32 /* MoreInfoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
 		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
@@ -122,6 +124,8 @@
 		874794F921DF065900397271 /* MyEventsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsCollectionView.swift; sourceTree = "<group>"; };
 		874794FB21DF07A100397271 /* AppliedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedHeader.swift; sourceTree = "<group>"; };
 		874794FD21E01F1400397271 /* UserProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePage.swift; sourceTree = "<group>"; };
+		8752761321E5B0EA00041E32 /* MoreInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoPage.swift; sourceTree = "<group>"; };
+		8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoCollectionView.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		8713C15521E0A9BA00EB3C66 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				8752761521E5B1B700041E32 /* MoreInfoPage */,
 				877C92A521E1E985005C4E88 /* UserProfileTopView */,
 				8713C15621E0A9F300EB3C66 /* UserProfileCollectionView */,
 				874794FD21E01F1400397271 /* UserProfilePage.swift */,
@@ -307,6 +312,15 @@
 				874794FB21DF07A100397271 /* AppliedHeader.swift */,
 			);
 			path = MyEventsCollectionView;
+			sourceTree = "<group>";
+		};
+		8752761521E5B1B700041E32 /* MoreInfoPage */ = {
+			isa = PBXGroup;
+			children = (
+				8752761321E5B0EA00041E32 /* MoreInfoPage.swift */,
+				8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */,
+			);
+			path = MoreInfoPage;
 			sourceTree = "<group>";
 		};
 		877C92A521E1E985005C4E88 /* UserProfileTopView */ = {
@@ -705,6 +719,7 @@
 				87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */,
 				87F6CB8121E587AF00A6F6AF /* StretchyHeaderLayout.swift in Sources */,
 				877C92C221E20DEA005C4E88 /* PriceCollectionView.swift in Sources */,
+				8752761721E5B1CC00041E32 /* MoreInfoCollectionView.swift in Sources */,
 				877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */,
 				8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */,
 				877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */,
@@ -712,6 +727,7 @@
 				874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */,
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
 				87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */,
+				8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
 				879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */,

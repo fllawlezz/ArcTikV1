@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfilePage:UIViewController{
+class UserProfilePage:UIViewController, UserProfileCollectionViewDelegate{
     
     var userProfileTopView: UserProfileTopView = {
         let userProfileTopView = UserProfileTopView();
@@ -66,6 +66,8 @@ class UserProfilePage:UIViewController{
         userProfileList.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true;
         userProfileList.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true;
         userProfileList.topAnchor.constraint(equalTo: self.userProfileTopView.bottomAnchor).isActive = true;
+        
+        userProfileList.userProfileDelegate = self;
     }
     
     fileprivate func setupFriendsButton(){
@@ -79,5 +81,15 @@ class UserProfilePage:UIViewController{
     
     
     
+    
+}
+extension UserProfilePage{
+    func handleItemClicked(indexPath: Int) {
+        if(indexPath == 2){
+            let moreInfoPage = MoreInfoPage();
+            moreInfoPage.hidesBottomBarWhenPushed = true;
+            self.navigationController?.pushViewController(moreInfoPage, animated: true);
+        }
+    }
     
 }

@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol UserProfileCollectionViewDelegate{
+    func handleItemClicked(indexPath: Int);
+}
+
 class UserProfileCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     let cellReuse = "userProfileCollectionViewCell";
     
     let cellTitles = ["Your Friends (186)", "Past Events", "Account Info", "Settings"];
     let cellDescriptions = ["Requests: 2", "View your past events", "View/Edit your account information", "Change your app Settings"];
+    
+    var userProfileDelegate: UserProfileCollectionViewDelegate?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout);
@@ -56,4 +62,7 @@ class UserProfileCollectionView: UICollectionView, UICollectionViewDelegate, UIC
         return 0;
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.userProfileDelegate?.handleItemClicked(indexPath: indexPath.item);
+    }
 }
