@@ -89,6 +89,12 @@ extension UserProfilePage{
             let moreInfoPage = MoreInfoPage();
             moreInfoPage.hidesBottomBarWhenPushed = true;
             self.navigationController?.pushViewController(moreInfoPage, animated: true);
+        }else if(indexPath == 3){
+            let layout = UICollectionViewFlowLayout();
+//            let collectionView = UICollectionView(frame: <#T##CGRect#>, collectionViewLayout: <#T##UICollectionViewLayout#>)
+            let settingsPage = SettingsPage(collectionViewLayout: layout);
+            settingsPage.hidesBottomBarWhenPushed = true;
+            self.navigationController?.pushViewController(settingsPage, animated: true);
         }
     }
     
