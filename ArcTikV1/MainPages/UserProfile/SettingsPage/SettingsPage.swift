@@ -28,7 +28,7 @@ class SettingsPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.view.backgroundColor = UIColor.white;
+        self.view.backgroundColor = UIColor.appBlue;
         
         collectionView?.backgroundColor = UIColor.white;
         

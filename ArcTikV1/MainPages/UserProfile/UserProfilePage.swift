@@ -85,6 +85,20 @@ class UserProfilePage:UIViewController, UserProfileCollectionViewDelegate{
 }
 extension UserProfilePage{
     func handleItemClicked(indexPath: Int) {
+        if(indexPath == 0){
+            let layout = UICollectionViewFlowLayout();
+            let friendsListPage = FriendsListPage(collectionViewLayout: layout);
+            friendsListPage.hidesBottomBarWhenPushed = true;
+            self.navigationController?.pushViewController(friendsListPage, animated: true);
+        }
+        
+        if(indexPath == 1){
+            let layout = UICollectionViewFlowLayout();
+            let pastEventsPage = PastEventsPage(collectionViewLayout: layout);
+            pastEventsPage.hidesBottomBarWhenPushed = true;
+            self.navigationController?.pushViewController(pastEventsPage, animated: true);
+        }
+        
         if(indexPath == 2){
             let moreInfoPage = MoreInfoPage();
             moreInfoPage.hidesBottomBarWhenPushed = true;

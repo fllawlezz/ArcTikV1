@@ -29,6 +29,11 @@
 		8752761721E5B1CC00041E32 /* MoreInfoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */; };
 		8752761A21E6CDD800041E32 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761921E6CDD800041E32 /* SettingsPage.swift */; };
 		8752761C21E6CEDE00041E32 /* SettingsPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761B21E6CEDE00041E32 /* SettingsPageCell.swift */; };
+		8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752761E21E6E21300041E32 /* PastEventsPage.swift */; };
+		8752762221E6E8E200041E32 /* FriendsListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762121E6E8E200041E32 /* FriendsListPage.swift */; };
+		8752762421E6E95800041E32 /* FriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762321E6E95800041E32 /* FriendRequestCell.swift */; };
+		8752762621E70DBD00041E32 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762521E70DBD00041E32 /* FriendCell.swift */; };
+		8752762921E7140400041E32 /* FriendsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762821E7140400041E32 /* FriendsAlertView.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
 		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
@@ -46,6 +51,10 @@
 		877C92CB21E295CD005C4E88 /* AnchoringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */; };
 		877C92CD21E29A87005C4E88 /* EventsInfoMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */; };
 		879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879902D121E2D76500372F46 /* EventsInfoProfileView.swift */; };
+		87A004E321E729FD008CD289 /* FriendsAlertViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A004E221E729FD008CD289 /* FriendsAlertViewCell.swift */; };
+		87A004EA21E72FAF008CD289 /* CreateEventPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A004E921E72FAF008CD289 /* CreateEventPage.swift */; };
+		87A004EC21E72FC4008CD289 /* CreateEventMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A004EB21E72FC4008CD289 /* CreateEventMainCell.swift */; };
+		87A004EE21E7341A008CD289 /* CreateEventMainHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A004ED21E7341A008CD289 /* CreateEventMainHeader.swift */; };
 		87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */; };
 		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1221DDED8D0054254C /* CustomTabBar.swift */; };
@@ -130,6 +139,11 @@
 		8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoCollectionView.swift; sourceTree = "<group>"; };
 		8752761921E6CDD800041E32 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8752761B21E6CEDE00041E32 /* SettingsPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPageCell.swift; sourceTree = "<group>"; };
+		8752761E21E6E21300041E32 /* PastEventsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastEventsPage.swift; sourceTree = "<group>"; };
+		8752762121E6E8E200041E32 /* FriendsListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListPage.swift; sourceTree = "<group>"; };
+		8752762321E6E95800041E32 /* FriendRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestCell.swift; sourceTree = "<group>"; };
+		8752762521E70DBD00041E32 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		8752762821E7140400041E32 /* FriendsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAlertView.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
@@ -147,6 +161,10 @@
 		877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchoringExtension.swift; sourceTree = "<group>"; };
 		877C92CC21E29A87005C4E88 /* EventsInfoMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoMainCell.swift; sourceTree = "<group>"; };
 		879902D121E2D76500372F46 /* EventsInfoProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoProfileView.swift; sourceTree = "<group>"; };
+		87A004E221E729FD008CD289 /* FriendsAlertViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAlertViewCell.swift; sourceTree = "<group>"; };
+		87A004E921E72FAF008CD289 /* CreateEventPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPage.swift; sourceTree = "<group>"; };
+		87A004EB21E72FC4008CD289 /* CreateEventMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventMainCell.swift; sourceTree = "<group>"; };
+		87A004ED21E7341A008CD289 /* CreateEventMainHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventMainHeader.swift; sourceTree = "<group>"; };
 		87B31F0D21DDD1580054254C /* ForgotPasswordPage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage1.swift; sourceTree = "<group>"; };
 		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87B31F1221DDED8D0054254C /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -225,6 +243,8 @@
 		8713C15521E0A9BA00EB3C66 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				8752762021E6E8AE00041E32 /* FriendsList */,
+				8752761D21E6E20300041E32 /* PastEvents */,
 				8752761821E6CCFE00041E32 /* SettingsPage */,
 				8752761521E5B1B700041E32 /* MoreInfoPage */,
 				877C92A521E1E985005C4E88 /* UserProfileTopView */,
@@ -337,6 +357,34 @@
 			path = SettingsPage;
 			sourceTree = "<group>";
 		};
+		8752761D21E6E20300041E32 /* PastEvents */ = {
+			isa = PBXGroup;
+			children = (
+				8752761E21E6E21300041E32 /* PastEventsPage.swift */,
+			);
+			path = PastEvents;
+			sourceTree = "<group>";
+		};
+		8752762021E6E8AE00041E32 /* FriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				8752762721E713ED00041E32 /* CustomActionSheet */,
+				8752762121E6E8E200041E32 /* FriendsListPage.swift */,
+				8752762321E6E95800041E32 /* FriendRequestCell.swift */,
+				8752762521E70DBD00041E32 /* FriendCell.swift */,
+			);
+			path = FriendsList;
+			sourceTree = "<group>";
+		};
+		8752762721E713ED00041E32 /* CustomActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				8752762821E7140400041E32 /* FriendsAlertView.swift */,
+				87A004E221E729FD008CD289 /* FriendsAlertViewCell.swift */,
+			);
+			path = CustomActionSheet;
+			sourceTree = "<group>";
+		};
 		877C92A521E1E985005C4E88 /* UserProfileTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +473,16 @@
 			path = EventsInfoPage;
 			sourceTree = "<group>";
 		};
+		87A004E421E72F30008CD289 /* CreateEvent */ = {
+			isa = PBXGroup;
+			children = (
+				87A004E921E72FAF008CD289 /* CreateEventPage.swift */,
+				87A004EB21E72FC4008CD289 /* CreateEventMainCell.swift */,
+				87A004ED21E7341A008CD289 /* CreateEventMainHeader.swift */,
+			);
+			path = CreateEvent;
+			sourceTree = "<group>";
+		};
 		87B31F0C21DDD1410054254C /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,6 +495,7 @@
 		87B31F1121DDED740054254C /* MainPages */ = {
 			isa = PBXGroup;
 			children = (
+				87A004E421E72F30008CD289 /* CreateEvent */,
 				8713C15521E0A9BA00EB3C66 /* UserProfile */,
 				874794F521DF04E200397271 /* MyEvents */,
 				874794ED21DEF83100397271 /* Messages */,
@@ -724,6 +783,7 @@
 				874794F721DF050600397271 /* MyEventsPage.swift in Sources */,
 				8718CA2A21DD7E5300C00916 /* NormalUIButton.swift in Sources */,
 				874794EF21DEF84D00397271 /* MessagesPage.swift in Sources */,
+				87A004EA21E72FAF008CD289 /* CreateEventPage.swift in Sources */,
 				872E432B21DD8DB10051F563 /* SignUpPage.swift in Sources */,
 				872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */,
 				877C92CB21E295CD005C4E88 /* AnchoringExtension.swift in Sources */,
@@ -733,27 +793,34 @@
 				87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */,
 				87F6CB8121E587AF00A6F6AF /* StretchyHeaderLayout.swift in Sources */,
 				877C92C221E20DEA005C4E88 /* PriceCollectionView.swift in Sources */,
+				87A004E321E729FD008CD289 /* FriendsAlertViewCell.swift in Sources */,
 				8752761721E5B1CC00041E32 /* MoreInfoCollectionView.swift in Sources */,
 				877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */,
 				8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */,
 				877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */,
 				87CE757E21DD801B00968357 /* FontExtensions.swift in Sources */,
+				8752762621E70DBD00041E32 /* FriendCell.swift in Sources */,
 				874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */,
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
 				8752761A21E6CDD800041E32 /* SettingsPage.swift in Sources */,
 				87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */,
 				8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
+				8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
+				87A004EE21E7341A008CD289 /* CreateEventMainHeader.swift in Sources */,
 				879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */,
+				8752762221E6E8E200041E32 /* FriendsListPage.swift in Sources */,
 				874794FA21DF065900397271 /* MyEventsCollectionView.swift in Sources */,
 				87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */,
 				87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */,
+				8752762921E7140400041E32 /* FriendsAlertView.swift in Sources */,
 				87F6CB8421E58BA000A6F6AF /* ChatPage.swift in Sources */,
 				8713C15A21E0AADE00EB3C66 /* UserProfileTopView.swift in Sources */,
 				877C92C721E28ADB005C4E88 /* EventsInfoPage.swift in Sources */,
 				877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */,
 				87F9AE2B21DE98BD0094679F /* EventsAroundYouImageCell.swift in Sources */,
+				8752762421E6E95800041E32 /* FriendRequestCell.swift in Sources */,
 				87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */,
 				877C92C421E20E38005C4E88 /* PriceCollectionViewCell.swift in Sources */,
 				874794F221DEFAAA00397271 /* MessagesCollectionView.swift in Sources */,
@@ -763,6 +830,7 @@
 				874794FC21DF07A100397271 /* AppliedHeader.swift in Sources */,
 				8752761C21E6CEDE00041E32 /* SettingsPageCell.swift in Sources */,
 				877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */,
+				87A004EC21E72FC4008CD289 /* CreateEventMainCell.swift in Sources */,
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,
 				87F6CB8C21E59B6100A6F6AF /* MessageTextView.swift in Sources */,

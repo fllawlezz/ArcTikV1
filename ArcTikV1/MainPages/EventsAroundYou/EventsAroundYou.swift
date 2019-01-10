@@ -28,7 +28,7 @@ class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
     
     fileprivate func setupNavBar(){
         let filtersButton = UIBarButtonItem(title: "Filters", style: .plain, target: self, action: #selector(self.handleFiltersPressed));
-        let plusButton = UIBarButtonItem(image: UIImage(named: "whitePlus"), style: .plain, target: nil, action: nil);
+        let plusButton = UIBarButtonItem(image: UIImage(named: "whitePlus"), style: .plain, target: self, action: #selector(self.handleCreateEvent));
         
         selector.selectedSegmentIndex = 0;
         
@@ -64,6 +64,16 @@ extension EventsAroundYou{
         self.present(filtersNavigationController, animated: true, completion: nil);
     }
     
+    @objc func handleCreateEvent(){
+        let layout = UICollectionViewFlowLayout();
+        let createEventPage = CreateEventPage(collectionViewLayout: layout);
+        let navigationController = UINavigationController(rootViewController: createEventPage);
+        navigationController.navigationBar.barStyle = .blackTranslucent;
+        navigationController.navigationBar.tintColor = UIColor.white;
+        navigationController.navigationBar.barTintColor = UIColor.appBlue;
+        self.present(navigationController, animated: true, completion: nil);
+    }
+    
     func handleToEventsInfoPage() {
         let layout = StretchyHeaderLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
@@ -71,5 +81,6 @@ extension EventsAroundYou{
         navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent;
         self.navigationController?.pushViewController(eventsInfo, animated: true);
     }
+    
     
 }
