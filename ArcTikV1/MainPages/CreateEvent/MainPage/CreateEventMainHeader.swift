@@ -31,4 +31,8 @@ class CreateEventMainHeader: UICollectionReusableView{
         titleLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 25, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0)
     }
     
+    func setTitle(title:String){
+        self.titleLabel.text = title;
+    }
+    
 }

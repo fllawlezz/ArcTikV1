@@ -76,6 +76,7 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
     fileprivate func setupNextButton(){
         self.view.addSubview(nextButton);
         nextButton.anchor(left: nil, right: self.descriptionTextView.rightAnchor, top: self.wordCountLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 100, height: 40);
+        nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
     
 }
@@ -114,5 +115,11 @@ extension DescriptionPage{
 //            self.navigationController?.popToRootViewController(animated: true);
         }))
         self.present(alert, animated: true, completion: nil);
+    }
+    
+    @objc func handleNextButtonPressed(){
+        let layout = UICollectionViewFlowLayout();
+        let locationPage = LocationPage(collectionViewLayout: layout);
+        self.navigationController?.pushViewController(locationPage, animated: true);
     }
 }
