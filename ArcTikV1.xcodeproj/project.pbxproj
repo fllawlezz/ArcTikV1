@@ -80,6 +80,7 @@
 		87CE758421DD801B00968357 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE757121DD801B00968357 /* Montserrat-Black.ttf */; };
 		87CE758621DD880900968357 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87CE758521DD880900968357 /* Default-568h@2x.png */; };
 		87CE758821DD88B500968357 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87CE758721DD88B500968357 /* Launch Screen.storyboard */; };
+		87D5956921E775EF005478E5 /* DescriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D5956821E775EF005478E5 /* DescriptionPage.swift */; };
 		87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89B8F21DCA552009160A3 /* AppDelegate.swift */; };
 		87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87D89B9621DCA552009160A3 /* ArcTikV1.xcdatamodeld */; };
 		87D89B9A21DCA553009160A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D89B9921DCA553009160A3 /* Assets.xcassets */; };
@@ -190,6 +191,7 @@
 		87CE757121DD801B00968357 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		87CE758521DD880900968357 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		87CE758721DD88B500968357 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		87D5956821E775EF005478E5 /* DescriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPage.swift; sourceTree = "<group>"; };
 		87D89B8C21DCA552009160A3 /* ArcTikV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcTikV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87D89B8F21DCA552009160A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87D89B9721DCA552009160A3 /* ArcTikV1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArcTikV1.xcdatamodel; sourceTree = "<group>"; };
@@ -476,9 +478,8 @@
 		87A004E421E72F30008CD289 /* CreateEvent */ = {
 			isa = PBXGroup;
 			children = (
-				87A004E921E72FAF008CD289 /* CreateEventPage.swift */,
-				87A004EB21E72FC4008CD289 /* CreateEventMainCell.swift */,
-				87A004ED21E7341A008CD289 /* CreateEventMainHeader.swift */,
+				87D5956321E76E4C005478E5 /* DescriptionPage */,
+				87D5956221E76E3F005478E5 /* MainPage */,
 			);
 			path = CreateEvent;
 			sourceTree = "<group>";
@@ -540,6 +541,24 @@
 				87CE756321DD801900968357 /* Montserrat-ThinItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		87D5956221E76E3F005478E5 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				87A004E921E72FAF008CD289 /* CreateEventPage.swift */,
+				87A004EB21E72FC4008CD289 /* CreateEventMainCell.swift */,
+				87A004ED21E7341A008CD289 /* CreateEventMainHeader.swift */,
+			);
+			path = MainPage;
+			sourceTree = "<group>";
+		};
+		87D5956321E76E4C005478E5 /* DescriptionPage */ = {
+			isa = PBXGroup;
+			children = (
+				87D5956821E775EF005478E5 /* DescriptionPage.swift */,
+			);
+			path = DescriptionPage;
 			sourceTree = "<group>";
 		};
 		87D89B8321DCA552009160A3 = {
@@ -830,6 +849,7 @@
 				874794FC21DF07A100397271 /* AppliedHeader.swift in Sources */,
 				8752761C21E6CEDE00041E32 /* SettingsPageCell.swift in Sources */,
 				877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */,
+				87D5956921E775EF005478E5 /* DescriptionPage.swift in Sources */,
 				87A004EC21E72FC4008CD289 /* CreateEventMainCell.swift in Sources */,
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,

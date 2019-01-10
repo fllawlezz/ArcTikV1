@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventMainCellDelegate {
     
     let createEventCellReuse = "CreateEventCellReuse";
     let createEventHeaderReuse = "CreateEventHeaderReuse";
@@ -52,7 +52,8 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: createEventCellReuse, for: indexPath) as! CreateEventMainCell
         cell.setTitle(title: titleList[indexPath.item])
-        if(indexPath.item == 4){
+        cell.delegate = self;
+        if(indexPath.item == 0){
             cell.revealContinueButton();
         }
         // Configure the cell
@@ -61,7 +62,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(indexPath.item == 4){
+        if(indexPath.item == 0){
             return CGSize(width: self.view.frame.width, height: 110);
         }
         return CGSize(width: self.view.frame.width, height: 50);
@@ -73,7 +74,6 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: createEventHeaderReuse, for: indexPath) as! CreateEventMainHeader
-//        header.backgroundColor = UIColor.red;
         return header;
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -91,4 +91,10 @@ extension CreateEventPage{
         self.dismiss(animated: true, completion: nil);
 //        self.navigationController?.dismiss(animated: true, completion: nil);
     }
+    
+    func continuePressed() {
+        let descriptionPage = DescriptionPage();
+        self.navigationController?.pushViewController(descriptionPage, animated: true);
+    }
+    
 }

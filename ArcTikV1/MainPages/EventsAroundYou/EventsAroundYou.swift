@@ -68,6 +68,7 @@ extension EventsAroundYou{
         let layout = UICollectionViewFlowLayout();
         let createEventPage = CreateEventPage(collectionViewLayout: layout);
         let navigationController = UINavigationController(rootViewController: createEventPage);
+        navigationController.navigationBar.isTranslucent = false;
         navigationController.navigationBar.barStyle = .blackTranslucent;
         navigationController.navigationBar.tintColor = UIColor.white;
         navigationController.navigationBar.barTintColor = UIColor.appBlue;

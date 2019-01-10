@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CreateEventMainCellDelegate{
+    func continuePressed();
+}
+
 class CreateEventMainCell: UICollectionViewCell{
     
     var titleLabel: NormalUILabel = {
@@ -29,6 +33,8 @@ class CreateEventMainCell: UICollectionViewCell{
         border.backgroundColor = UIColor.lightGray;
         return border;
     }()
+    
+    var delegate:CreateEventMainCellDelegate?;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -55,6 +61,7 @@ class CreateEventMainCell: UICollectionViewCell{
     fileprivate func setupContinueButton(){
         self.addSubview(continueButton);
         continueButton.anchor(left: self.titleLabel.leftAnchor, right: nil, top: self.titleLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 100, height: 40);
+        continueButton.addTarget(self, action: #selector(self.handleContinuePressed), for: .touchUpInside);
         continueButton.isHidden = true;
     }
     
@@ -67,4 +74,10 @@ class CreateEventMainCell: UICollectionViewCell{
     }
     
     
+}
+
+extension CreateEventMainCell{
+    @objc func handleContinuePressed(){
+        self.delegate?.continuePressed();
+    }
 }
