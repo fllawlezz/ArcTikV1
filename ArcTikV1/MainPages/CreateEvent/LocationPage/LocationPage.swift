@@ -45,12 +45,19 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         self.collectionView!.register(LocationPageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier);
         setupNextButton();
+        setupNavBar();
         // Do any additional setup after loading the view.
+    }
+    
+    fileprivate func setupNavBar(){
+        let clearButton = UIBarButtonItem(image: UIImage(named: "clearWhiteNav"), style: .plain, target: self, action: #selector(self.handleClearPressed));
+        self.navigationItem.leftBarButtonItem = clearButton;
     }
     
     fileprivate func setupNextButton(){
         self.view.addSubview(nextButton);
         nextButton.anchor(left: nil, right: self.view.rightAnchor, top: nil, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, constantLeft: 0, constantRight: -20, constantTop: 0, constantBottom: -40, width: 100, height: 40);
+        nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
 
     /*
@@ -99,4 +106,26 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         return header;
     }
 
+}
+
+extension LocationPage{
+    @objc func handleNextButtonPressed(){
+        let requirementsPage = RequirementsPage();
+        self.navigationController?.pushViewController(requirementsPage, animated: true);
+    }
+    
+    @objc func handleClearPressed(){
+        let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            //save
+            self.dismiss(animated: true, completion: nil);
+            //            self.navigationController?.popToRootViewController(animated: true);
+        }))
+        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
+            //not save
+            self.dismiss(animated: true, completion: nil);
+            //            self.navigationController?.popToRootViewController(animated: true);
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
 }
