@@ -74,6 +74,7 @@ class RequirementsPage: UIViewController{
     fileprivate func setupNextButton(){
         self.view.addSubview(nextButton);
         nextButton.anchor(left: nil, right: self.requirementsTextView.rightAnchor, top: self.descriptionLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 5, constantBottom: 0, width: 100, height: 40);
+        nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
     
 }
@@ -92,5 +93,11 @@ extension RequirementsPage{
             //            self.navigationController?.popToRootViewController(animated: true);
         }))
         self.present(alert, animated: true, completion: nil);
+    }
+    
+    @objc func handleNextButtonPressed(){
+        let layout = UICollectionViewFlowLayout();
+        let privacyPage = PrivacyPage(collectionViewLayout: layout);
+        self.navigationController?.pushViewController(privacyPage, animated: true);
     }
 }

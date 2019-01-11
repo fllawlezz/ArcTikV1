@@ -92,6 +92,7 @@
 		87D89BB321DCA553009160A3 /* ArcTikV1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BB221DCA553009160A3 /* ArcTikV1UITests.swift */; };
 		87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BC021DCA644009160A3 /* LoginPage.swift */; };
 		87D89BC321DCA707009160A3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89BC221DCA707009160A3 /* Colors.swift */; };
+		87E9015621E82D0B00C35EEB /* PrivacyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E9015521E82D0B00C35EEB /* PrivacyPage.swift */; };
 		87F6CB8121E587AF00A6F6AF /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F6CB8021E587AF00A6F6AF /* StretchyHeaderLayout.swift */; };
 		87F6CB8421E58BA000A6F6AF /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F6CB8321E58BA000A6F6AF /* ChatPage.swift */; };
 		87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F6CB8521E58F7000A6F6AF /* ChatCell.swift */; };
@@ -212,6 +213,7 @@
 		87D89BB421DCA553009160A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87D89BC021DCA644009160A3 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		87D89BC221DCA707009160A3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		87E9015521E82D0B00C35EEB /* PrivacyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPage.swift; sourceTree = "<group>"; };
 		87F6CB8021E587AF00A6F6AF /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
 		87F6CB8321E58BA000A6F6AF /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
 		87F6CB8521E58F7000A6F6AF /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 		87A004E421E72F30008CD289 /* CreateEvent */ = {
 			isa = PBXGroup;
 			children = (
+				87E9015421E82CE500C35EEB /* Privacypage */,
 				878373B921E7B37900EAAFF0 /* RequirementsPage */,
 				878373B421E7ACA200EAAFF0 /* LocationPage */,
 				87D5956321E76E4C005478E5 /* DescriptionPage */,
@@ -644,6 +647,14 @@
 				87D89BB421DCA553009160A3 /* Info.plist */,
 			);
 			path = ArcTikV1UITests;
+			sourceTree = "<group>";
+		};
+		87E9015421E82CE500C35EEB /* Privacypage */ = {
+			isa = PBXGroup;
+			children = (
+				87E9015521E82D0B00C35EEB /* PrivacyPage.swift */,
+			);
+			path = Privacypage;
 			sourceTree = "<group>";
 		};
 		87F6CB8221E58B9100A6F6AF /* ChatPage */ = {
@@ -891,6 +902,7 @@
 				877C92BD21E20912005C4E88 /* FiltersCategoryCell.swift in Sources */,
 				87D89BC121DCA644009160A3 /* LoginPage.swift in Sources */,
 				877C92BA21E2072A005C4E88 /* FiltersHeader.swift in Sources */,
+				87E9015621E82D0B00C35EEB /* PrivacyPage.swift in Sources */,
 				87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */,
 				8718CA2C21DD7E7500C00916 /* UITextViewNoResponse.swift in Sources */,
 				878373B621E7AD6C00EAAFF0 /* LocationPage.swift in Sources */,

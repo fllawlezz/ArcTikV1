@@ -13,6 +13,7 @@ class CreateEventMainHeader: UICollectionReusableView{
     var titleLabel: NormalUILabel = {
         let titleLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 20), textAlign: .left);
         titleLabel.text = "Let's Setup Your Event";
+        titleLabel.numberOfLines = 2;
         return titleLabel;
     }()
     
@@ -28,7 +29,7 @@ class CreateEventMainHeader: UICollectionReusableView{
     
     fileprivate func setupTitleLabel(){
         self.addSubview(titleLabel);
-        titleLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 25, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0)
+        titleLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 25, constantRight: -25, constantTop: 0, constantBottom: 0, width: 0, height: 0)
     }
     
     func setTitle(title:String){

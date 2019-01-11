@@ -8,11 +8,21 @@
 
 import UIKit
 
-class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+let setCountryNotification = "SetCountryNotification";
+let resignLocationPage = "ResignLocationPageCells";
+
+class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
 
     let reuseIdentifier = "Cell"
     
     let headerIdentifier = "headerIdentifier";
+    
+    var nextButton: NormalUIButton = {
+        let nextButton = NormalUIButton(type: .system);
+        nextButton.setButtonProperties(backgroundColor: .appBlue, title: "Next", font: .montserratSemiBold(fontSize: 14), fontColor: .white);
+        return nextButton;
+    }()
+    
     
     let titles = [
         "Country/Region",
@@ -27,12 +37,6 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         "eg: Oakland",
         "Eg: 91234"
     ]
-    
-    var nextButton: NormalUIButton = {
-        let nextButton = NormalUIButton(type: .system);
-        nextButton.setButtonProperties(backgroundColor: .appBlue, title: "Next", font: .montserratSemiBold(fontSize: 14), fontColor: .white);
-        return nextButton;
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,18 +64,6 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -87,6 +79,7 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! LocationPageCell
         cell.setTitle(title: titles[indexPath.item], placeholder: placeholders[indexPath.item]);
         // Configure the cell
+        cell.indexPath = indexPath.item;
     
         return cell
     }
@@ -104,6 +97,12 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         header.setTitle(title: "Where will the event take place?");
         header.titleLabel.font = UIFont.montserratSemiBold(fontSize: 18);
         return header;
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("resign");
+        let name = Notification.Name(rawValue: resignLocationPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
 
 }
