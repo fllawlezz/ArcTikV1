@@ -9,6 +9,7 @@
 import UIKit
 
 let accountInfoFieldsResign = "AccountInfoFieldsResign";
+let passwordButtonPressed = "AccountInfoPasswordButtonPressed";
 
 class MoreInfoCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MoreInfoCollectionViewCellDelegate{
     
@@ -227,7 +228,7 @@ class PasswordCollectionViewCell: UICollectionViewCell{
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
-        setupPasswordTitleLabel();
+        setupPasswordButton();
         setupBorder();
     }
     
@@ -235,12 +236,14 @@ class PasswordCollectionViewCell: UICollectionViewCell{
         fatalError();
     }
     
-    fileprivate func setupPasswordTitleLabel(){
+    fileprivate func setupPasswordButton(){
         self.addSubview(passwordButton);
         passwordButton.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
         passwordButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true;
         passwordButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
         passwordButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
+        
+        passwordButton.addTarget(self, action: #selector(self.pressedPasswordButton), for: .touchUpInside);
     }
     
     fileprivate func setupBorder(){
@@ -251,4 +254,9 @@ class PasswordCollectionViewCell: UICollectionViewCell{
         border.heightAnchor.constraint(equalToConstant: 0.4).isActive = true;
     }
     
+    @objc func pressedPasswordButton(){
+        
+        let name = Notification.Name(rawValue: passwordButtonPressed)
+        NotificationCenter.default.post(name: name, object: nil);
+    }
 }

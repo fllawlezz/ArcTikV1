@@ -18,6 +18,8 @@
 		872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432C21DD915E0051F563 /* SignUpFields.swift */; };
 		872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432E21DD92720051F563 /* SignUpFieldCell.swift */; };
 		872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E433321DDC9970051F563 /* SignUpTermsView.swift */; };
+		872F6A3721E9BE910022CD97 /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F6A3621E9BE910022CD97 /* SplashPage.swift */; };
+		872F6A3921E9BF0D0022CD97 /* PasswordCheckPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F6A3821E9BF0D0022CD97 /* PasswordCheckPage.swift */; };
 		8734DBE721E9918F00CD3709 /* UploadImagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBE621E9918F00CD3709 /* UploadImagesPage.swift */; };
 		8734DBEA21E99CA800CD3709 /* ReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBE921E99CA800CD3709 /* ReviewPage.swift */; };
 		8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */; };
@@ -141,6 +143,8 @@
 		872E432C21DD915E0051F563 /* SignUpFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFields.swift; sourceTree = "<group>"; };
 		872E432E21DD92720051F563 /* SignUpFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldCell.swift; sourceTree = "<group>"; };
 		872E433321DDC9970051F563 /* SignUpTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsView.swift; sourceTree = "<group>"; };
+		872F6A3621E9BE910022CD97 /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPage.swift; sourceTree = "<group>"; };
+		872F6A3821E9BF0D0022CD97 /* PasswordCheckPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCheckPage.swift; sourceTree = "<group>"; };
 		8734DBE621E9918F00CD3709 /* UploadImagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImagesPage.swift; sourceTree = "<group>"; };
 		8734DBE921E99CA800CD3709 /* ReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPage.swift; sourceTree = "<group>"; };
 		8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDescriptionCell.swift; sourceTree = "<group>"; };
@@ -413,6 +417,7 @@
 			children = (
 				8752761321E5B0EA00041E32 /* MoreInfoPage.swift */,
 				8752761621E5B1CC00041E32 /* MoreInfoCollectionView.swift */,
+				872F6A3821E9BF0D0022CD97 /* PasswordCheckPage.swift */,
 			);
 			path = MoreInfoPage;
 			sourceTree = "<group>";
@@ -707,6 +712,7 @@
 				87D89B9621DCA552009160A3 /* ArcTikV1.xcdatamodeld */,
 				87D89BC221DCA707009160A3 /* Colors.swift */,
 				877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */,
+				872F6A3621E9BE910022CD97 /* SplashPage.swift */,
 			);
 			path = ArcTikV1;
 			sourceTree = "<group>";
@@ -964,6 +970,7 @@
 				877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */,
 				87F9AE2B21DE98BD0094679F /* EventsAroundYouImageCell.swift in Sources */,
 				8752762421E6E95800041E32 /* FriendRequestCell.swift in Sources */,
+				872F6A3921E9BF0D0022CD97 /* PasswordCheckPage.swift in Sources */,
 				87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */,
 				877C92C421E20E38005C4E88 /* PriceCollectionViewCell.swift in Sources */,
 				874794F221DEFAAA00397271 /* MessagesCollectionView.swift in Sources */,
@@ -982,6 +989,7 @@
 				87F6CB8C21E59B6100A6F6AF /* MessageTextView.swift in Sources */,
 				872E432821DD8BF10051F563 /* SignUpView.swift in Sources */,
 				87F9AE2821DE92970094679F /* EventsAroundYouCellInfoView.swift in Sources */,
+				872F6A3721E9BE910022CD97 /* SplashPage.swift in Sources */,
 				877C92CD21E29A87005C4E88 /* EventsInfoMainCell.swift in Sources */,
 				877C92C021E20DB5005C4E88 /* FiltersPriceCell.swift in Sources */,
 				872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */,

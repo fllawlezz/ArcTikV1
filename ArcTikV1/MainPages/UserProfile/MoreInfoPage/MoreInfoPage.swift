@@ -22,8 +22,18 @@ class MoreInfoPage: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        addObservers();
         setupNavBar();
         setupInfoList();
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func addObservers(){
+        let name = Notification.Name(rawValue: passwordButtonPressed);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handlePasswordButtonPressed), name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){
@@ -76,5 +86,10 @@ extension MoreInfoPage{
         
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.handleEditButtonPressed));
         self.navigationItem.rightBarButtonItem = editButton;
+    }
+    
+    @objc func handlePasswordButtonPressed(){
+        let passwordCheckPage = PasswordCheckPage();
+        self.navigationController?.pushViewController(passwordCheckPage, animated: true);
     }
 }
