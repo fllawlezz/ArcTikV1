@@ -83,5 +83,10 @@ extension EventsAroundYou{
         self.navigationController?.pushViewController(eventsInfo, animated: true);
     }
     
-    
+    func handleProfileImagePressed(){
+        let alert = UIAlertController(title: "View profile?", message: "Yes", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil));
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
 }

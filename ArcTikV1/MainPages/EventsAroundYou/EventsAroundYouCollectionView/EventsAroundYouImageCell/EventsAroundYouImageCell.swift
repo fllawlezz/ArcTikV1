@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EventsAroundYouImageCellDelegate{
+    func handlePosterImageViewPressed();
+}
+
 class EventsAroundYouImageCell: UICollectionViewCell{
     
     var posterImageView: UIImageView = {
@@ -17,6 +21,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 15;
         posterImage.clipsToBounds = true;
+        posterImage.isUserInteractionEnabled = true;
         return posterImage;
     }()
     
@@ -68,6 +73,8 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         return eventsCellInfo;
     }()
     
+    var delegate: EventsAroundYouImageCellDelegate?;
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
@@ -92,6 +99,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         posterImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true;
         posterImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true;
         posterImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true;
+        posterImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleProfileImagePressed)));
     }
     
     fileprivate func setupPosterNameLabel(){
@@ -155,4 +163,10 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         self.eventImageView.image = eventImage;
     }
     
+}
+
+extension EventsAroundYouImageCell{
+    @objc func handleProfileImagePressed(){
+        self.delegate?.handlePosterImageViewPressed();
+    }
 }

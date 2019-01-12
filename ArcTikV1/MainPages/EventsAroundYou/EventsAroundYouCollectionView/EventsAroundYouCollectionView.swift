@@ -10,9 +10,10 @@ import UIKit
 
 protocol EventsAroundYouCollectionViewDelegate{
     func handleToEventsInfoPage();
+    func handleProfileImagePressed();
 }
 
-class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, EventsAroundYouCellDelegate, EventsAroundYouImageCellDelegate{
     
     let eventsReuse = "eventsReuse";
     let eventsImageReuse = "eventsImageReuse";
@@ -43,9 +44,11 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(indexPath.item == 1){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsReuse, for: indexPath) as! EventsAroundYouCell
+            cell.delegate = self;
             return cell;
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsImageReuse, for: indexPath) as! EventsAroundYouImageCell
+            cell.delegate = self;
             return cell;
         }
     }
@@ -69,4 +72,16 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         eventsAroundYouDelegate?.handleToEventsInfoPage();
     }
+}
+
+extension EventsAroundYouCollectionView{
+    func handleProfileImagePressed() {
+        eventsAroundYouDelegate?.handleProfileImagePressed();
+    }
+    
+    func handlePosterImageViewPressed() {
+        eventsAroundYouDelegate?.handleProfileImagePressed();
+    }
+    
+    
 }
