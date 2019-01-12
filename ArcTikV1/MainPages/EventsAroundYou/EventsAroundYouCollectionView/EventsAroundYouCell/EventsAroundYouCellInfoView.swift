@@ -11,19 +11,19 @@ import UIKit
 class EventsAroundYouCellInfoView: UIView {
    
     var timeStampLabel: NormalUILabel = {
-        let timeStampLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 10), textAlign: .center);
+        let timeStampLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 12), textAlign: .center);
         timeStampLabel.text = "30 minutes ago"
         return timeStampLabel;
     }()
     
     var numberOfPeopleLabel: NormalUILabel = {
-        let numberOfPeopleLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 10), textAlign: .center);
+        let numberOfPeopleLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 12), textAlign: .center);
         numberOfPeopleLabel.text = "People: 40/100"
         return numberOfPeopleLabel;
     }()
     
     var priceLabel: NormalUILabel = {
-        let priceLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 10), textAlign: .center);
+        let priceLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 12), textAlign: .center);
         priceLabel.text = "$60"
         return priceLabel;
     }()
