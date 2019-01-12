@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CreateEventButtonCellDelegate{
+    func handleCreatePressed();
+}
+
 class CreateEventButtonCell: UICollectionViewCell{
     
     var createEventButton: NormalUIButton = {
@@ -15,6 +19,8 @@ class CreateEventButtonCell: UICollectionViewCell{
         createEventButton.setButtonProperties(backgroundColor: .appBlue, title: "Create Event", font: .montserratSemiBold(fontSize: 14), fontColor: .white);
         return createEventButton;
     }()
+    
+    var delegate: CreateEventButtonCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -34,6 +40,13 @@ class CreateEventButtonCell: UICollectionViewCell{
         createEventButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
 //        createEventButton.widthAnchor.constraint(equalToConstant: 200).isActive = true;
         createEventButton.heightAnchor.constraint(equalToConstant: 50).isActive = true;
+        createEventButton.addTarget(self, action: #selector(self.handleEventButtonPressed), for: .touchUpInside);
     }
     
+}
+
+extension CreateEventButtonCell{
+    @objc func handleEventButtonPressed(){
+        delegate?.handleCreatePressed();
+    }
 }

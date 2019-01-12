@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventButtonCellDelegate{
     
     let headerReuse = "ReviewPageHeaderCell";
     let descriptionCellReuse = "ReviewPageDescriptionCellReuse";
@@ -38,6 +38,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        setupNavBar();
         collectionView?.backgroundColor = UIColor.white;
         collectionView?.showsVerticalScrollIndicator = false;
         self.collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0);
@@ -45,6 +46,11 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         self.collectionView?.register(ReviewPageDescriptionCell.self, forCellWithReuseIdentifier: descriptionCellReuse);
         self.collectionView?.register(ReviewPageInfoCell.self, forCellWithReuseIdentifier: reviewInfoCellReuse);
         self.collectionView?.register(CreateEventButtonCell.self, forCellWithReuseIdentifier: createEventButtonReuse);
+    }
+    
+    fileprivate func setupNavBar(){
+        let clearButton = UIBarButtonItem(image: UIImage(named: "clearWhiteNav"), style: .plain, target: self, action: #selector(self.handleClearPressed));
+        self.navigationItem.leftBarButtonItem = clearButton;
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,6 +64,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
             return cell;
         }else if(indexPath.section == 5 && indexPath.item == 1){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: createEventButtonReuse, for: indexPath) as! CreateEventButtonCell
+            cell.delegate = self;
             return cell;
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewInfoCellReuse, for: indexPath) as! ReviewPageInfoCell
@@ -132,4 +139,26 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         return 0;
     }
     
+}
+
+extension ReviewPage{
+    @objc func handleClearPressed(){
+        let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            //save
+            self.dismiss(animated: true, completion: nil);
+            //            self.navigationController?.popToRootViewController(animated: true);
+        }))
+        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
+            //not save
+            self.dismiss(animated: true, completion: nil);
+            //            self.navigationController?.popToRootViewController(animated: true);
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    func handleCreatePressed(){
+        //create event
+        self.dismiss(animated: true, completion: nil);
+    }
 }
