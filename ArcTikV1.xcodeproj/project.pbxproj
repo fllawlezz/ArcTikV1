@@ -34,6 +34,8 @@
 		8752762421E6E95800041E32 /* FriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762321E6E95800041E32 /* FriendRequestCell.swift */; };
 		8752762621E70DBD00041E32 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762521E70DBD00041E32 /* FriendCell.swift */; };
 		8752762921E7140400041E32 /* FriendsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762821E7140400041E32 /* FriendsAlertView.swift */; };
+		8775D1ED21E973F9007062BB /* DatePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1EC21E973F9007062BB /* DatePage.swift */; };
+		8775D1EF21E97B6F007062BB /* DatePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1EE21E97B6F007062BB /* DatePageCell.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
 		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
@@ -149,6 +151,8 @@
 		8752762321E6E95800041E32 /* FriendRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestCell.swift; sourceTree = "<group>"; };
 		8752762521E70DBD00041E32 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		8752762821E7140400041E32 /* FriendsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAlertView.swift; sourceTree = "<group>"; };
+		8775D1EC21E973F9007062BB /* DatePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePage.swift; sourceTree = "<group>"; };
+		8775D1EE21E97B6F007062BB /* DatePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePageCell.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
@@ -395,6 +399,15 @@
 			path = CustomActionSheet;
 			sourceTree = "<group>";
 		};
+		8775D1EB21E973C4007062BB /* DatePage */ = {
+			isa = PBXGroup;
+			children = (
+				8775D1EC21E973F9007062BB /* DatePage.swift */,
+				8775D1EE21E97B6F007062BB /* DatePageCell.swift */,
+			);
+			path = DatePage;
+			sourceTree = "<group>";
+		};
 		877C92A521E1E985005C4E88 /* UserProfileTopView */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +516,7 @@
 		87A004E421E72F30008CD289 /* CreateEvent */ = {
 			isa = PBXGroup;
 			children = (
+				8775D1EB21E973C4007062BB /* DatePage */,
 				87E9015421E82CE500C35EEB /* Privacypage */,
 				878373B921E7B37900EAAFF0 /* RequirementsPage */,
 				878373B421E7ACA200EAAFF0 /* LocationPage */,
@@ -861,6 +875,7 @@
 				8752761A21E6CDD800041E32 /* SettingsPage.swift in Sources */,
 				87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */,
 				8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */,
+				8775D1EF21E97B6F007062BB /* DatePageCell.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
 				8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
@@ -887,6 +902,7 @@
 				8752761C21E6CEDE00041E32 /* SettingsPageCell.swift in Sources */,
 				877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */,
 				87D5956921E775EF005478E5 /* DescriptionPage.swift in Sources */,
+				8775D1ED21E973F9007062BB /* DatePage.swift in Sources */,
 				878373BB21E7B39200EAAFF0 /* RequirementsPage.swift in Sources */,
 				87A004EC21E72FC4008CD289 /* CreateEventMainCell.swift in Sources */,
 				872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */,

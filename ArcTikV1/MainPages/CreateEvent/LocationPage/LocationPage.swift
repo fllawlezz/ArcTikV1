@@ -45,6 +45,9 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.touchCollectionView));
+        self.collectionView?.addGestureRecognizer(tapGesture);
+        
         self.collectionView?.backgroundColor = UIColor.white;
         self.collectionView!.register(LocationPageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier);
@@ -99,10 +102,19 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         return header;
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("resign");
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0;
+    }
+    
+    @objc func touchCollectionView(){
+//        print("touched");
         let name = Notification.Name(rawValue: resignLocationPage);
         NotificationCenter.default.post(name: name, object: nil);
+
     }
 
 }

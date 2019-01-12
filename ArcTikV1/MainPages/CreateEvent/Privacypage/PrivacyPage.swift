@@ -49,7 +49,6 @@ class PrivacyPage: UICollectionViewController, UICollectionViewDelegateFlowLayou
         
         self.view.addSubview(nextButton);
         nextButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -10).isActive = true;
-        
         nextButton.widthAnchor.constraint(equalToConstant: 100).isActive = true;
         nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true;
         
@@ -170,7 +169,9 @@ extension PrivacyPage{
     }
     
     @objc func handleNextButtonPressed(){
-        
+        let layout = UICollectionViewFlowLayout();
+        let datePage = DatePage(collectionViewLayout: layout);
+        self.navigationController?.pushViewController(datePage, animated: true);
     }
 }
 
