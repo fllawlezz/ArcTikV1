@@ -437,7 +437,7 @@
 		8752762021E6E8AE00041E32 /* FriendsList */ = {
 			isa = PBXGroup;
 			children = (
-				8752762721E713ED00041E32 /* CustomActionSheet */,
+				8752762721E713ED00041E32 /* CustomAlert */,
 				8752762121E6E8E200041E32 /* FriendsListPage.swift */,
 				8752762321E6E95800041E32 /* FriendRequestCell.swift */,
 				8752762521E70DBD00041E32 /* FriendCell.swift */,
@@ -445,13 +445,13 @@
 			path = FriendsList;
 			sourceTree = "<group>";
 		};
-		8752762721E713ED00041E32 /* CustomActionSheet */ = {
+		8752762721E713ED00041E32 /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
 				8752762821E7140400041E32 /* FriendsAlertView.swift */,
 				87A004E221E729FD008CD289 /* FriendsAlertViewCell.swift */,
 			);
-			path = CustomActionSheet;
+			path = CustomAlert;
 			sourceTree = "<group>";
 		};
 		8775D1EB21E973C4007062BB /* DatePage */ = {

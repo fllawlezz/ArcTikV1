@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FriendRequestCellDelegate{
+    func handleFriendRequestImagePressed()
+}
+
 class FriendRequestCell: UICollectionViewCell{
     
     var friendImageView: UIImageView = {
@@ -17,6 +21,7 @@ class FriendRequestCell: UICollectionViewCell{
         friendImageView.clipsToBounds = true;
         friendImageView.contentMode = .scaleAspectFill;
         friendImageView.layer.cornerRadius = 50;
+        friendImageView.isUserInteractionEnabled = true;
         return friendImageView;
     }()
     
@@ -46,6 +51,8 @@ class FriendRequestCell: UICollectionViewCell{
         messageButton.setBackgroundImage(#imageLiteral(resourceName: "chatRoomTab"), for: .normal);
         return messageButton;
     }()
+    
+    var delegate: FriendRequestCellDelegate?;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -88,5 +95,11 @@ class FriendRequestCell: UICollectionViewCell{
     
     func setImage(image: UIImage){
         self.friendImageView.image = image;
+    }
+}
+
+extension FriendRequestCell{
+    @objc func handleProfileImagePressed(){
+        self.delegate?.handleFriendRequestImagePressed();
     }
 }

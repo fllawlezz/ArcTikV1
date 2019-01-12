@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsListPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, FriendCellDelegate {
+class FriendsListPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, FriendCellDelegate, FriendRequestCellDelegate {
     
     let friendRequestCellReuse = "FriendsListPage";
     let friendCellReuse = "FriendsListCell";
@@ -44,6 +44,7 @@ class FriendsListPage: UICollectionViewController, UICollectionViewDelegateFlowL
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: friendRequestCellReuse, for: indexPath) as! FriendRequestCell
             // Configure the cell
             cell.setImage(image: #imageLiteral(resourceName: "dneg"))
+            cell.delegate = self;
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: friendCellReuse, for: indexPath) as! FriendCell;
@@ -88,5 +89,16 @@ extension FriendsListPage{
         self.present(friendsActionSheet, animated: true, completion: nil);
     }
     
-
+    func showFriendOptions(){
+        let alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: .actionSheet);
+        alert.addAction(UIAlertAction(title: "Message", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Un-Friend", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Block", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    func handleFriendRequestImagePressed(){
+        self.showFriendOptions();
+    }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol FriendCellDelegate{
     func handleShowActionSheet();
+    func showFriendOptions();
 }
 
 class FriendCell: UICollectionViewCell{
@@ -21,6 +22,7 @@ class FriendCell: UICollectionViewCell{
         friendImageView.clipsToBounds = true;
         friendImageView.contentMode = .scaleAspectFill;
         friendImageView.layer.cornerRadius = 50;
+        friendImageView.isUserInteractionEnabled = true;
         return friendImageView;
     }()
     
@@ -64,6 +66,7 @@ class FriendCell: UICollectionViewCell{
         self.addSubview(friendImageView);
         friendImageView.anchor(left: self.leftAnchor, right: nil, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 10, constantRight: 0, constantTop: 10, constantBottom: -10, width: 100, height: 0);
         friendImageView.image = #imageLiteral(resourceName: "dneg");
+        friendImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleImagePressed)))
     }
     
     fileprivate func setupFriendName(){
@@ -86,5 +89,9 @@ class FriendCell: UICollectionViewCell{
 extension FriendCell{
     @objc func messageButtonPressed(){
         self.delegate?.handleShowActionSheet();
+    }
+    
+    @objc func handleImagePressed(){
+        self.delegate?.showFriendOptions();
     }
 }
