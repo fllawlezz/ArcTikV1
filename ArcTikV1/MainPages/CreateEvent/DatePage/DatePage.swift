@@ -49,8 +49,6 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         self.navigationItem.leftBarButtonItem = clearButton;
     }
     
-    
-    
     fileprivate func setupNextButton(){
         
         self.view.addSubview(nextButton);
@@ -63,7 +61,7 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         }else if(UIScreenHeight! == 736){//iphone 6s+,7s+
             nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)+80).isActive = true;
         }else if(UIScreenHeight! > 812.0){//iphone XR and Up
-            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/2)).isActive = true;
+            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)).isActive = true;
         }else{//iphone 6s,7s,etc
 //            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)+).isActive = true;
             nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true;
@@ -136,6 +134,7 @@ extension DatePage{
 
     
     @objc func handleNextButtonPressed(){
-        
+        let pricingPage = PricingPage();
+        self.navigationController?.pushViewController(pricingPage, animated: true);
     }
 }

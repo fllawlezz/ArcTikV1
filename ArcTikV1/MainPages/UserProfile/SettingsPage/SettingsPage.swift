@@ -16,14 +16,16 @@ class SettingsPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         "Push Notifications",
         "SMS Notifications",
         "Terms and Agreements",
-        "Privacy Policy"
-                      ]
+        "Privacy Policy",
+        "Logout"
+      ]
     
     let cellDescriptions = [
         "On to recieve push notifications",
         "On to recieve SMS notifications",
         "Read our Terms and Agreements",
-        "Read our Privacy Policy"
+        "Read our Privacy Policy",
+        "Logout from app"
     ]
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class SettingsPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4;
+        return 5;
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -71,11 +73,32 @@ class SettingsPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         return 0;
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.item == 4){
+            showLogoutAlert();
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false;
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true;
+    }
+}
+
+extension SettingsPage{
+    func showLogoutAlert(){
+        let alert = UIAlertController(title: "Logout", message: "Do you really want to logout?", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+            //logout, get rid of userDefaults
+            let loginViewController = LoginPage();
+            let startingNavigationController = UINavigationController(rootViewController: loginViewController);
+            startingNavigationController.isNavigationBarHidden = true;
+            self.present(startingNavigationController, animated: true, completion: nil);
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

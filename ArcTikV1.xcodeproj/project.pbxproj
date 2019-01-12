@@ -18,6 +18,11 @@
 		872E432D21DD915E0051F563 /* SignUpFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432C21DD915E0051F563 /* SignUpFields.swift */; };
 		872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E432E21DD92720051F563 /* SignUpFieldCell.swift */; };
 		872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872E433321DDC9970051F563 /* SignUpTermsView.swift */; };
+		8734DBE721E9918F00CD3709 /* UploadImagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBE621E9918F00CD3709 /* UploadImagesPage.swift */; };
+		8734DBEA21E99CA800CD3709 /* ReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBE921E99CA800CD3709 /* ReviewPage.swift */; };
+		8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */; };
+		8734DBF021E9A1E200CD3709 /* ReviewPageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBEF21E9A1E200CD3709 /* ReviewPageInfoCell.swift */; };
+		8734DBF621E9A99300CD3709 /* CreateEventButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBF521E9A99300CD3709 /* CreateEventButtonCell.swift */; };
 		874794EF21DEF84D00397271 /* MessagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794EE21DEF84D00397271 /* MessagesPage.swift */; };
 		874794F221DEFAAA00397271 /* MessagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794F121DEFAAA00397271 /* MessagesCollectionView.swift */; };
 		874794F421DEFAF800397271 /* MessagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794F321DEFAF800397271 /* MessagesCollectionViewCell.swift */; };
@@ -36,6 +41,7 @@
 		8752762921E7140400041E32 /* FriendsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752762821E7140400041E32 /* FriendsAlertView.swift */; };
 		8775D1ED21E973F9007062BB /* DatePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1EC21E973F9007062BB /* DatePage.swift */; };
 		8775D1EF21E97B6F007062BB /* DatePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1EE21E97B6F007062BB /* DatePageCell.swift */; };
+		8775D1F321E98918007062BB /* PricingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1F221E98918007062BB /* PricingPage.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
 		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
@@ -135,6 +141,11 @@
 		872E432C21DD915E0051F563 /* SignUpFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFields.swift; sourceTree = "<group>"; };
 		872E432E21DD92720051F563 /* SignUpFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFieldCell.swift; sourceTree = "<group>"; };
 		872E433321DDC9970051F563 /* SignUpTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTermsView.swift; sourceTree = "<group>"; };
+		8734DBE621E9918F00CD3709 /* UploadImagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImagesPage.swift; sourceTree = "<group>"; };
+		8734DBE921E99CA800CD3709 /* ReviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPage.swift; sourceTree = "<group>"; };
+		8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDescriptionCell.swift; sourceTree = "<group>"; };
+		8734DBEF21E9A1E200CD3709 /* ReviewPageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageInfoCell.swift; sourceTree = "<group>"; };
+		8734DBF521E9A99300CD3709 /* CreateEventButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventButtonCell.swift; sourceTree = "<group>"; };
 		874794EE21DEF84D00397271 /* MessagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesPage.swift; sourceTree = "<group>"; };
 		874794F121DEFAAA00397271 /* MessagesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCollectionView.swift; sourceTree = "<group>"; };
 		874794F321DEFAF800397271 /* MessagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +164,7 @@
 		8752762821E7140400041E32 /* FriendsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAlertView.swift; sourceTree = "<group>"; };
 		8775D1EC21E973F9007062BB /* DatePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePage.swift; sourceTree = "<group>"; };
 		8775D1EE21E97B6F007062BB /* DatePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePageCell.swift; sourceTree = "<group>"; };
+		8775D1F221E98918007062BB /* PricingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingPage.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
@@ -316,6 +328,49 @@
 			path = SignUpCollectionView;
 			sourceTree = "<group>";
 		};
+		8734DBE521E9917D00CD3709 /* UploadImages */ = {
+			isa = PBXGroup;
+			children = (
+				8734DBE621E9918F00CD3709 /* UploadImagesPage.swift */,
+			);
+			path = UploadImages;
+			sourceTree = "<group>";
+		};
+		8734DBE821E99A0F00CD3709 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				8734DBF421E9A98700CD3709 /* CreateEventButtonCell */,
+				8734DBEE21E9A1BE00CD3709 /* ReviewPageInfoCell */,
+				8734DBEB21E99D2D00CD3709 /* DescriptionCell */,
+				8734DBE921E99CA800CD3709 /* ReviewPage.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		8734DBEB21E99D2D00CD3709 /* DescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */,
+			);
+			path = DescriptionCell;
+			sourceTree = "<group>";
+		};
+		8734DBEE21E9A1BE00CD3709 /* ReviewPageInfoCell */ = {
+			isa = PBXGroup;
+			children = (
+				8734DBEF21E9A1E200CD3709 /* ReviewPageInfoCell.swift */,
+			);
+			path = ReviewPageInfoCell;
+			sourceTree = "<group>";
+		};
+		8734DBF421E9A98700CD3709 /* CreateEventButtonCell */ = {
+			isa = PBXGroup;
+			children = (
+				8734DBF521E9A99300CD3709 /* CreateEventButtonCell.swift */,
+			);
+			path = CreateEventButtonCell;
+			sourceTree = "<group>";
+		};
 		874794ED21DEF83100397271 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +461,14 @@
 				8775D1EE21E97B6F007062BB /* DatePageCell.swift */,
 			);
 			path = DatePage;
+			sourceTree = "<group>";
+		};
+		8775D1F121E9890C007062BB /* PricingPage */ = {
+			isa = PBXGroup;
+			children = (
+				8775D1F221E98918007062BB /* PricingPage.swift */,
+			);
+			path = PricingPage;
 			sourceTree = "<group>";
 		};
 		877C92A521E1E985005C4E88 /* UserProfileTopView */ = {
@@ -516,6 +579,9 @@
 		87A004E421E72F30008CD289 /* CreateEvent */ = {
 			isa = PBXGroup;
 			children = (
+				8734DBE821E99A0F00CD3709 /* Review */,
+				8734DBE521E9917D00CD3709 /* UploadImages */,
+				8775D1F121E9890C007062BB /* PricingPage */,
 				8775D1EB21E973C4007062BB /* DatePage */,
 				87E9015421E82CE500C35EEB /* Privacypage */,
 				878373B921E7B37900EAAFF0 /* RequirementsPage */,
@@ -856,6 +922,7 @@
 				87A004EA21E72FAF008CD289 /* CreateEventPage.swift in Sources */,
 				872E432B21DD8DB10051F563 /* SignUpPage.swift in Sources */,
 				872E432F21DD92720051F563 /* SignUpFieldCell.swift in Sources */,
+				8775D1F321E98918007062BB /* PricingPage.swift in Sources */,
 				877C92CB21E295CD005C4E88 /* AnchoringExtension.swift in Sources */,
 				87F9AE2521DE88FD0094679F /* EventsAroundYouCell.swift in Sources */,
 				877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */,
@@ -868,7 +935,9 @@
 				877C92B821E201A3005C4E88 /* DistanceCollectionViewCell.swift in Sources */,
 				8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */,
 				877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */,
+				8734DBE721E9918F00CD3709 /* UploadImagesPage.swift in Sources */,
 				87CE757E21DD801B00968357 /* FontExtensions.swift in Sources */,
+				8734DBF021E9A1E200CD3709 /* ReviewPageInfoCell.swift in Sources */,
 				8752762621E70DBD00041E32 /* FriendCell.swift in Sources */,
 				874794FE21E01F1400397271 /* UserProfilePage.swift in Sources */,
 				87D89BC321DCA707009160A3 /* Colors.swift in Sources */,
@@ -877,10 +946,13 @@
 				8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */,
 				8775D1EF21E97B6F007062BB /* DatePageCell.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
+				8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */,
+				8734DBEA21E99CA800CD3709 /* ReviewPage.swift in Sources */,
 				8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
 				87A004EE21E7341A008CD289 /* CreateEventMainHeader.swift in Sources */,
 				879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */,
+				8734DBF621E9A99300CD3709 /* CreateEventButtonCell.swift in Sources */,
 				8752762221E6E8E200041E32 /* FriendsListPage.swift in Sources */,
 				874794FA21DF065900397271 /* MyEventsCollectionView.swift in Sources */,
 				87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */,

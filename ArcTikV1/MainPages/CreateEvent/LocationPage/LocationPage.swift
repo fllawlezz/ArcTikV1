@@ -63,7 +63,21 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
     
     fileprivate func setupNextButton(){
         self.view.addSubview(nextButton);
-        nextButton.anchor(left: nil, right: self.view.rightAnchor, top: nil, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, constantLeft: 0, constantRight: -20, constantTop: 0, constantBottom: -40, width: 100, height: 40);
+//        nextButton.anchor(left: nil, right: self.view.rightAnchor, top: nil, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, constantLeft: 0, constantRight: -20, constantTop: 0, constantBottom: -40, width: 100, height: 40);
+//        nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
+        nextButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -25).isActive = true;
+        nextButton.widthAnchor.constraint(equalToConstant: 100).isActive = true;
+        nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true;
+        if(UIScreenHeight! == 812.0){// iphone x
+            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)).isActive = true;
+        }else if(UIScreenHeight! == 736){//iphone 6s+,7s+
+            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)+20).isActive = true;
+        }else if(UIScreenHeight! > 812.0){//iphone XR and Up
+            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)-40).isActive = true;
+        }else{//iphone 6s,7s,etc
+            //            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -(self.view.frame.height/3)+).isActive = true;
+            nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant:  -(self.view.frame.height/3)+70).isActive = true;
+        }
         nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
 
