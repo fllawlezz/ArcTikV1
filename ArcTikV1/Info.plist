@@ -27,6 +27,7 @@
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
 		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

@@ -15,7 +15,7 @@ class EventsInfoProfileView: UIView {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false;
         profileImageView.clipsToBounds = true;
         profileImageView.layer.cornerRadius = 35;
-        profileImageView.layer.borderColor = UIColor.white.cgColor;
+        profileImageView.layer.borderColor = UIColor.appBlue.cgColor;
         profileImageView.layer.borderWidth = 3;
         return profileImageView;
     }()

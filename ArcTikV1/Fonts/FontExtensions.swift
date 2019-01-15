@@ -23,4 +23,9 @@ extension UIFont{
         let font = UIFont(name: "Montserrat-SemiBold", size: fontSize)!;
         return font;
     }
+    
+    class func montserratMedium(fontSize: CGFloat)->UIFont{
+        let font = UIFont(name: "Montserrat-Medium", size: fontSize)!;
+        return font;
+    }
 }

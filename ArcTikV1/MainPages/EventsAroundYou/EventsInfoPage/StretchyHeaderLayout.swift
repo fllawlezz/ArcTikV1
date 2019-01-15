@@ -14,7 +14,7 @@ class StretchyHeaderLayout: UICollectionViewFlowLayout{
         let layoutAttributes = super.layoutAttributesForElements(in: rect);
         
         layoutAttributes?.forEach({ (attributes) in
-            if(attributes.representedElementKind == UICollectionElementKindSectionHeader){
+            if(attributes.representedElementKind == UICollectionElementKindSectionHeader && attributes.indexPath.section == 0){
                 guard let collectionView = collectionView else{ return }
                 let width = collectionView.frame.width;
                 
