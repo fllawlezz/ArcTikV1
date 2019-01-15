@@ -31,7 +31,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     let thingsToBringCellReuse = "EventsInfoThingsToBringReuse";
     
     let headerTitles = ["Description","Requirements"];
-    let cellData = ["Poker Tournament at my House! We gone have a really good time! Yeah!!!","Henderson, Nevada, United States","Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up!","- Not Jason Koon \n- Able to play poker \n- Knows the game well\n- Not Phil Hellmuth \n- Yes Phil Hellmuth \n- Yes Tom Dwan \n- Not Andrew Robl \n - Not Elton Tsang \n - Not the president"];
+    let cellData = ["Poker Tournament at my House! We gone have a really good time! Yeah!!!","Henderson, Nevada, United States","Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up! I hope that we can make this a really good time for everyone because I really do feel that poker is and should be considered a very fun and inviting atmosphere. Everyone should be sitting around, having a few drinks, and laughing their asses off. Hopefully everyone signs up!","- Not Jason Koon \n- Able to play poker \n- Knows the game well\n- Not Phil Hellmuth \n- Yes Phil Hellmuth \n- Yes Tom Dwan \n- Not Andrew Robl \n - Not Elton Tsang \n - Not the president"];
     var descriptionIsExpanded = false;
     var requirementsIsExpanded = false;
     
@@ -74,7 +74,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3;
+        return 2;
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,28 +82,20 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
             return 2;
         }
         
-        if(section == 2){
-            return 2;
-        }
-        
-        return 1;
+        return 3;
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if(indexPath.section != 0){
-            if(descriptionIsExpanded && indexPath.section == 1){
-                return CGSize(width: self.view.frame.width, height: 250);
+            if(descriptionIsExpanded && indexPath.section == 1 && indexPath.item == 0){
+                return CGSize(width: self.view.frame.width, height: 280);
             }
             
-            if(requirementsIsExpanded && indexPath.section == 2 && indexPath.item == 0){
-                return CGSize(width: self.view.frame.width, height: 250);
+            if(indexPath.section == 1 && indexPath.item != 0){
+                return CGSize(width: self.view.frame.width, height: 80);
             }
             
-            if(indexPath.section == 2 && indexPath.item == 1){
-                return CGSize(width: self.view.frame.width, height: 50);
-            }
-            
-            return CGSize(width: self.view.frame.width, height: 140)
+            return CGSize(width: self.view.frame.width, height: 160)
         }
         return CGSize(width: self.view.frame.width, height: 80)
     }
@@ -113,6 +105,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
             return CGSize(width: self.view.frame.width, height: self.view.frame.height*(1/3));
         }else{
             return CGSize(width: self.view.frame.width, height: 50);
+//            return CGSize(width: 0, height: 0 );
         }
     }
     
@@ -128,20 +121,24 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
                 return cell;
             }
         }else{
-            if(indexPath.item == 0){
+            if(indexPath.item == 0 && indexPath.section == 1){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptionCellReuse, for: indexPath) as! EventsInfoDescriptionCell
                 cell.indexPath = indexPath;
                 cell.delegate = self;
                 if(indexPath.section == 1){
                     cell.setupText(description: cellData[2]);
                     cell.isExpanded = self.descriptionIsExpanded;
-                }else{
-                    cell.setupText(description: cellData[3]);
-                    cell.isExpanded = self.requirementsIsExpanded;
                 }
+//                else{
+//                    cell.setupText(description: cellData[3]);
+//                    cell.isExpanded = self.requirementsIsExpanded;
+//                }
                 return cell;
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: thingsToBringCellReuse, for: indexPath) as! EventsInfoThingsToBringCell;
+                if(indexPath.section == 1 && indexPath.item == 1){
+                    cell.setText(title: "Requirements");
+                }
                 return cell;
             }
         }
@@ -166,6 +163,20 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0;
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.section == 1 && indexPath.item == 1){
+            let layout = UICollectionViewFlowLayout();
+            let requirementsPage = EventsInfoRequirementsPage(collectionViewLayout: layout);
+            let newNavigationController = UINavigationController(rootViewController: requirementsPage);
+            newNavigationController.navigationBar.isTranslucent = false;
+            newNavigationController.navigationBar.barTintColor = UIColor.white;
+            newNavigationController.navigationBar.tintColor = UIColor.black;
+            
+            self.present(newNavigationController, animated: true, completion: nil);
+//            navigationController?.pushViewController(requirementsPage, animated: true);
+        }
+    }
 }
 
 extension EventsInfoPage{
@@ -183,9 +194,8 @@ extension EventsInfoPage{
     
     func seeMoreDescription(indexPath: IndexPath) {
         descriptionIsExpanded = true;
+        print(indexPath);
         if(descriptionIsExpanded){
-            print(indexPath);
-//            let cell = self.collectionView?.cellForItem(at: indexPath) as! EventsInfoDescriptionCell;
             UIView.animate(withDuration: 0.3) {
                 self.collectionView?.reloadItems(at: [indexPath]);
             }
@@ -196,15 +206,11 @@ extension EventsInfoPage{
     func seeMoreRequirements(indexPath: IndexPath){
         requirementsIsExpanded = true;
         if(requirementsIsExpanded){
-            print(indexPath);
             UIView.animate(withDuration: 0.3) {
                 self.collectionView?.reloadItems(at: [indexPath]);
-//                print("expandedRequirements");
             }
         }
     }
-    
-    
     
 }
 

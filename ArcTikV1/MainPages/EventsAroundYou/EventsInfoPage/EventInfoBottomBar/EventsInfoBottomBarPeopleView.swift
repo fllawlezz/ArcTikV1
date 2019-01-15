@@ -18,7 +18,7 @@ class EventsInfoBottomBarPeopleView: UIView{
     }()
     
     var peopleLabel: NormalUILabel = {
-        let peopleLabel = NormalUILabel(textColor: .darkText, font: .montserratMedium(fontSize: 12), textAlign: .center);
+        let peopleLabel = NormalUILabel(textColor: .darkText, font: .montserratMedium(fontSize: 14), textAlign: .center);
         peopleLabel.text = "40/100";
         return peopleLabel;
     }()
@@ -37,7 +37,7 @@ class EventsInfoBottomBarPeopleView: UIView{
     
     fileprivate func setupPeopleImageView(){
         self.addSubview(peopleImageView);
-        peopleImageView.anchor(left: nil, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 20, height: 20);
+        peopleImageView.anchor(left: nil, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 30, height: 30);
         peopleImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true;
         
     }

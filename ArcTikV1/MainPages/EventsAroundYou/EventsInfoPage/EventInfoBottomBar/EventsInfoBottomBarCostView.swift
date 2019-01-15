@@ -18,7 +18,7 @@ class EventsInfoBottomBarCostView: UIView{
     }()
     
     var costLabel: NormalUILabel = {
-        let costLabel = NormalUILabel(textColor: .darkText, font: .montserratMedium(fontSize: 12), textAlign: .center);
+        let costLabel = NormalUILabel(textColor: .darkText, font: .montserratMedium(fontSize: 14), textAlign: .center);
         costLabel.text = "$60";
         return costLabel;
     }()
@@ -37,7 +37,7 @@ class EventsInfoBottomBarCostView: UIView{
     
     fileprivate func setupCostImageView(){
         self.addSubview(costImageView);
-        costImageView.anchor(left: nil, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 20, height: 20);
+        costImageView.anchor(left: nil, right: nil, top: self.topAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 30, height: 30);
         costImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true;
         
     }

@@ -53,18 +53,18 @@ class EventsInfoBottomBarView: UIView {
     
     fileprivate func setupApplyButton(){
         self.addSubview(applyButton);
-        applyButton.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -10, constantTop: 10, constantBottom: -10, width: 120, height: 40);
+        applyButton.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -10, constantTop: 10, constantBottom: -10, width: 150, height: 40);
         applyButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
     }
     
     fileprivate func setupPeople(){
         self.addSubview(peopleView);
-        peopleView.anchor(left: self.leftAnchor, right: nil, top: nil, bottom: nil, constantLeft: 25, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 40);
+        peopleView.anchor(left: self.leftAnchor, right: nil, top: nil, bottom: nil, constantLeft: 25, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 60);
         peopleView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
     }
     fileprivate func setupCost(){
         self.addSubview(costView);
-        costView.anchor(left: self.peopleView.rightAnchor, right: nil, top: nil, bottom: nil, constantLeft: 50, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 40);
+        costView.anchor(left: self.peopleView.rightAnchor, right: nil, top: nil, bottom: nil, constantLeft: 50, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 60);
         costView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
     }
 }

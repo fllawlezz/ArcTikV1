@@ -64,7 +64,6 @@ class EventsInfoHeader: UICollectionReusableView{
     
     fileprivate func setupDarkView(){
         self.addSubview(darkView);
-//        darkView.fillSuperView();
         darkView.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: -5, constantBottom: 2, width: 0, height: 0)
     }
     

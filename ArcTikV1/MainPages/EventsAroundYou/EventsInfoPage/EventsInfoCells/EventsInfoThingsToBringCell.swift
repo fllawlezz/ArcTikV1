@@ -23,11 +23,14 @@ class EventsInfoThingsToBringCell: UICollectionViewCell{
         return rightArrowImageView;
     }()
     
+    var border = BorderView();
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
         setupTitleLabel();
         setupRightArrowImageView();
+        setupBorder();
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,5 +48,14 @@ class EventsInfoThingsToBringCell: UICollectionViewCell{
         self.addSubview(rightArrowImageView);
         rightArrowImageView.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -10, constantTop: 0, constantBottom: 0, width: 25, height: 25);
         rightArrowImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
+    }
+    
+    fileprivate func setupBorder(){
+        self.addSubview(border);
+        border.anchor(left: self.leftAnchor, right: self.rightAnchor, top: nil, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0.4);
+    }
+    
+    func setText(title:String){
+        self.titleLabel.text = title;
     }
 }

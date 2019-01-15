@@ -23,6 +23,7 @@ class EventsInfoDescriptionCell: UICollectionViewCell{
         descriptionTextView.isSelectable = false;
         descriptionTextView.isScrollEnabled = false;
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail;
+//        descriptionTextView.backgroundColor = UIColor.blue;
         return descriptionTextView;
     }()
     
@@ -36,10 +37,12 @@ class EventsInfoDescriptionCell: UICollectionViewCell{
     
     var indexPath: IndexPath?;
     var delegate: EventsInfoDescriptionCellProtocol?;
+    var textViewBottomAnchor: NSLayoutConstraint?;
     var isExpanded:Bool?{
         didSet{
             if(isExpanded!){
                 self.readMoreButton.isHidden = true;
+                textViewBottomAnchor?.constant = -10
             }else{
                 self.readMoreButton.isHidden = false;
             }
@@ -65,7 +68,9 @@ class EventsInfoDescriptionCell: UICollectionViewCell{
     
     fileprivate func setupTextView(){
         self.addSubview(descriptionTextView);
-        descriptionTextView.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 25, constantRight: -25, constantTop: 10, constantBottom: -10, width: 0, height: 0)
+        descriptionTextView.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: nil, constantLeft: 25, constantRight: -25, constantTop: 10, constantBottom: 0, width: 0, height: 0)
+        textViewBottomAnchor = descriptionTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30);
+        textViewBottomAnchor!.isActive = true;
     }
     
     fileprivate func setupBorder(){
