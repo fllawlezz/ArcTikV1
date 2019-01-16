@@ -36,7 +36,7 @@ class EventsInfoBottomBarView: UIView {
         self.layer.shadowOffset = CGSize(width: 2, height: -0.5);
         self.layer.shadowRadius = 1;
         self.layer.shadowOpacity = 0.2;
-        setupBorderTop();
+//        setupBorderTop();
         setupApplyButton();
         setupPeople();
         setupCost();

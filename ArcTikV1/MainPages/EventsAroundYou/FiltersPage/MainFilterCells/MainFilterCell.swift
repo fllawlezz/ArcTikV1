@@ -65,7 +65,7 @@ class MainFilterCell: UICollectionViewCell{
     
     fileprivate func setupCheckBoxButton(){
         self.addSubview(checkBoxButton);
-        checkBoxButton.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -25, constantTop: 0, constantBottom: 0, width: 20, height: 20);
+        checkBoxButton.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -25, constantTop: 0, constantBottom: 0, width: 25, height: 25);
         checkBoxButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
         
         checkBoxButton.addTarget(self, action: #selector(self.handleCheckBoxPressed), for: .touchUpInside);
