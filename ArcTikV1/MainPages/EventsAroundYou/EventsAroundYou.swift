@@ -53,8 +53,9 @@ class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
 
 extension EventsAroundYou{
     @objc func handleFiltersPressed(){
-        
-        let filtersPage = FiltersPage();
+        let layout = UICollectionViewFlowLayout();
+        let filtersPage = MainFiltersPage(collectionViewLayout: layout)
+//        let filtersPage = FiltersPage();
         
         let filtersNavigationController = UINavigationController(rootViewController: filtersPage);
         filtersNavigationController.navigationBar.tintColor = UIColor.white;
