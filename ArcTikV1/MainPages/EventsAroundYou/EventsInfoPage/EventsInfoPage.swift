@@ -31,9 +31,11 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     let thingsToBringCellReuse = "EventsInfoThingsToBringReuse";
     
     let headerTitles = ["Description","Requirements"];
-    let cellData = ["Poker Tournament at my House! We gone have a really good time! Yeah!!!","Henderson, Nevada, United States","Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up! I hope that we can make this a really good time for everyone because I really do feel that poker is and should be considered a very fun and inviting atmosphere. Everyone should be sitting around, having a few drinks, and laughing their asses off. Hopefully everyone signs up!","- Not Jason Koon \n- Able to play poker \n- Knows the game well\n- Not Phil Hellmuth \n- Yes Phil Hellmuth \n- Yes Tom Dwan \n- Not Andrew Robl \n - Not Elton Tsang \n - Not the president"];
+    let cellData = ["Poker Tournament at my House! We gone have a really good time! Yeah!!!","Henderson, Nevada, United States","Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up! I hope that we can make this a really good time for everyone because I really do feel that poker is and should be considered a very fun and inviting atmosphere. Everyone should be sitting around, having a few drinks, and laughing their asses off. Hopefully everyone signs up! On another note, I'd like to say that I am truly blessed to be where I'm at today, there were and still could be so many different circumstances that would cause me to go bankrupt, but they don't and probably won't happen. That is what is good about America. You can be what you want and who you want. You can change your own life.","- Not Jason Koon \n- Able to play poker \n- Knows the game well\n- Not Phil Hellmuth \n- Yes Phil Hellmuth \n- Yes Tom Dwan \n- Not Andrew Robl \n - Not Elton Tsang \n - Not the president"];
+    
     var descriptionIsExpanded = false;
     var requirementsIsExpanded = false;
+    var estimatedFrameSize:CGSize?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -50,10 +52,10 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.register(EventsInfoThingsToBringCell.self, forCellWithReuseIdentifier: thingsToBringCellReuse);
         collectionView?.contentInsetAdjustmentBehavior = .never;
         if(UIScreenHeight! >= 812){
-            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0);
+            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0);
             setupBottomBarCover();
         }else{
-            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0);
+            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0);
         }
         
         setupEventsBottomBar();
@@ -88,7 +90,13 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if(indexPath.section != 0){
             if(descriptionIsExpanded && indexPath.section == 1 && indexPath.item == 0){
+                if let height = self.estimatedFrameSize?.height{
+//                    print("yes height");
+                    return CGSize(width: self.view.frame.width, height: height+60);
+                }
+//                print("not height");
                 return CGSize(width: self.view.frame.width, height: 280);
+                
             }
             
             if(indexPath.section == 1 && indexPath.item != 0){
@@ -175,6 +183,14 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             self.present(newNavigationController, animated: true, completion: nil);
 //            navigationController?.pushViewController(requirementsPage, animated: true);
+        }else if(indexPath.section == 1 && indexPath.item == 2){
+            let layout = UICollectionViewFlowLayout();
+            let thingsToBringPage = EventsInfoToBringPage(collectionViewLayout: layout);
+            let newNavigationController = UINavigationController(rootViewController: thingsToBringPage);
+            newNavigationController.navigationBar.isTranslucent = false;
+            newNavigationController.navigationBar.barTintColor = UIColor.white;
+            newNavigationController.navigationBar.tintColor = UIColor.black;
+            self.present(newNavigationController, animated: true, completion: nil);
         }
     }
 }
@@ -194,7 +210,11 @@ extension EventsInfoPage{
     
     func seeMoreDescription(indexPath: IndexPath) {
         descriptionIsExpanded = true;
-        print(indexPath);
+//        print(indexPath);
+        let cell = collectionView?.cellForItem(at: indexPath) as! EventsInfoDescriptionCell
+        let size = CGSize(width: self.view.frame.width-20, height: .infinity)
+        self.estimatedFrameSize = cell.descriptionTextView.sizeThatFits(size)
+        
         if(descriptionIsExpanded){
             UIView.animate(withDuration: 0.3) {
                 self.collectionView?.reloadItems(at: [indexPath]);

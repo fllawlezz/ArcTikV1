@@ -82,6 +82,7 @@
 		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1221DDED8D0054254C /* CustomTabBar.swift */; };
 		87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */; };
+		87C6631121EEB969002C701A /* EventsInfoToBringPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C6631021EEB969002C701A /* EventsInfoToBringPage.swift */; };
 		87CE757221DD801B00968357 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE755F21DD801900968357 /* Montserrat-Bold.ttf */; };
 		87CE757321DD801B00968357 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */; };
 		87CE757421DD801B00968357 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */; };
@@ -217,6 +218,7 @@
 		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87B31F1221DDED8D0054254C /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYou.swift; sourceTree = "<group>"; };
+		87C6631021EEB969002C701A /* EventsInfoToBringPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoToBringPage.swift; sourceTree = "<group>"; };
 		87CE755F21DD801900968357 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		87CE756021DD801900968357 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		87CE756121DD801900968357 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		877C92C521E28ACA005C4E88 /* EventsInfoPage */ = {
 			isa = PBXGroup;
 			children = (
+				87C6630F21EEB953002C701A /* ToBringPage */,
 				87906F6B21EE599B00C95743 /* RequirementsPage */,
 				872F6A3D21EBCAA10022CD97 /* EventInfoBottomBar */,
 				872F6A3A21EBC86D0022CD97 /* EventsInfoCells */,
@@ -682,6 +685,14 @@
 				87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */,
 			);
 			path = EventsAroundYou;
+			sourceTree = "<group>";
+		};
+		87C6630F21EEB953002C701A /* ToBringPage */ = {
+			isa = PBXGroup;
+			children = (
+				87C6631021EEB969002C701A /* EventsInfoToBringPage.swift */,
+			);
+			path = ToBringPage;
 			sourceTree = "<group>";
 		};
 		87CE755E21DD800200968357 /* Fonts */ = {
@@ -1008,6 +1019,7 @@
 				87F9AE2321DE889E0094679F /* EventsAroundYouCollectionView.swift in Sources */,
 				8752761421E5B0EA00041E32 /* MoreInfoPage.swift in Sources */,
 				872F6A4321EBCF0D0022CD97 /* EventsInfoSectionHeader.swift in Sources */,
+				87C6631121EEB969002C701A /* EventsInfoToBringPage.swift in Sources */,
 				8775D1EF21E97B6F007062BB /* DatePageCell.swift in Sources */,
 				8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */,
 				8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */,
