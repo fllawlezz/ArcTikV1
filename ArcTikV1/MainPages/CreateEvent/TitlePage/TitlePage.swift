@@ -105,7 +105,20 @@ extension TitlePage{
     }
     
     @objc func handleNextButtonPressed(){
-        let descriptionPage = DescriptionPage();
-        self.navigationController?.pushViewController(descriptionPage, animated: true);
+        if(titleTextView.text.count > 0){
+            currentEvent?.eventTitle = titleTextView.text;
+            
+            let descriptionPage = DescriptionPage();
+            self.navigationController?.pushViewController(descriptionPage, animated: true);
+        }else{
+            self.showEmptyAlert();
+        }
+        
+    }
+    
+    fileprivate func showEmptyAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "You didn't fill out the title field!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

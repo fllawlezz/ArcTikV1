@@ -15,6 +15,8 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     let cellReuse = "CreatedEventsCellReuse";
     let createNewEventReuse = "CreatedEventsNewEventCellReuse";
     
+    var myEventsInProgress = [MyEvent]();
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.collectionView?.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
@@ -38,7 +40,7 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(indexPath.section == 1){
-            if(indexPath.item == 0){
+            if(indexPath.item < myEventsInProgress.count){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuse, for: indexPath) as! CreatedEventsInProgressCell;
                 cell.setTitle(title: "Poker game at my place");
                 return cell;
@@ -61,18 +63,19 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
             return 0;
         }
         if(section == 1){
-            return 1+1;
+            return self.myEventsInProgress.count+1;
         }
         
         return 0;
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(indexPath.section == 1 && indexPath.item == 1){
-            return CGSize(width: self.view.frame.width-40, height: 40);
+        if(indexPath.section == 1 && indexPath.item < myEventsInProgress.count){
+            return CGSize(width: self.view.frame.width-40, height: 100);
+            
         }
+        return CGSize(width: self.view.frame.width-40, height: 40);
         
-        return CGSize(width: self.view.frame.width-40, height: 100);
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -96,7 +99,14 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
 //            self.handleCreateEvent();
 //
 //        }
+        if(indexPath.item < myEventsInProgress.count){
+            currentEvent = self.myEventsInProgress[indexPath.item];
+        }else{
+//            currentEvent = MyEvent(stepNumber: 0, eventTitle: "default", description: "default", country: "default", street: "default", city: "default", zipcode: "default", requirements: "default", privacy: "default", people: 0, startDate: "default", endDate: "default", startTime: "default", endTime: "default", charge: 0, imgURL: "default");
+            currentEvent = MyEvent();
+        }
         self.handleCreateEvent();
+        
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+var currentEvent: MyEvent?;
 
 class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventMainCellDelegate {
     
@@ -16,6 +16,8 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     let createEventHeaderReuse = "CreateEventHeaderReuse";
     
     let titleList = ["Event Title","Description","Location","Requirements","Privacy","Date","Pricing","Review"];
+    
+    var currentStep = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         self.collectionView!.register(CreateEventMainCell.self, forCellWithReuseIdentifier: createEventCellReuse)
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: createEventHeaderReuse);
         setupNavBar();
+        setupData();
         // Do any additional setup after loading the view.
     }
     
@@ -36,6 +39,11 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         self.navigationItem.leftBarButtonItem = clearButton;
     }
     
+    fileprivate func setupData(){
+        if let currentEvent = currentEvent{
+            self.currentStep = currentEvent.stepNumber;
+        }
+    }
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,11 +61,19 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: createEventCellReuse, for: indexPath) as! CreateEventMainCell
         cell.setTitle(title: titleList[indexPath.item])
         cell.delegate = self;
-        if(indexPath.item == 0){
+        
+        if(indexPath.item == currentStep){
             cell.revealContinueButton();
+        }else{
+            cell.continueButton.isHidden = true;
+        }
+        
+        if(indexPath.item < currentStep){
+            cell.revealGreenCheck();
+        }else{
+            cell.checkMarkImage.isHidden = true;
         }
         // Configure the cell
-    
         return cell
     }
     

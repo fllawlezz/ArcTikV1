@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 var UIScreenWidth: CGFloat?;
 var UIScreenHeight: CGFloat?;
 

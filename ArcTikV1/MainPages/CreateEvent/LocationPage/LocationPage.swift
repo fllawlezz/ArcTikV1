@@ -153,4 +153,10 @@ extension LocationPage{
         }))
         self.present(alert, animated: true, completion: nil);
     }
+    
+    fileprivate func showEmptyAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "You must fill out all fields!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
 }

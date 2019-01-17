@@ -118,8 +118,20 @@ extension DescriptionPage{
     }
     
     @objc func handleNextButtonPressed(){
-        let layout = UICollectionViewFlowLayout();
-        let locationPage = LocationPage(collectionViewLayout: layout);
-        self.navigationController?.pushViewController(locationPage, animated: true);
+        if(descriptionTextView.text.count > 0){
+            currentEvent?.description = self.descriptionTextView.text!;
+            
+            let layout = UICollectionViewFlowLayout();
+            let locationPage = LocationPage(collectionViewLayout: layout);
+            self.navigationController?.pushViewController(locationPage, animated: true);
+        }else{
+            self.showEmptyAlert();
+        }
+    }
+    
+    fileprivate func showEmptyAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "You didn't fill out the description field!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

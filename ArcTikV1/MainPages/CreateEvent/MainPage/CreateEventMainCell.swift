@@ -34,6 +34,13 @@ class CreateEventMainCell: UICollectionViewCell{
         return border;
     }()
     
+    var checkMarkImage: UIImageView = {
+        let checkMarkImage = UIImageView(image: #imageLiteral(resourceName: "greenCheck"));
+        checkMarkImage.translatesAutoresizingMaskIntoConstraints = false;
+        checkMarkImage.contentMode = .scaleAspectFill;
+        return checkMarkImage;
+    }()
+    
     var delegate:CreateEventMainCellDelegate?;
     
     override init(frame: CGRect) {
@@ -42,6 +49,7 @@ class CreateEventMainCell: UICollectionViewCell{
         setupTitleLabel();
         setupBorder();
         setupContinueButton();
+        setupCheckMarkImage();
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +73,13 @@ class CreateEventMainCell: UICollectionViewCell{
         continueButton.isHidden = true;
     }
     
+    fileprivate func setupCheckMarkImage(){
+        self.addSubview(checkMarkImage);
+        checkMarkImage.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -10, constantTop: 0, constantBottom: 0, width: 20, height: 20);
+        checkMarkImage.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
+        checkMarkImage.isHidden = true;
+    }
+    
     func setTitle(title:String){
         self.titleLabel.text = title;
     }
@@ -73,6 +88,9 @@ class CreateEventMainCell: UICollectionViewCell{
         self.continueButton.isHidden = false;
     }
     
+    func revealGreenCheck(){
+        self.checkMarkImage.isHidden = false;
+    }
     
 }
 
