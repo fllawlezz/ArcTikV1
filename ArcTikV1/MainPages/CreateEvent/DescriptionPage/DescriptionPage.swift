@@ -22,7 +22,7 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
         descriptionTextView.font = UIFont.systemFont(ofSize: 14);
         descriptionTextView.textColor = UIColor.darkText;
         descriptionTextView.layer.borderColor = UIColor.darkText.cgColor;
-        descriptionTextView.layer.borderWidth = 2;
+        descriptionTextView.layer.borderWidth = 1;
         return descriptionTextView;
     }()
     

@@ -67,13 +67,17 @@ extension EventsAroundYou{
     
     @objc func handleCreateEvent(){
         let layout = UICollectionViewFlowLayout();
-        let createEventPage = CreateEventPage(collectionViewLayout: layout);
-        let navigationController = UINavigationController(rootViewController: createEventPage);
-        navigationController.navigationBar.isTranslucent = false;
-        navigationController.navigationBar.barStyle = .blackTranslucent;
-        navigationController.navigationBar.tintColor = UIColor.white;
-        navigationController.navigationBar.barTintColor = UIColor.appBlue;
-        self.present(navigationController, animated: true, completion: nil);
+//        let createEventPage = CreateEventPage(collectionViewLayout: layout);
+        let createdEventsPage = CreatedEventsPage(collectionViewLayout: layout);
+        createdEventsPage.hidesBottomBarWhenPushed = true;
+        self.navigationController?.pushViewController(createdEventsPage, animated: true);
+        
+//        let navigationController = UINavigationController(rootViewController: createdEventsPage);
+//        navigationController.navigationBar.isTranslucent = false;
+//        navigationController.navigationBar.barStyle = .blackTranslucent;
+//        navigationController.navigationBar.tintColor = UIColor.white;
+//        navigationController.navigationBar.barTintColor = UIColor.appBlue;
+//        self.present(navigationController, animated: true, completion: nil);
     }
     
     func handleToEventsInfoPage() {

@@ -15,7 +15,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     let createEventCellReuse = "CreateEventCellReuse";
     let createEventHeaderReuse = "CreateEventHeaderReuse";
     
-    let titleList = ["Description","Location","Requirements","Privacy","Date","Pricing","Review"];
+    let titleList = ["Event Title","Description","Location","Requirements","Privacy","Date","Pricing","Review"];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 7;
+        return 8;
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +93,7 @@ extension CreateEventPage{
     }
     
     func continuePressed() {
-        let descriptionPage = DescriptionPage();
+        let descriptionPage = TitlePage();
         self.navigationController?.pushViewController(descriptionPage, animated: true);
     }
     
