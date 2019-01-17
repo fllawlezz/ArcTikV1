@@ -26,7 +26,7 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         emailField.layer.cornerRadius = 5;
         emailField.keyboardType = .emailAddress;
         emailField.backgroundColor = UIColor.white;
-        emailField.placeholder = "Email";
+        emailField.placeholder = "UserName/Email";
         return emailField;
     }()
     
@@ -153,7 +153,7 @@ extension LoginPage{
     }
     
     @objc func handleToForgotPassword(){
-        let forgotPasswordPage = ForgotPasswordPage1();
+        let forgotPasswordPage = ForgotPasswordPage0();
         self.navigationController?.pushViewController(forgotPasswordPage, animated: true);
     }
     

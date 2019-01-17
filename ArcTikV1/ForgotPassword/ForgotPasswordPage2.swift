@@ -57,6 +57,11 @@ class ForgotPasswordPage2: UIViewController, UITextFieldDelegate{
         return submitButton;
     }()
     
+    var loadingView = LoadingView();
+    
+    var userID: Int?;
+    var oldPassword: String?;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.appBlue;
@@ -65,6 +70,7 @@ class ForgotPasswordPage2: UIViewController, UITextFieldDelegate{
         setupNewPasswordField();
         setupRepeatPassword();
         setupSubmitButton();
+        setupLoadingView();
         
         self.newPasswordField.becomeFirstResponder();
     }
@@ -113,6 +119,13 @@ class ForgotPasswordPage2: UIViewController, UITextFieldDelegate{
         submitButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -40).isActive = true;
         submitButton.topAnchor.constraint(equalTo: self.repeatPasswordField.bottomAnchor, constant: 20).isActive = true;
         submitButton.heightAnchor.constraint(equalToConstant: 50).isActive = true;
+        submitButton.addTarget(self, action: #selector(self.handleSubmit), for: .touchUpInside);
+    }
+    
+    fileprivate func setupLoadingView(){
+        self.view.addSubview(loadingView);
+        loadingView.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.view.topAnchor, bottom: self.view.bottomAnchor);
+        loadingView.isHidden = true;
     }
     
 }
@@ -123,8 +136,9 @@ extension ForgotPasswordPage2{
         if(textField == self.newPasswordField){
             repeatPasswordField.becomeFirstResponder();
         }else{
-            print("changed password");
-            handleClearButtonPressed();
+//            print("changed password");
+//            handleClearButtonPressed();
+            self.handleSubmit();
         }
         
         return true;
@@ -132,5 +146,99 @@ extension ForgotPasswordPage2{
     
     @objc func handleClearButtonPressed(){
         self.navigationController?.popToRootViewController(animated: true);
+    }
+    
+    func showLoadingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = false;
+        }
+    }
+    
+    func hideLoadingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = true;
+        }
+    }
+    
+    @objc func handleSubmit(){
+        self.repeatPasswordField.resignFirstResponder();
+        self.newPasswordField.resignFirstResponder();
+        
+        if(self.newPasswordField.text!.count > 6 && self.newPasswordField.text! == self.repeatPasswordField.text! && self.newPasswordField.text! != self.oldPassword!){
+            
+            self.showLoadingView();
+            let url = URL(string: "http://localhost:3000/resetPassword")!;
+            var request = URLRequest(url: url);
+            let body = "newPassword=\(self.newPasswordField.text!)&userID=\(self.userID!)";
+            request.httpMethod = "POST";
+            request.httpBody = body.data(using: .utf8);
+            let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
+                if(err != nil){
+                    DispatchQueue.main.async {
+                        self.hideLoadingView();
+                        self.showErrorAlert();
+                        return;
+                    }
+                }
+//                }else{
+                if(data != nil){
+                    let response = NSString(data: data!, encoding: 8);
+                    if(response == "success"){
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "Complete!", message: "Your password has been reset", preferredStyle: .alert);
+                            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+                                self.navigationController?.popToRootViewController(animated: true);
+                            }));
+                            self.present(alert, animated: true, completion: nil);
+                        }
+                    }else{
+                        DispatchQueue.main.async {
+                            self.showErrorAlert();
+                        }
+                    }
+                }
+                
+//                }
+            }
+            dataTask.resume();
+            
+        }else{
+            self.hideLoadingView();
+            if(self.newPasswordField.text!.count < 7){
+                self.showPasswordNotLongEnoughAlert();
+                
+            }else if(self.newPasswordField.text! != self.repeatPasswordField.text!){
+                self.showPasswordNoMatch();
+            }else{
+                self.showOldPasswordMatch();
+            }
+        }
+        
+    }
+    
+    fileprivate func showPasswordNotLongEnoughAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "Your password must be at least 7 characters long", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showErrorAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "There was a problem connecting to our server! Try again later", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+            self.navigationController?.popToRootViewController(animated: true);
+        }));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showPasswordNoMatch(){
+        let alert = UIAlertController(title: "Oops!", message: "Your passwords do not match!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showOldPasswordMatch(){
+        let alert = UIAlertController(title: "Oops!", message: "Your new password cannot be the same as your old password", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

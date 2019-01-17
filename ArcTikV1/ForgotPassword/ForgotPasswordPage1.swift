@@ -44,7 +44,9 @@ class ForgotPasswordPage1: UIViewController{
         return submitButton;
     }()
     
-    
+    var code: String?;
+    var userID: Int?;
+    var oldPassword: String?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -104,7 +106,21 @@ extension ForgotPasswordPage1{
     }
     
     @objc func handleSubmit(){
-        let forgotPasswordPage2 = ForgotPasswordPage2();
-        self.navigationController?.pushViewController(forgotPasswordPage2, animated: true);
+        if(self.codeField.text == self.code!){
+            let forgotPasswordPage2 = ForgotPasswordPage2();
+            forgotPasswordPage2.userID = self.userID;
+            forgotPasswordPage2.oldPassword = self.oldPassword;
+            self.navigationController?.pushViewController(forgotPasswordPage2, animated: true);
+        }else{
+            self.showCodeAlert();
+        }
+    }
+    
+    fileprivate func showCodeAlert(){
+        let alert = UIAlertController(title: "No Match", message: "The code you entered does not match the one that was sent to you", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.codeField.text = "";
+        }))
+        self.present(alert, animated: true, completion: nil);
     }
 }
