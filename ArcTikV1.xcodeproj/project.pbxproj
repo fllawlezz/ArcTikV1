@@ -109,6 +109,9 @@
 		87CE758621DD880900968357 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87CE758521DD880900968357 /* Default-568h@2x.png */; };
 		87CE758821DD88B500968357 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87CE758721DD88B500968357 /* Launch Screen.storyboard */; };
 		87D5956921E775EF005478E5 /* DescriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D5956821E775EF005478E5 /* DescriptionPage.swift */; };
+		87D5DFA621F049830094D42C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D5DFA521F049830094D42C /* User.swift */; };
+		87D5DFA821F04D030094D42C /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D5DFA721F04D030094D42C /* GlobalVariables.swift */; };
+		87D5DFAA21F04F160094D42C /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D5DFA921F04F160094D42C /* GlobalFunctions.swift */; };
 		87D89B9021DCA552009160A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D89B8F21DCA552009160A3 /* AppDelegate.swift */; };
 		87D89B9821DCA552009160A3 /* ArcTikV1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87D89B9621DCA552009160A3 /* ArcTikV1.xcdatamodeld */; };
 		87D89B9A21DCA553009160A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D89B9921DCA553009160A3 /* Assets.xcassets */; };
@@ -249,6 +252,9 @@
 		87CE758521DD880900968357 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		87CE758721DD88B500968357 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		87D5956821E775EF005478E5 /* DescriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPage.swift; sourceTree = "<group>"; };
+		87D5DFA521F049830094D42C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		87D5DFA721F04D030094D42C /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		87D5DFA921F04F160094D42C /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		87D89B8C21DCA552009160A3 /* ArcTikV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArcTikV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87D89B8F21DCA552009160A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87D89B9721DCA552009160A3 /* ArcTikV1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArcTikV1.xcdatamodel; sourceTree = "<group>"; };
@@ -338,6 +344,7 @@
 		872E432621DD8BDA0051F563 /* LoginPage */ = {
 			isa = PBXGroup;
 			children = (
+				87D5DFA421F0496B0094D42C /* LoginPageDataModels */,
 				87D89BC021DCA644009160A3 /* LoginPage.swift */,
 				872E432721DD8BF10051F563 /* SignUpView.swift */,
 			);
@@ -759,6 +766,14 @@
 			path = DescriptionPage;
 			sourceTree = "<group>";
 		};
+		87D5DFA421F0496B0094D42C /* LoginPageDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				87D5DFA521F049830094D42C /* User.swift */,
+			);
+			path = LoginPageDataModels;
+			sourceTree = "<group>";
+		};
 		87D89B8321DCA552009160A3 = {
 			isa = PBXGroup;
 			children = (
@@ -798,6 +813,8 @@
 				87D89BC221DCA707009160A3 /* Colors.swift */,
 				877C92CA21E295CD005C4E88 /* AnchoringExtension.swift */,
 				872F6A3621E9BE910022CD97 /* SplashPage.swift */,
+				87D5DFA721F04D030094D42C /* GlobalVariables.swift */,
+				87D5DFA921F04F160094D42C /* GlobalFunctions.swift */,
 			);
 			path = ArcTikV1;
 			sourceTree = "<group>";
@@ -1046,9 +1063,11 @@
 				8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */,
 				8734DBEA21E99CA800CD3709 /* ReviewPage.swift in Sources */,
 				8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */,
+				87D5DFA621F049830094D42C /* User.swift in Sources */,
 				872F6A4721EDDBB80022CD97 /* EventsInfoBottomBarView.swift in Sources */,
 				872F6A3C21EBC88D0022CD97 /* EventInfoTitleCell.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
+				87D5DFAA21F04F160094D42C /* GlobalFunctions.swift in Sources */,
 				87A004EE21E7341A008CD289 /* CreateEventMainHeader.swift in Sources */,
 				879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */,
 				8734DBF621E9A99300CD3709 /* CreateEventButtonCell.swift in Sources */,
@@ -1065,6 +1084,7 @@
 				876E965921EE5A4B00CC676C /* EventsInfoRequirementsPage.swift in Sources */,
 				877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */,
 				87F9AE2B21DE98BD0094679F /* EventsAroundYouImageCell.swift in Sources */,
+				87D5DFA821F04D030094D42C /* GlobalVariables.swift in Sources */,
 				8752762421E6E95800041E32 /* FriendRequestCell.swift in Sources */,
 				872F6A3921E9BF0D0022CD97 /* PasswordCheckPage.swift in Sources */,
 				87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */,

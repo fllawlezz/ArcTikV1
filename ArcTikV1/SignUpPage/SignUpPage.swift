@@ -97,6 +97,8 @@ class SignUpPage: UIViewController, UITextViewDelegate {
         signUpButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -40).isActive = true;
         signUpButton.topAnchor.constraint(equalTo: self.signUpTermsView.bottomAnchor, constant: 20).isActive = true;
         signUpButton.heightAnchor.constraint(equalToConstant: 50).isActive = true;
+        
+        signUpButton.addTarget(self, action: #selector(self.handleSignUpAttempt), for: .touchUpInside);
     }
 }
 
@@ -108,6 +110,47 @@ extension SignUpPage{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let name = Notification.Name(rawValue: resignSignUpPage);
         NotificationCenter.default.post(name: name, object: nil);
+    }
+    
+    @objc func handleSignUpAttempt(){
+//        print("attempt");
+        let cellData = signUpFields.getAllData();
+        if(cellData.count < 6){
+            let alert = UIAlertController(title: "Ugh-Oh", message: "Please fill out all fields", preferredStyle: .alert);
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+            self.present(alert, animated: true, completion: nil);
+            return;
+        }else{
+            let url = URL(string: "http://localhost:3000/user_SignUp")!;
+            var request = URLRequest(url: url);
+            let postBody = "userName=\(cellData[0])&firstName=\(cellData[1])&lastName=\(cellData[2])&email=\(cellData[3])&phoneNumber=\(cellData[4])&password=\(cellData[5])";
+            request.httpMethod = "POST";
+            request.httpBody = postBody.data(using: .utf8);
+            let task = URLSession.shared.dataTask(with: request) { (data, re, err) in
+                if(err != nil){
+                    print("err");
+                    return;
+                }
+                if(data != nil){
+                    let response = NSString(data: data!, encoding: 8)!;
+                    if(response == "emailExists"){
+//                        print("email exists");
+                        DispatchQueue.main.async {
+                            self.showEmailExistsAlert();
+                        }
+                    }else if(response == "success"){
+                        print("successful");
+                    }
+                }
+            }
+            task.resume();
+        }
+    }
+    
+    fileprivate func showEmailExistsAlert(){
+        let alert = UIAlertController(title: "Email/Username/Phone # Found", message: "Some of your data was already registered! Please login!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }
 

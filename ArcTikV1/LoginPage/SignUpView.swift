@@ -87,3 +87,7 @@ class SignUpView: UIView, UITextViewDelegate {
         return false;
     }
 }
+
+extension SignUpView{
+    
+}

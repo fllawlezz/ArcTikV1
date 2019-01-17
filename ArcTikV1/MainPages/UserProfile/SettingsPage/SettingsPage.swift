@@ -93,6 +93,8 @@ extension SettingsPage{
         let alert = UIAlertController(title: "Logout", message: "Do you really want to logout?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             //logout, get rid of userDefaults
+            clearUser();
+            user = nil;
             let loginViewController = LoginPage();
             let startingNavigationController = UINavigationController(rootViewController: loginViewController);
             startingNavigationController.isNavigationBarHidden = true;

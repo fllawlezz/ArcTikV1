@@ -8,10 +8,16 @@
 import Foundation;
 import UIKit
 
+protocol SignupFieldsDelegate{
+    func showFillOutFieldsAlert();
+}
+
 class SignUpFields: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SignUpFieldCellDelegate{
 
     let signUpCellReuse = "reuse";
     let cellPlaceholders = ["Username", "FirstName", "LastName", "Email", "PhoneNumber", "Password"];
+    
+    var selfDelegate: SignupFieldsDelegate?;
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout);
@@ -76,6 +82,21 @@ extension SignUpFields{
             let name = Notification.Name(rawValue: resignSignUpPage);
             NotificationCenter.default.post(name: name, object: nil);
         }
+    }
+    
+    func getAllData() -> [String]{
+        var cellData = [String]();
+        var count = 0;
+        while(count < 6){
+            let cell = self.cellForItem(at: IndexPath(item: count, section: 0)) as! SignUpFieldCell;
+            let data = cell.cellTextField.text;
+            if let data = data{
+                if(data.count > 1){ cellData.append(data)}
+            }
+            count += 1;
+        }
+        
+        return cellData;
     }
     
 }

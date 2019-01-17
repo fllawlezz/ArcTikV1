@@ -158,7 +158,82 @@ extension LoginPage{
     }
     
     @objc func handleLogin(){
-        let tabBar = CustomTabBar();
-        self.present(tabBar, animated: true, completion: nil);
+        handleLoginAttempt();
+
+    }
+}
+
+extension LoginPage{
+    func handleLoginAttempt(){
+        if(emailField.text!.count > 0 && passwordField.text!.count > 6){
+            let url = URL(string: "http://localhost:3000/loginAttempt")!;
+            var request = URLRequest(url: url);
+            let body = "userNameEmail=\(self.emailField.text!)&password=\(self.passwordField.text!)";
+            request.httpMethod = "POST";
+            request.httpBody = body.data(using: .utf8);
+            let task = URLSession.shared.dataTask(with: request) { (data, re, err) in
+                if(err != nil){
+                    print("err");
+                    return;
+                }
+                if(data != nil){
+                    let response = NSString(data: data!, encoding: 8)!;
+                    if(response == "notFound"){
+                        DispatchQueue.main.async {
+                            self.handleLoginFailed();
+                        }
+                        return
+                    }else{
+                        
+                        do{
+                            let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary;
+                            
+    //                        print(json);
+                            
+                            let userID = json["userID"] as! Int;
+                            let firstName = json["firstName"] as! String;
+                            let lastName = json["lastName"] as! String;
+                            let userName = json["userName"] as! String;
+                            let email = json["email"] as! String;
+                            let phoneNumber = json["phoneNumber"] as! String;
+                            let password = json["password"] as! String;
+                            let push = json["push"] as! String;
+                            let sms = json["sms"] as! String;
+                            let imgURL = json["imgURL"] as! String;
+                            
+                            let newUser = User.init(userID: userID, firstName: firstName, lastName: lastName, userName: userName, email: email, phoneNumber: phoneNumber, password: password, push: push, sms: sms, imgURL: imgURL);
+                            
+                            user = newUser;
+                            
+                            DispatchQueue.main.async {
+                                
+                                saveUser(userID: userID, firstName: firstName, lastName: lastName, userName: userName, email: email, phoneNumber: phoneNumber, password: password, push: push, sms: sms, imgURL: imgURL);
+                                let tabBar = CustomTabBar();
+                                self.present(tabBar, animated: true, completion: nil);
+
+                            }
+                            
+                        }catch{
+                            print("error parsing json");
+                        }
+                    }
+                }
+            }
+            task.resume();
+        }else{
+            let alert = UIAlertController(title: "Fill out fields", message: "Please fill out both fields!", preferredStyle: .alert);
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+            self.present(alert, animated: true, completion: nil);
+        }
+    }
+    
+    fileprivate func handleLoginFailed(){
+        self.emailField.text = "";
+        self.passwordField.text = "";
+        
+        let alert = UIAlertController(title: "No Match", message: "You username/email and password did not match", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+        
     }
 }

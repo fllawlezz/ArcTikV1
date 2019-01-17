@@ -12,6 +12,8 @@ import CoreData
 var UIScreenWidth: CGFloat?;
 var UIScreenHeight: CGFloat?;
 
+var standard: UserDefaults?;
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,16 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIScreenWidth = UIScreen.main.bounds.width;
         UIScreenHeight = UIScreen.main.bounds.height;
         
-        let loginViewController = LoginPage();
-        let startingNavigationController = UINavigationController(rootViewController: loginViewController);
-        startingNavigationController.isNavigationBarHidden = true;
-
-
-        window?.rootViewController = startingNavigationController;
+        standard = UserDefaults.standard;
         
-//        let customTab = CustomTabBar();
-//        window?.rootViewController = customTab;
-        
+        let userID = standard?.object(forKey: "userID");
+        if(userID != nil){
+            populateUser();
+            let customTab = CustomTabBar();
+            window?.rootViewController = customTab;
+        }else{
+            let loginViewController = LoginPage();
+            let startingNavigationController = UINavigationController(rootViewController: loginViewController);
+            startingNavigationController.isNavigationBarHidden = true;
+            window?.rootViewController = startingNavigationController;
+        }
         return true
     }
 
