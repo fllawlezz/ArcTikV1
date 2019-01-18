@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import GooglePlaces
 
 let setCountryNotification = "SetCountryNotification";
 let resignLocationPage = "ResignLocationPageCells";
 
-class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, LocationPageCellDelegate, AskForAddressPageDelegate{
 
     let reuseIdentifier = "Cell"
     
@@ -37,6 +38,8 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         "eg: Oakland",
         "Eg: 91234"
     ]
+    
+    let placesClient = GMSPlacesClient();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +100,7 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         cell.setTitle(title: titles[indexPath.item], placeholder: placeholders[indexPath.item]);
         // Configure the cell
         cell.indexPath = indexPath.item;
+        cell.delegate = self;
     
         return cell
     }
@@ -130,13 +134,36 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         NotificationCenter.default.post(name: name, object: nil);
 
     }
+    
+    func checkIfEmpty()->Bool{
+        var empty = false;
+        var count = 0;
+        while(count < 4){
+            let cell = self.collectionView?.cellForItem(at: IndexPath(item: count, section: 0)) as! LocationPageCell;
+            switch(count){//0: Country, 1: Address, 2: City, 3: Zipcode
+            case 0: if(cell.infoField.text!.count < 2){ empty = true};break;
+            case 1: if(cell.infoField.text!.count < 5){ empty = true};break;
+            case 2: if(cell.infoField.text!.count < 2){ empty = true};break;
+            case 3: if(cell.infoField.text!.count < 5){ empty = true};break;
+            default:break;
+            }
+            count += 1;
+        }
+        return empty;
+    }
 
 }
 
 extension LocationPage{
     @objc func handleNextButtonPressed(){
-        let requirementsPage = RequirementsPage();
-        self.navigationController?.pushViewController(requirementsPage, animated: true);
+        let emptyCheck = checkIfEmpty();
+        if(emptyCheck){
+            //get alert
+            showEmptyAlert();
+        }else{
+            let requirementsPage = RequirementsPage();
+            self.navigationController?.pushViewController(requirementsPage, animated: true);
+        }
     }
     
     @objc func handleClearPressed(){
@@ -154,9 +181,40 @@ extension LocationPage{
         self.present(alert, animated: true, completion: nil);
     }
     
+    func setAddressData(address: String, zipcode: String, city: String, country: String) {
+        var count = 0;
+        while(count < titles.count){
+             let cell = self.collectionView?.cellForItem(at: IndexPath(item: count, section: 0)) as! LocationPageCell;
+            switch(count){//0: Country, 1: Address, 2: City, 3: Zipcode
+            case 0: cell.infoField.text = country;break;
+            case 1: cell.infoField.text = address;break;
+            case 2: cell.infoField.text = city;break;
+            case 3: cell.infoField.text = zipcode;break;
+            default:break;
+            }
+            count += 1;
+        }
+    }
+
+    
     fileprivate func showEmptyAlert(){
         let alert = UIAlertController(title: "Oops!", message: "You must fill out all fields!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
+    }
+    
+    func handleEnterStreet() {
+        let layout = UICollectionViewFlowLayout();
+        let addressPage = AskForAddressPage(collectionViewLayout: layout);
+        
+        addressPage.addressPageDelegate = self;
+        
+        let navigationController = UINavigationController(rootViewController: addressPage);
+        navigationController.navigationBar.isTranslucent = false;
+        navigationController.navigationBar.barStyle = .blackTranslucent;
+        navigationController.navigationBar.tintColor = UIColor.white;
+        navigationController.navigationBar.barTintColor = UIColor.appBlue;
+        self.present(navigationController, animated: true, completion: nil);
+
     }
 }

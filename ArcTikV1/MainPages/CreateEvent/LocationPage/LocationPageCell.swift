@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol LocationPageCellDelegate{
+    func handleEnterStreet();
+}
+
 class LocationPageCell: UICollectionViewCell, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate{
     
     var titleLabel: NormalUILabel = {
@@ -35,6 +39,9 @@ class LocationPageCell: UICollectionViewCell, UIPickerViewDataSource, UIPickerVi
     let countryList = ["United States","Canada","England","France"];
     
     let pickerView = UIPickerView();
+    
+    var delegate: LocationPageCellDelegate?;
+    
     
     var indexPath: Int?{
         didSet{
@@ -130,6 +137,10 @@ extension LocationPageCell{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if(self.indexPath == 0){
             self.infoField.text = "United States";
+        }
+        
+        if(self.indexPath == 1){
+            delegate?.handleEnterStreet();
         }
     }
     

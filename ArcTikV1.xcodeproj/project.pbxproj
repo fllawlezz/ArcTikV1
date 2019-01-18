@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3129DDEC415FD417CEAE8E1A /* Pods_ArcTikV1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA4BCA19706B7AC16E7F981 /* Pods_ArcTikV1.framework */; };
-		32BADDE82FE4E6DA94FCF860 /* Pods_ArcTikV1UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506D570F056750F249B234ED /* Pods_ArcTikV1UITests.framework */; };
+		4E31EC986A65A8DC71D0C32E /* Pods_ArcTikV1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC3E24E2F5D7EDC8040178B /* Pods_ArcTikV1Tests.framework */; };
 		8713C15821E0AA1800EB3C66 /* UserProfileCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713C15721E0AA1800EB3C66 /* UserProfileCollectionView.swift */; };
 		8713C15A21E0AADE00EB3C66 /* UserProfileTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713C15921E0AADE00EB3C66 /* UserProfileTopView.swift */; };
 		8718CA2621DD7D6E00C00916 /* NormalUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8718CA2521DD7D6E00C00916 /* NormalUITextField.swift */; };
@@ -36,6 +35,7 @@
 		8734DBED21E99E5600CD3709 /* ReviewPageDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */; };
 		8734DBF021E9A1E200CD3709 /* ReviewPageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBEF21E9A1E200CD3709 /* ReviewPageInfoCell.swift */; };
 		8734DBF621E9A99300CD3709 /* CreateEventButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8734DBF521E9A99300CD3709 /* CreateEventButtonCell.swift */; };
+		873A680121F15616004D23F0 /* AskForAddressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A680021F15616004D23F0 /* AskForAddressPage.swift */; };
 		874794EF21DEF84D00397271 /* MessagesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794EE21DEF84D00397271 /* MessagesPage.swift */; };
 		874794F221DEFAAA00397271 /* MessagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794F121DEFAAA00397271 /* MessagesCollectionView.swift */; };
 		874794F421DEFAF800397271 /* MessagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874794F321DEFAF800397271 /* MessagesCollectionViewCell.swift */; };
@@ -141,7 +141,8 @@
 		87F9AE2521DE88FD0094679F /* EventsAroundYouCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2421DE88FD0094679F /* EventsAroundYouCell.swift */; };
 		87F9AE2821DE92970094679F /* EventsAroundYouCellInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2721DE92970094679F /* EventsAroundYouCellInfoView.swift */; };
 		87F9AE2B21DE98BD0094679F /* EventsAroundYouImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F9AE2A21DE98BD0094679F /* EventsAroundYouImageCell.swift */; };
-		E9B959EAA1A85A84A4F514C0 /* Pods_ArcTikV1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23E58A1F16D57C6AF4CE75D9 /* Pods_ArcTikV1Tests.framework */; };
+		BE83873E351DB314B00AD012 /* Pods_ArcTikV1UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70BF7755765985E0AC287531 /* Pods_ArcTikV1UITests.framework */; };
+		D6653391C95B2C2942FFA78B /* Pods_ArcTikV1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9234BED325545F48534632 /* Pods_ArcTikV1.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,11 +163,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23E58A1F16D57C6AF4CE75D9 /* Pods_ArcTikV1Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C9AAB3D5B93C416E95B9770 /* Pods-ArcTikV1UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1UITests/Pods-ArcTikV1UITests.debug.xcconfig"; sourceTree = "<group>"; };
-		506D570F056750F249B234ED /* Pods_ArcTikV1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		661A54C0BFAC7555F5AA086A /* Pods-ArcTikV1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1.release.xcconfig"; sourceTree = "<group>"; };
-		66E379C4DCEFF243EB1122F0 /* Pods-ArcTikV1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1UITests/Pods-ArcTikV1UITests.release.xcconfig"; sourceTree = "<group>"; };
+		368076B9B91ADBC2646DE5EA /* Pods-ArcTikV1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1UITests/Pods-ArcTikV1UITests.release.xcconfig"; sourceTree = "<group>"; };
+		3FC3E24E2F5D7EDC8040178B /* Pods_ArcTikV1Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F1DF26CF1D23E8FA8530ACE /* Pods-ArcTikV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1.debug.xcconfig"; sourceTree = "<group>"; };
+		70801CFF284FF6FBD14D82F8 /* Pods-ArcTikV1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests.release.xcconfig"; sourceTree = "<group>"; };
+		70BF7755765985E0AC287531 /* Pods_ArcTikV1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D27F999104AAD3BF0E095EF /* Pods-ArcTikV1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8713C15721E0AA1800EB3C66 /* UserProfileCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionView.swift; sourceTree = "<group>"; };
 		8713C15921E0AADE00EB3C66 /* UserProfileTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTopView.swift; sourceTree = "<group>"; };
 		8718CA2521DD7D6E00C00916 /* NormalUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalUITextField.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		8734DBEC21E99E5600CD3709 /* ReviewPageDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDescriptionCell.swift; sourceTree = "<group>"; };
 		8734DBEF21E9A1E200CD3709 /* ReviewPageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageInfoCell.swift; sourceTree = "<group>"; };
 		8734DBF521E9A99300CD3709 /* CreateEventButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventButtonCell.swift; sourceTree = "<group>"; };
+		873A680021F15616004D23F0 /* AskForAddressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAddressPage.swift; sourceTree = "<group>"; };
 		874794EE21DEF84D00397271 /* MessagesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesPage.swift; sourceTree = "<group>"; };
 		874794F121DEFAAA00397271 /* MessagesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCollectionView.swift; sourceTree = "<group>"; };
 		874794F321DEFAF800397271 /* MessagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -305,10 +308,9 @@
 		87F9AE2421DE88FD0094679F /* EventsAroundYouCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouCell.swift; sourceTree = "<group>"; };
 		87F9AE2721DE92970094679F /* EventsAroundYouCellInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouCellInfoView.swift; sourceTree = "<group>"; };
 		87F9AE2A21DE98BD0094679F /* EventsAroundYouImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouImageCell.swift; sourceTree = "<group>"; };
-		8CA4BCA19706B7AC16E7F981 /* Pods_ArcTikV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B864A66D9F009A7177AB7FB8 /* Pods-ArcTikV1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		CB91464A8B7B6CB7D9201EC9 /* Pods-ArcTikV1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests.release.xcconfig"; sourceTree = "<group>"; };
-		DF5BDE157FF2B6B7190EBABE /* Pods-ArcTikV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1.debug.xcconfig"; sourceTree = "<group>"; };
+		CC9234BED325545F48534632 /* Pods_ArcTikV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArcTikV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4FE561F7D2B326BE1F3AF84 /* Pods-ArcTikV1UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1UITests/Pods-ArcTikV1UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED024B37AFB0FDA931A018A9 /* Pods-ArcTikV1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcTikV1.release.xcconfig"; path = "Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,7 +318,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3129DDEC415FD417CEAE8E1A /* Pods_ArcTikV1.framework in Frameworks */,
+				D6653391C95B2C2942FFA78B /* Pods_ArcTikV1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9B959EAA1A85A84A4F514C0 /* Pods_ArcTikV1Tests.framework in Frameworks */,
+				4E31EC986A65A8DC71D0C32E /* Pods_ArcTikV1Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,13 +334,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32BADDE82FE4E6DA94FCF860 /* Pods_ArcTikV1UITests.framework in Frameworks */,
+				BE83873E351DB314B00AD012 /* Pods_ArcTikV1UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6372236A9094F94D496B88CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC9234BED325545F48534632 /* Pods_ArcTikV1.framework */,
+				3FC3E24E2F5D7EDC8040178B /* Pods_ArcTikV1Tests.framework */,
+				70BF7755765985E0AC287531 /* Pods_ArcTikV1UITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8713C15521E0A9BA00EB3C66 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,6 +682,7 @@
 			children = (
 				878373B521E7AD6C00EAAFF0 /* LocationPage.swift */,
 				878373B721E7AD8900EAAFF0 /* LocationPageCell.swift */,
+				873A680021F15616004D23F0 /* AskForAddressPage.swift */,
 			);
 			path = LocationPage;
 			sourceTree = "<group>";
@@ -857,8 +870,8 @@
 				87D89BA621DCA553009160A3 /* ArcTikV1Tests */,
 				87D89BB121DCA553009160A3 /* ArcTikV1UITests */,
 				87D89B8D21DCA552009160A3 /* Products */,
-				9E805C7C69C602265AF7AF59 /* Pods */,
-				A058DC54638F7ED230C99ACC /* Frameworks */,
+				FCFE964C54B8233A498B7CF2 /* Pods */,
+				6372236A9094F94D496B88CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -949,27 +962,17 @@
 			path = EventsAroundYouImageCell;
 			sourceTree = "<group>";
 		};
-		9E805C7C69C602265AF7AF59 /* Pods */ = {
+		FCFE964C54B8233A498B7CF2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DF5BDE157FF2B6B7190EBABE /* Pods-ArcTikV1.debug.xcconfig */,
-				661A54C0BFAC7555F5AA086A /* Pods-ArcTikV1.release.xcconfig */,
-				B864A66D9F009A7177AB7FB8 /* Pods-ArcTikV1Tests.debug.xcconfig */,
-				CB91464A8B7B6CB7D9201EC9 /* Pods-ArcTikV1Tests.release.xcconfig */,
-				3C9AAB3D5B93C416E95B9770 /* Pods-ArcTikV1UITests.debug.xcconfig */,
-				66E379C4DCEFF243EB1122F0 /* Pods-ArcTikV1UITests.release.xcconfig */,
+				6F1DF26CF1D23E8FA8530ACE /* Pods-ArcTikV1.debug.xcconfig */,
+				ED024B37AFB0FDA931A018A9 /* Pods-ArcTikV1.release.xcconfig */,
+				7D27F999104AAD3BF0E095EF /* Pods-ArcTikV1Tests.debug.xcconfig */,
+				70801CFF284FF6FBD14D82F8 /* Pods-ArcTikV1Tests.release.xcconfig */,
+				E4FE561F7D2B326BE1F3AF84 /* Pods-ArcTikV1UITests.debug.xcconfig */,
+				368076B9B91ADBC2646DE5EA /* Pods-ArcTikV1UITests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		A058DC54638F7ED230C99ACC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8CA4BCA19706B7AC16E7F981 /* Pods_ArcTikV1.framework */,
-				23E58A1F16D57C6AF4CE75D9 /* Pods_ArcTikV1Tests.framework */,
-				506D570F056750F249B234ED /* Pods_ArcTikV1UITests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -979,10 +982,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 87D89BB721DCA553009160A3 /* Build configuration list for PBXNativeTarget "ArcTikV1" */;
 			buildPhases = (
-				072C134BF41D4D4130B6E1EB /* [CP] Check Pods Manifest.lock */,
+				6B1778A8A1C77698FD131A79 /* [CP] Check Pods Manifest.lock */,
 				87D89B8821DCA552009160A3 /* Sources */,
 				87D89B8921DCA552009160A3 /* Frameworks */,
 				87D89B8A21DCA552009160A3 /* Resources */,
+				963EFD30E49C451F1A7BFD61 /* [CP] Embed Pods Frameworks */,
+				3D4476C6A126997E27CFB008 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -997,12 +1002,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 87D89BBA21DCA553009160A3 /* Build configuration list for PBXNativeTarget "ArcTikV1Tests" */;
 			buildPhases = (
-				443A0D4F2454B70596130736 /* [CP] Check Pods Manifest.lock */,
+				45D2A33AE81360F740133F6E /* [CP] Check Pods Manifest.lock */,
 				87D89B9F21DCA553009160A3 /* Sources */,
 				87D89BA021DCA553009160A3 /* Frameworks */,
 				87D89BA121DCA553009160A3 /* Resources */,
-				073989ACDE4BA368368B2B3E /* [CP] Embed Pods Frameworks */,
-				9AB79972C99AF68811CF35E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1018,7 +1021,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 87D89BBD21DCA553009160A3 /* Build configuration list for PBXNativeTarget "ArcTikV1UITests" */;
 			buildPhases = (
-				CFDB1EC1838C73929E321C20 /* [CP] Check Pods Manifest.lock */,
+				EA3DB7C03BF042FBEEF151E8 /* [CP] Check Pods Manifest.lock */,
 				87D89BAA21DCA553009160A3 /* Sources */,
 				87D89BAB21DCA553009160A3 /* Frameworks */,
 				87D89BAC21DCA553009160A3 /* Resources */,
@@ -1123,7 +1126,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		072C134BF41D4D4130B6E1EB /* [CP] Check Pods Manifest.lock */ = {
+		3D4476C6A126997E27CFB008 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1131,49 +1134,25 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ArcTikV1-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		073989ACDE4BA368368B2B3E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
-				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		443A0D4F2454B70596130736 /* [CP] Check Pods Manifest.lock */ = {
+		45D2A33AE81360F740133F6E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1195,7 +1174,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9AB79972C99AF68811CF35E3 /* [CP] Copy Pods Resources */ = {
+		6B1778A8A1C77698FD131A79 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1203,25 +1182,49 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"$(DERIVED_FILE_DIR)/Pods-ArcTikV1-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1Tests/Pods-ArcTikV1Tests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CFDB1EC1838C73929E321C20 /* [CP] Check Pods Manifest.lock */ = {
+		963EFD30E49C451F1A7BFD61 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ArcTikV1/Pods-ArcTikV1-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA3DB7C03BF042FBEEF151E8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1296,6 +1299,7 @@
 				8752761F21E6E21300041E32 /* PastEventsPage.swift in Sources */,
 				87D5DFA621F049830094D42C /* User.swift in Sources */,
 				872F6A4721EDDBB80022CD97 /* EventsInfoBottomBarView.swift in Sources */,
+				873A680121F15616004D23F0 /* AskForAddressPage.swift in Sources */,
 				879DC0C421F11F9800D30581 /* CreatedEventsNewEvent.swift in Sources */,
 				872F6A3C21EBC88D0022CD97 /* EventInfoTitleCell.swift in Sources */,
 				87F6CB8621E58F7000A6F6AF /* ChatCell.swift in Sources */,
@@ -1522,7 +1526,7 @@
 		};
 		87D89BB821DCA553009160A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF5BDE157FF2B6B7190EBABE /* Pods-ArcTikV1.debug.xcconfig */;
+			baseConfigurationReference = 6F1DF26CF1D23E8FA8530ACE /* Pods-ArcTikV1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1542,7 +1546,7 @@
 		};
 		87D89BB921DCA553009160A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 661A54C0BFAC7555F5AA086A /* Pods-ArcTikV1.release.xcconfig */;
+			baseConfigurationReference = ED024B37AFB0FDA931A018A9 /* Pods-ArcTikV1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1562,7 +1566,7 @@
 		};
 		87D89BBB21DCA553009160A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B864A66D9F009A7177AB7FB8 /* Pods-ArcTikV1Tests.debug.xcconfig */;
+			baseConfigurationReference = 7D27F999104AAD3BF0E095EF /* Pods-ArcTikV1Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1583,7 +1587,7 @@
 		};
 		87D89BBC21DCA553009160A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB91464A8B7B6CB7D9201EC9 /* Pods-ArcTikV1Tests.release.xcconfig */;
+			baseConfigurationReference = 70801CFF284FF6FBD14D82F8 /* Pods-ArcTikV1Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1604,7 +1608,7 @@
 		};
 		87D89BBE21DCA553009160A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C9AAB3D5B93C416E95B9770 /* Pods-ArcTikV1UITests.debug.xcconfig */;
+			baseConfigurationReference = E4FE561F7D2B326BE1F3AF84 /* Pods-ArcTikV1UITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1624,7 +1628,7 @@
 		};
 		87D89BBF21DCA553009160A3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66E379C4DCEFF243EB1122F0 /* Pods-ArcTikV1UITests.release.xcconfig */;
+			baseConfigurationReference = 368076B9B91ADBC2646DE5EA /* Pods-ArcTikV1UITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

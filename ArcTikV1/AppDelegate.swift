@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-
+import GooglePlaces
 
 var UIScreenWidth: CGFloat?;
 var UIScreenHeight: CGFloat?;
@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        GMSPlacesClient.provideAPIKey("AIzaSyDFRHQiAMAnVk5BLgySA1V5XSBUbotNX14")
+//        GMSServices.provideAPIKey("AIzaSyDFRHQiAMAnVk5BLgySA1V5XSBUbotNX14");
         
         window = UIWindow(frame: UIScreen.main.bounds);
         window?.makeKeyAndVisible();
