@@ -37,7 +37,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+        setCurrentEventData()
         setupNavBar();
         collectionView?.backgroundColor = UIColor.white;
         collectionView?.showsVerticalScrollIndicator = false;
@@ -46,6 +46,12 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         self.collectionView?.register(ReviewPageDescriptionCell.self, forCellWithReuseIdentifier: descriptionCellReuse);
         self.collectionView?.register(ReviewPageInfoCell.self, forCellWithReuseIdentifier: reviewInfoCellReuse);
         self.collectionView?.register(CreateEventButtonCell.self, forCellWithReuseIdentifier: createEventButtonReuse);
+    }
+    
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 9;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){

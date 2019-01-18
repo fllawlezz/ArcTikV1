@@ -57,6 +57,7 @@ class UploadImagesPage: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        setCurrentEventData();
         setupNavBar();
         setupTitleLabel();
         setupDescriptionLabel();
@@ -64,6 +65,12 @@ class UploadImagesPage: UIViewController{
         setupImageView();
         setupPlusImage();
         setupNextButton();
+    }
+    
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 7;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){

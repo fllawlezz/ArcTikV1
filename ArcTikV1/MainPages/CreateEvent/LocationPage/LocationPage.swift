@@ -43,7 +43,7 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setCurrentEventData();
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -57,6 +57,12 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         setupNextButton();
         setupNavBar();
         // Do any additional setup after loading the view.
+    }
+    
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 2;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){
@@ -161,9 +167,10 @@ extension LocationPage{
             //get alert
             showEmptyAlert();
         }else{
-//            let requirementsPage = RequirementsPage();
-            let layout = UICollectionViewFlowLayout();
-            let requirementsPage = RequirementsPageList(collectionViewLayout: layout);
+            let requirementsPage = RequirementsPage();
+            
+//            let requirementsPage = RequirementsPageList();
+            
             self.navigationController?.pushViewController(requirementsPage, animated: true);
         }
     }

@@ -34,6 +34,7 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
+        setCurrentEventData();
         setupNavBar();
         self.collectionView?.isScrollEnabled = true;
         self.collectionView?.backgroundColor = UIColor.white;
@@ -42,6 +43,11 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: datePageHeaderReuse)
         setupNextButton();
         // Do any additional setup after loading the view.
+    }
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 5;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){

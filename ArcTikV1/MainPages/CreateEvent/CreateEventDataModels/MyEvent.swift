@@ -14,7 +14,7 @@ class MyEvent{
     var street: String?
     var city: String?
     var zipcode: String?
-    var requirements: String?
+    var requirements: [String]?
     var privacy: String?
     var people: Int?
     var startDate: String?

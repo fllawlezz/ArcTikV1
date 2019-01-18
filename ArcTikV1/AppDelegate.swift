@@ -39,8 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             populateUser();
             let customTab = CustomTabBar();
             window?.rootViewController = customTab;
-//            let layout = UICollectionViewFlowLayout();
-//            let requirementsPage = RequirementsPageList(collectionViewLayout: layout);
+            
+//            let requirementsPage = RequirementsPage();
+////            requirementsPage.fromEventsInfo = true;
 //            let navigationController = UINavigationController(rootViewController: requirementsPage);
 //            navigationController.navigationBar.isTranslucent = false;
 //            navigationController.navigationBar.barStyle = .blackTranslucent;

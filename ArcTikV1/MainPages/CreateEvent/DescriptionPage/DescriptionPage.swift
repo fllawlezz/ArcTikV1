@@ -43,6 +43,7 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        setCurrentEventData();
         setupNavBar();
         setupTitleLabel();
         setupTextView();
@@ -50,6 +51,12 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
         setupNextButton();
         
         self.descriptionTextView.becomeFirstResponder();
+    }
+    
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 1;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){

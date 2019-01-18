@@ -40,6 +40,12 @@ class PrivacyPage: UICollectionViewController, UICollectionViewDelegateFlowLayou
         setupNextButton();
     }
     
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 4;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
+    }
+    
     fileprivate func setupNavBar(){
         let clearButton = UIBarButtonItem(image: UIImage(named: "clearWhiteNav"), style: .plain, target: self, action: #selector(self.handleClearPressed));
         self.navigationItem.leftBarButtonItem = clearButton;

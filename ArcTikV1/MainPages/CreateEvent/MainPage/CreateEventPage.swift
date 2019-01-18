@@ -10,6 +10,8 @@ import UIKit
 
 var currentEvent: MyEvent?;
 
+let reloadCreateEventPage = "ReloadCreateEventPage";
+
 class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventMainCellDelegate {
     
     let createEventCellReuse = "CreateEventCellReuse";
@@ -17,32 +19,34 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     
     let titleList = ["Event Title","Description","Location","Requirements","Privacy","Date","Pricing","Review"];
     
-    var currentStep = 0;
+//    var currentStep = currentEvent!.stepNumber;
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        addObservers();
         collectionView?.backgroundColor = UIColor.white;
         // Register cell classes
         self.collectionView!.register(CreateEventMainCell.self, forCellWithReuseIdentifier: createEventCellReuse)
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: createEventHeaderReuse);
         setupNavBar();
-        setupData();
         // Do any additional setup after loading the view.
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func addObservers(){
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadCollectionView), name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){
         
         let clearButton = UIBarButtonItem(image: UIImage(named: "clearWhiteNav"), style: .plain, target: self, action: #selector(self.handleClearPressed));
         self.navigationItem.leftBarButtonItem = clearButton;
-    }
-    
-    fileprivate func setupData(){
-        if let currentEvent = currentEvent{
-            self.currentStep = currentEvent.stepNumber;
-        }
     }
     // MARK: UICollectionViewDataSource
 
@@ -62,13 +66,13 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         cell.setTitle(title: titleList[indexPath.item])
         cell.delegate = self;
         
-        if(indexPath.item == currentStep){
+        if(indexPath.item == currentEvent!.stepNumber){
             cell.revealContinueButton();
         }else{
             cell.continueButton.isHidden = true;
         }
         
-        if(indexPath.item < currentStep){
+        if(indexPath.item < currentEvent!.stepNumber){
             cell.revealGreenCheck();
         }else{
             cell.checkMarkImage.isHidden = true;
@@ -78,7 +82,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(indexPath.item == 0){
+        if(indexPath.item == currentEvent!.stepNumber){
             return CGSize(width: self.view.frame.width, height: 110);
         }
         return CGSize(width: self.view.frame.width, height: 50);
@@ -103,6 +107,10 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
 }
 
 extension CreateEventPage{
+    @objc func reloadCollectionView(){
+        self.collectionView?.reloadData();
+    }
+    
     @objc func handleClearPressed(){
         self.dismiss(animated: true, completion: nil);
 //        self.navigationController?.dismiss(animated: true, completion: nil);
@@ -110,7 +118,15 @@ extension CreateEventPage{
     
     func continuePressed() {
         let descriptionPage = TitlePage();
-        self.navigationController?.pushViewController(descriptionPage, animated: true);
+        
+        let navigationController = UINavigationController(rootViewController: descriptionPage);
+        navigationController.navigationBar.isTranslucent = false;
+        navigationController.navigationBar.barStyle = .blackTranslucent;
+        navigationController.navigationBar.tintColor = UIColor.white;
+        navigationController.navigationBar.barTintColor = UIColor.appBlue;
+        self.present(navigationController, animated: true, completion: nil);
+        
+        
     }
     
 }

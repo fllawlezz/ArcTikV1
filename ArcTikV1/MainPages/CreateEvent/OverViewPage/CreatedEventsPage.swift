@@ -104,6 +104,7 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
         }else{
 //            currentEvent = MyEvent(stepNumber: 0, eventTitle: "default", description: "default", country: "default", street: "default", city: "default", zipcode: "default", requirements: "default", privacy: "default", people: 0, startDate: "default", endDate: "default", startTime: "default", endTime: "default", charge: 0, imgURL: "default");
             currentEvent = MyEvent();
+            currentEvent?.stepNumber = 0;
         }
         self.handleCreateEvent();
         

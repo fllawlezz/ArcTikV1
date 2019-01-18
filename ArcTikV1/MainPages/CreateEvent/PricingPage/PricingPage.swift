@@ -45,12 +45,19 @@ class PricingPage: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        setCurrentEventData();
         setupNavBar();
         setupTitleLabel();
         setupChargeField();
         setupBorder();
         setupNextButton();
         self.chargeField.becomeFirstResponder();
+    }
+    
+    fileprivate func setCurrentEventData(){
+        currentEvent?.stepNumber = 6;
+        let name = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){
