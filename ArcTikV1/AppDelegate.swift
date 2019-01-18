@@ -39,6 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             populateUser();
             let customTab = CustomTabBar();
             window?.rootViewController = customTab;
+//            let layout = UICollectionViewFlowLayout();
+//            let requirementsPage = RequirementsPageList(collectionViewLayout: layout);
+//            let navigationController = UINavigationController(rootViewController: requirementsPage);
+//            navigationController.navigationBar.isTranslucent = false;
+//            navigationController.navigationBar.barStyle = .blackTranslucent;
+//            navigationController.navigationBar.tintColor = UIColor.white;
+//            navigationController.navigationBar.barTintColor = UIColor.appBlue;
+////            self.present(navigationController, animated: true, completion: nil);
+//            window?.rootViewController = navigationController;
         }else{
             let loginViewController = LoginPage();
             let startingNavigationController = UINavigationController(rootViewController: loginViewController);

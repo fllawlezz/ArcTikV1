@@ -75,6 +75,7 @@
 		878373B621E7AD6C00EAAFF0 /* LocationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878373B521E7AD6C00EAAFF0 /* LocationPage.swift */; };
 		878373B821E7AD8900EAAFF0 /* LocationPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878373B721E7AD8900EAAFF0 /* LocationPageCell.swift */; };
 		878373BB21E7B39200EAAFF0 /* RequirementsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878373BA21E7B39200EAAFF0 /* RequirementsPage.swift */; };
+		8785CEB021F173DC006BA4ED /* RequirementsPageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8785CEAF21F173DC006BA4ED /* RequirementsPageList.swift */; };
 		878E00F221F0FB050021009B /* ForgotPassword0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E00F121F0FB050021009B /* ForgotPassword0.swift */; };
 		878E00F421F105A60021009B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E00F321F105A60021009B /* LoadingView.swift */; };
 		879902D221E2D76500372F46 /* EventsInfoProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879902D121E2D76500372F46 /* EventsInfoProfileView.swift */; };
@@ -236,6 +237,7 @@
 		878373B521E7AD6C00EAAFF0 /* LocationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPage.swift; sourceTree = "<group>"; };
 		878373B721E7AD8900EAAFF0 /* LocationPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPageCell.swift; sourceTree = "<group>"; };
 		878373BA21E7B39200EAAFF0 /* RequirementsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementsPage.swift; sourceTree = "<group>"; };
+		8785CEAF21F173DC006BA4ED /* RequirementsPageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequirementsPageList.swift; sourceTree = "<group>"; };
 		878E00F121F0FB050021009B /* ForgotPassword0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassword0.swift; sourceTree = "<group>"; };
 		878E00F321F105A60021009B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		879902D121E2D76500372F46 /* EventsInfoProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoProfileView.swift; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				878373BA21E7B39200EAAFF0 /* RequirementsPage.swift */,
+				8785CEAF21F173DC006BA4ED /* RequirementsPageList.swift */,
 			);
 			path = RequirementsPage;
 			sourceTree = "<group>";
@@ -1349,6 +1352,7 @@
 				879DC0BB21F11A4000D30581 /* CreatedEventsPage.swift in Sources */,
 				877C92CD21E29A87005C4E88 /* EventsInfoMainCell.swift in Sources */,
 				877C92C021E20DB5005C4E88 /* FiltersPriceCell.swift in Sources */,
+				8785CEB021F173DC006BA4ED /* RequirementsPageList.swift in Sources */,
 				878E00F221F0FB050021009B /* ForgotPassword0.swift in Sources */,
 				872E433421DDC9970051F563 /* SignUpTermsView.swift in Sources */,
 				87B31F0E21DDD1580054254C /* ForgotPasswordPage1.swift in Sources */,

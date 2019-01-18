@@ -161,7 +161,9 @@ extension LocationPage{
             //get alert
             showEmptyAlert();
         }else{
-            let requirementsPage = RequirementsPage();
+//            let requirementsPage = RequirementsPage();
+            let layout = UICollectionViewFlowLayout();
+            let requirementsPage = RequirementsPageList(collectionViewLayout: layout);
             self.navigationController?.pushViewController(requirementsPage, animated: true);
         }
     }
