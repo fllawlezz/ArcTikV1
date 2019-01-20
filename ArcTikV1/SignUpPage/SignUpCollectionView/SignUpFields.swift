@@ -84,6 +84,15 @@ extension SignUpFields{
         }
     }
     
+    func resignAllFields(){
+        var count = 0;
+        while(count < 5){
+            let cell = self.cellForItem(at: IndexPath(item: count, section: 0)) as! SignUpFieldCell;
+            cell.cellTextField.resignFirstResponder();
+            count += 1;
+        }
+    }
+    
     func getAllData() -> [String]{
         var cellData = [String]();
         var count = 0;

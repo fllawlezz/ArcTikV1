@@ -39,11 +39,12 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         "Eg: 91234"
     ]
     
-    let placesClient = GMSPlacesClient();
+    var country, street, city, zipcode: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setCurrentEventData();
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -56,6 +57,7 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         self.collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerIdentifier);
         setupNextButton();
         setupNavBar();
+        setCurrentEventData();
         // Do any additional setup after loading the view.
     }
     
@@ -63,6 +65,20 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         currentEvent?.stepNumber = 2;
         let name = Notification.Name(rawValue: reloadCreateEventPage);
         NotificationCenter.default.post(name: name, object: nil);
+        
+        if let country = currentEvent?.country{
+            self.country = country;
+        }
+        
+        if let street = currentEvent?.street{
+            self.street = street;
+        }
+        if let city = currentEvent?.city{
+            self.city = city;
+        }
+        if let zipcode = currentEvent?.zipcode{
+            self.zipcode = zipcode;
+        }
     }
     
     fileprivate func setupNavBar(){
@@ -107,7 +123,21 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         // Configure the cell
         cell.indexPath = indexPath.item;
         cell.delegate = self;
-    
+        if(indexPath.item == 0){
+            cell.infoField.text = self.country;
+        }
+        
+        if(indexPath.item == 1){
+            cell.infoField.text = self.street;
+        }
+        
+        if(indexPath.item == 2){
+            cell.infoField.text = self.city
+        }
+        
+        if(indexPath.item == 3){
+            cell.infoField.text = self.zipcode;
+        }
         return cell
     }
     
@@ -141,6 +171,17 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
 
     }
     
+    func getData()->[String]{
+        var count = 0;
+        var data = [String]();
+        while(count < 4){
+            let cell = self.collectionView?.cellForItem(at: IndexPath(item: count, section: 0)) as! LocationPageCell;
+            data.append(cell.infoField.text!);//in order from : country, street, city, region
+            count+=1;
+        }
+        return data;
+    }
+    
     func checkIfEmpty()->Bool{
         var empty = false;
         var count = 0;
@@ -167,6 +208,14 @@ extension LocationPage{
             //get alert
             showEmptyAlert();
         }else{
+            
+            var locationData = getData();
+            
+            currentEvent?.country = locationData[0];
+            currentEvent?.street = locationData[1];
+            currentEvent?.city = locationData[2];
+            currentEvent?.zipcode = locationData[3];
+            
             let requirementsPage = RequirementsPage();
             
 //            let requirementsPage = RequirementsPageList();
@@ -213,6 +262,9 @@ extension LocationPage{
     }
     
     func handleEnterStreet() {
+        
+        
+        
         let layout = UICollectionViewFlowLayout();
         let addressPage = AskForAddressPage(collectionViewLayout: layout);
         

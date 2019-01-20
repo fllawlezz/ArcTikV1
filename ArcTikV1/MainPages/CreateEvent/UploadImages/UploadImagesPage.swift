@@ -68,7 +68,7 @@ class UploadImagesPage: UIViewController{
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 7;
+        currentEvent?.stepNumber = 8;
         let name = Notification.Name(rawValue: reloadCreateEventPage);
         NotificationCenter.default.post(name: name, object: nil);
     }

@@ -46,6 +46,8 @@ class SignUpPage: UIViewController, UITextViewDelegate {
         return signUpButton;
     }()
     
+    var loadingView = LoadingView();
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.appBlue;
@@ -55,6 +57,7 @@ class SignUpPage: UIViewController, UITextViewDelegate {
         setupSignUpFields();
         setupTermsView();
         setupSignUpButton();
+        setupLoadingView();
     }
     
     fileprivate func setupClearButton(){
@@ -100,6 +103,24 @@ class SignUpPage: UIViewController, UITextViewDelegate {
         
         signUpButton.addTarget(self, action: #selector(self.handleSignUpAttempt), for: .touchUpInside);
     }
+    
+    fileprivate func setupLoadingView(){
+        self.view.addSubview(loadingView);
+        loadingView.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.view.topAnchor, bottom: self.view.bottomAnchor);
+        loadingView.isHidden = true;
+    }
+    
+    func showLoadingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = false;
+        }
+    }
+    
+    func hideLaodingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = true;
+        }
+    }
 }
 
 extension SignUpPage{
@@ -114,6 +135,7 @@ extension SignUpPage{
     
     @objc func handleSignUpAttempt(){
 //        print("attempt");
+        self.signUpFields.resignAllFields();
         let cellData = signUpFields.getAllData();
         if(cellData.count < 6){
             let alert = UIAlertController(title: "Ugh-Oh", message: "Please fill out all fields", preferredStyle: .alert);
@@ -121,7 +143,10 @@ extension SignUpPage{
             self.present(alert, animated: true, completion: nil);
             return;
         }else{
-            let url = URL(string: "http://localhost:3000/user_SignUp")!;
+            self.showLoadingView();
+            
+//            let url = URL(string: "http://localhost:3000/user_SignUp")!;
+            let url = URL(string:"http://ec2-54-191-14-29.us-west-2.compute.amazonaws.com:3000/user_SignUp")!;
             var request = URLRequest(url: url);
             let postBody = "userName=\(cellData[0])&firstName=\(cellData[1])&lastName=\(cellData[2])&email=\(cellData[3])&phoneNumber=\(cellData[4])&password=\(cellData[5])";
             request.httpMethod = "POST";
@@ -129,6 +154,9 @@ extension SignUpPage{
             let task = URLSession.shared.dataTask(with: request) { (data, re, err) in
                 if(err != nil){
                     print("err");
+                    DispatchQueue.main.async {
+                        self.showErrorAlert();
+                    }
                     return;
                 }
                 if(data != nil){
@@ -139,7 +167,7 @@ extension SignUpPage{
                             self.showEmailExistsAlert();
                         }
                     }else if(response == "success"){
-                        print("successful");
+//                        print("successful");
                     }
                 }
             }
@@ -148,7 +176,15 @@ extension SignUpPage{
     }
     
     fileprivate func showEmailExistsAlert(){
+        self.hideLaodingView();
         let alert = UIAlertController(title: "Email/Username/Phone # Found", message: "Some of your data was already registered! Please login!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showErrorAlert(){
+        self.hideLaodingView();
+        let alert = UIAlertController(title: "Error", message: "There was an error connecting to our servers. Please try again later!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
     }

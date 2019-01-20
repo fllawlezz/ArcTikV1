@@ -43,6 +43,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.delegate = self;
         collectionView?.dataSource = self;
         collectionView?.showsVerticalScrollIndicator = false;
+        
         collectionView?.register(EventsInfoMainCell.self, forCellWithReuseIdentifier: eventsInfoCellReuse);
         self.collectionView?.register(EventsInfoHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerCellReuse);
         collectionView?.register(EventsInfoSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderReuse);

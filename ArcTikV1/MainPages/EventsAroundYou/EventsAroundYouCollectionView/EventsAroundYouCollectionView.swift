@@ -26,6 +26,7 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
         self.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
         self.translatesAutoresizingMaskIntoConstraints = false;
         self.backgroundColor = UIColor.veryLightGray;
+        self.alwaysBounceVertical = true;
         self.delegate = self;
         self.dataSource = self;
         self.register(EventsAroundYouCell.self, forCellWithReuseIdentifier: eventsReuse);

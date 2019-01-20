@@ -26,19 +26,11 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
         return descriptionTextView;
     }()
     
-    var wordCountLabel: NormalUILabel = {
-        let wordCountLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 14), textAlign: .right);
-        wordCountLabel.text = "0/225";
-        return wordCountLabel;
-    }()
-    
     var nextButton: NormalUIButton = {
         let nextButton = NormalUIButton(type: .system);
         nextButton.setButtonProperties(backgroundColor: .appBlue, title: "Next", font: .montserratSemiBold(fontSize: 14), fontColor: .white);
         return nextButton;
     }()
-    
-    var wordCount = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -47,7 +39,6 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
         setupNavBar();
         setupTitleLabel();
         setupTextView();
-        setupWordCount();
         setupNextButton();
         
         self.descriptionTextView.becomeFirstResponder();
@@ -57,6 +48,10 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
         currentEvent?.stepNumber = 1;
         let name = Notification.Name(rawValue: reloadCreateEventPage);
         NotificationCenter.default.post(name: name, object: nil);
+        
+        if let description = currentEvent?.description{
+            self.descriptionTextView.text = description;
+        }
     }
     
     fileprivate func setupNavBar(){
@@ -71,41 +66,36 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
     
     fileprivate func setupTextView(){
         self.view.addSubview(descriptionTextView);
-        descriptionTextView.anchor(left: self.titleLabel.leftAnchor, right: self.titleLabel.rightAnchor, top: self.titleLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 0, height: 150);
+        descriptionTextView.anchor(left: self.titleLabel.leftAnchor, right: self.titleLabel.rightAnchor, top: self.titleLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 0, height: 200);
         descriptionTextView.delegate = self;
-    }
-    
-    fileprivate func setupWordCount(){
-        self.view.addSubview(wordCountLabel);
-        wordCountLabel.anchor(left: nil, right: self.descriptionTextView.rightAnchor, top: self.descriptionTextView.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 5, constantBottom: 0, width: 50, height: 20);
     }
     
     fileprivate func setupNextButton(){
         self.view.addSubview(nextButton);
-        nextButton.anchor(left: nil, right: self.descriptionTextView.rightAnchor, top: self.wordCountLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 100, height: 40);
+        nextButton.anchor(left: nil, right: self.descriptionTextView.rightAnchor, top: self.descriptionTextView.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 100, height: 40);
         nextButton.addTarget(self, action: #selector(self.handleNextButtonPressed), for: .touchUpInside);
     }
     
 }
 
 extension DescriptionPage{
-    func textViewDidChange(_ textView: UITextView) {
-        wordCount = textView.text.count;
-        self.wordCountLabel.text = "\(wordCount)/225"
-        
-        if(wordCount == 225){
-            self.wordCountLabel.textColor = UIColor.red;
-        }else if(wordCount < 225){
-            self.wordCountLabel.textColor = UIColor.darkText;
-        }else if(wordCount > 225){
-            wordCount = 225;
-            self.wordCountLabel.text = "\(wordCount)/225"
-            
-            let currentText = textView.text;
-            let newText = currentText?.dropLast();
-            descriptionTextView.text = String(newText!);
-        }
-    }
+//    func textViewDidChange(_ textView: UITextView) {
+//        wordCount = textView.text.count;
+//        self.wordCountLabel.text = "\(wordCount)/225"
+//
+//        if(wordCount == 225){
+//            self.wordCountLabel.textColor = UIColor.red;
+//        }else if(wordCount < 225){
+//            self.wordCountLabel.textColor = UIColor.darkText;
+//        }else if(wordCount > 225){
+//            wordCount = 225;
+//            self.wordCountLabel.text = "\(wordCount)/225"
+//
+//            let currentText = textView.text;
+//            let newText = currentText?.dropLast();
+//            descriptionTextView.text = String(newText!);
+//        }
+//    }
 }
 
 extension DescriptionPage{

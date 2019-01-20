@@ -113,7 +113,8 @@ extension PricingPage{
     }
     
     @objc func handleNextButtonPressed(){
-        let uploadImagesPage = UploadImagesPage();
-        self.navigationController?.pushViewController(uploadImagesPage, animated: true);
+//        let uploadImagesPage = UploadImagesPage();
+        let thingsToBringPage = ThingsToBringPage();
+        self.navigationController?.pushViewController(thingsToBringPage, animated: true);
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CreateEventMainCellDelegate{
-    func continuePressed();
+    func continuePressed(indexPath: IndexPath);
 }
 
 class CreateEventMainCell: UICollectionViewCell{
@@ -42,7 +42,7 @@ class CreateEventMainCell: UICollectionViewCell{
     }()
     
     var delegate:CreateEventMainCellDelegate?;
-    
+    var indexPath: IndexPath?;
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
@@ -96,6 +96,8 @@ class CreateEventMainCell: UICollectionViewCell{
 
 extension CreateEventMainCell{
     @objc func handleContinuePressed(){
-        self.delegate?.continuePressed();
+        if let indexPath = self.indexPath{
+            self.delegate?.continuePressed(indexPath: indexPath);
+        }
     }
 }

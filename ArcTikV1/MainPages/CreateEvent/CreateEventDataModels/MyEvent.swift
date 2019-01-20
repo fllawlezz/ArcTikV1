@@ -22,6 +22,7 @@ class MyEvent{
     var startTime: String?
     var endTime: String?
     var charge: Double?
+    var thingsToBring: [String]?;
     var imgURL: String?
     
 //    init(stepNumber: Int, eventTitle: String, description: String, country: String, street: String, city: String, zipcode: String, requirements: String, privacy: String, people: Int, startDate: String, endDate: String, startTime: String, endTime: String, charge: Double, imgURL: String){

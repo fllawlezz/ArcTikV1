@@ -67,6 +67,8 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         return signUpView;
     }()
     
+    var loadingView = LoadingView();
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.appBlue;
@@ -76,6 +78,7 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         setupLogoImage();
         setupForgotPassword();
         setupSignUpView();
+        setupLoadingView();
     }
     
     fileprivate func setupPasswordField(){
@@ -137,6 +140,29 @@ class LoginPage: UIViewController, SignUpViewDelegate{
         
         signUpView.delegate = self;
     }
+    
+    fileprivate func setupLoadingView(){
+        self.view.addSubview(loadingView);
+        loadingView.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.view.topAnchor, bottom: self.view.bottomAnchor);
+        loadingView.isHidden = true;
+    }
+    
+    func showLoadingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = false;
+        }
+    }
+    
+    func hideLoadingView(){
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.isHidden = true;
+        }
+    }
+    
+    func resignAllFields(){
+        self.emailField.resignFirstResponder();
+        self.passwordField.resignFirstResponder();
+    }
 }
 
 extension LoginPage{
@@ -159,14 +185,16 @@ extension LoginPage{
     
     @objc func handleLogin(){
         handleLoginAttempt();
-
     }
 }
 
 extension LoginPage{
     func handleLoginAttempt(){
+        self.showLoadingView();
+        self.resignAllFields();
         if(emailField.text!.count > 0 && passwordField.text!.count > 6){
-            let url = URL(string: "http://localhost:3000/loginAttempt")!;
+//            let url = URL(string: "http://localhost:3000/loginAttempt")!;
+            let url = URL(string: "http://arctikllc.com:3000/loginAttempt")!;
             var request = URLRequest(url: url);
             let body = "userNameEmail=\(self.emailField.text!)&password=\(self.passwordField.text!)";
             request.httpMethod = "POST";
@@ -221,6 +249,7 @@ extension LoginPage{
             }
             task.resume();
         }else{
+            self.hideLoadingView();
             let alert = UIAlertController(title: "Fill out fields", message: "Please fill out both fields!", preferredStyle: .alert);
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
             self.present(alert, animated: true, completion: nil);
@@ -228,6 +257,7 @@ extension LoginPage{
     }
     
     fileprivate func handleLoginFailed(){
+        self.hideLoadingView();
         self.emailField.text = "";
         self.passwordField.text = "";
         

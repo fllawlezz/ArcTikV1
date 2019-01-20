@@ -43,6 +43,7 @@ class TitlePage: UIViewController, UITextViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        setCurrentData();
         setupNavBar();
         setupTitleLabel();
         setupTextView();
@@ -50,6 +51,12 @@ class TitlePage: UIViewController, UITextViewDelegate{
         setupNextButton();
         
         self.titleTextView.becomeFirstResponder();
+    }
+    
+    fileprivate func setCurrentData(){
+        if let titleString = currentEvent?.eventTitle{
+            self.titleTextView.text = titleString;
+        }
     }
     
     fileprivate func setupNavBar(){

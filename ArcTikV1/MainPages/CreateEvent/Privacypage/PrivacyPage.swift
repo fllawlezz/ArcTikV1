@@ -31,7 +31,7 @@ class PrivacyPage: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+        setCurrentEventData();
         collectionView?.backgroundColor = UIColor.white;
         collectionView?.register(LocationPageCell.self, forCellWithReuseIdentifier: privacyPageCellReuse);
         collectionView?.register(CreateEventMainHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: privacyHeaderReuse);
