@@ -137,10 +137,48 @@ extension DatePage{
         NotificationCenter.default.post(name: name, object: nil);
         
     }
+    
+    func checkIsEmpty()->Bool{
+        var isEmpty = false;
+        var count = 0;
+        while(count<2){
+            let cell = collectionView?.cellForItem(at: IndexPath(item: count, section: 0)) as! DatePageCell;
+            let cell2 = collectionView?.cellForItem(at: IndexPath(item: count, section: 1)) as! DatePageCell;
+            
+            if(cell.infoField.text?.count == 0 || cell2.infoField.text?.count == 0){
+                isEmpty = true;
+            }
+            count+=1;
+        }
+        return isEmpty;
+    }
 
     
     @objc func handleNextButtonPressed(){
-        let pricingPage = PricingPage();
-        self.navigationController?.pushViewController(pricingPage, animated: true);
+        let isEmpty = checkIsEmpty();
+        if(isEmpty){
+            //show error alert
+            self.showEmptyAlert();
+        }else{
+            let cell = collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! DatePageCell;
+            let cell2 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 0)) as! DatePageCell;
+            
+            let cell3 = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! DatePageCell;
+            let cell4 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 1)) as! DatePageCell;
+            
+            currentEvent?.startDate = cell.infoField.text!
+            currentEvent?.endDate = cell2.infoField.text!;
+            currentEvent?.startTime = cell3.infoField.text!;
+            currentEvent?.endTime = cell4.infoField.text!;
+            
+            let pricingPage = PricingPage();
+            self.navigationController?.pushViewController(pricingPage, animated: true);
+        }
+    }
+    
+    func showEmptyAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "There are empty fields! Please fill out all fields!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

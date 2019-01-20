@@ -95,7 +95,6 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
 //                    print("yes height");
                     return CGSize(width: self.view.frame.width, height: height+60);
                 }
-//                print("not height");
                 return CGSize(width: self.view.frame.width, height: 280);
                 
             }

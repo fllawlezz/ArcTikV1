@@ -61,6 +61,7 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
         myEventsController?.navigationBar.isTranslucent = false;
         myEventsController?.navigationBar.barTintColor = UIColor.appBlue;
         myEventsController?.navigationBar.tintColor = UIColor.white;
+        myEventsController?.navigationBar.barStyle = .blackTranslucent
         myEventsController?.title = "My Events";
         myEventsController?.tabBarItem.image = UIImage(named: "applied");
     }

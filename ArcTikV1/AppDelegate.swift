@@ -39,15 +39,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             populateUser();
             let customTab = CustomTabBar();
             window?.rootViewController = customTab;
-            
-//            let requirementsPage = RequirementsPage();
+//            let layout = UICollectionViewFlowLayout();
+//            let reviewPage = ReviewPage(collectionViewLayout: layout);
+////            let requirementsPage = RequirementsPage();
 ////            requirementsPage.fromEventsInfo = true;
-//            let navigationController = UINavigationController(rootViewController: requirementsPage);
+//            let navigationController = UINavigationController(rootViewController: reviewPage);
 //            navigationController.navigationBar.isTranslucent = false;
 //            navigationController.navigationBar.barStyle = .blackTranslucent;
 //            navigationController.navigationBar.tintColor = UIColor.white;
 //            navigationController.navigationBar.barTintColor = UIColor.appBlue;
-////            self.present(navigationController, animated: true, completion: nil);
+//            self.present(navigationController, animated: true, completion: nil);
 //            window?.rootViewController = navigationController;
         }else{
             let loginViewController = LoginPage();

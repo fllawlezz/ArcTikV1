@@ -174,10 +174,42 @@ extension PrivacyPage{
         self.present(alert, animated: true, completion: nil);
     }
     
+    func checkIfEmpty()->Bool{
+        let cell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! LocationPageCell;
+        let numberOfPeopleCell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! LocationPageCell;
+        
+        let cellString = cell.infoField.text;
+        let numberOfPeople = numberOfPeopleCell.infoField.text;
+        
+        if(cellString!.count > 0 && numberOfPeople!.count > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
     @objc func handleNextButtonPressed(){
-        let layout = UICollectionViewFlowLayout();
-        let datePage = DatePage(collectionViewLayout: layout);
-        self.navigationController?.pushViewController(datePage, animated: true);
+        let isEmpty = checkIfEmpty();
+        if(isEmpty){
+            //showAlert
+        }else{
+            let cell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! LocationPageCell;
+            let numberOfPeopleCell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! LocationPageCell;
+            
+            let cellString = cell.infoField.text;
+            var numberOfPeopleString = numberOfPeopleCell.infoField.text;
+            numberOfPeopleString = numberOfPeopleString?.replacingOccurrences(of: "+", with: "");
+            
+            currentEvent?.privacy = cellString;
+            currentEvent?.people = Int(numberOfPeopleString!);
+            
+            print(currentEvent!.people!);
+            
+            let layout = UICollectionViewFlowLayout();
+            let datePage = DatePage(collectionViewLayout: layout);
+            self.navigationController?.pushViewController(datePage, animated: true);
+        }
+
     }
 }
 

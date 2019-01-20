@@ -24,7 +24,7 @@ class PricingPage: UIViewController, UITextFieldDelegate{
         chargeInfoField.font = UIFont.systemFont(ofSize: 14);
         chargeInfoField.textColor = UIColor.darkText;
         chargeInfoField.placeholder = "eg: $1"
-        chargeInfoField.keyboardType = .numberPad;
+        chargeInfoField.keyboardType = .decimalPad;
 //        chargeInfoField.backgroundColor = UIColor.blue;
         return chargeInfoField;
     }()
@@ -114,7 +114,17 @@ extension PricingPage{
     
     @objc func handleNextButtonPressed(){
 //        let uploadImagesPage = UploadImagesPage();
-        let thingsToBringPage = ThingsToBringPage();
-        self.navigationController?.pushViewController(thingsToBringPage, animated: true);
+        if((self.chargeField.text?.count)! < 2){
+            //show error alert
+        }else{
+            let noDollarSignText = chargeField.text?.replacingOccurrences(of: "$", with: "");
+            let chargeInt = Double(noDollarSignText!);
+            currentEvent?.charge = chargeInt;
+            
+            let thingsToBringPage = ThingsToBringPage();
+            self.navigationController?.pushViewController(thingsToBringPage, animated: true);
+        }
+        
+        
     }
 }
