@@ -37,19 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userID = standard?.object(forKey: "userID");
         if(userID != nil){
             populateUser();
-            let customTab = CustomTabBar();
-            window?.rootViewController = customTab;
+//            let customTab = CustomTabBar();
+//            window?.rootViewController = customTab;
 //            let layout = UICollectionViewFlowLayout();
 //            let reviewPage = ReviewPage(collectionViewLayout: layout);
-////            let requirementsPage = RequirementsPage();
-////            requirementsPage.fromEventsInfo = true;
-//            let navigationController = UINavigationController(rootViewController: reviewPage);
-//            navigationController.navigationBar.isTranslucent = false;
-//            navigationController.navigationBar.barStyle = .blackTranslucent;
-//            navigationController.navigationBar.tintColor = UIColor.white;
-//            navigationController.navigationBar.barTintColor = UIColor.appBlue;
-//            self.present(navigationController, animated: true, completion: nil);
-//            window?.rootViewController = navigationController;
+//            let requirementsPage = RequirementsPage();
+//            requirementsPage.fromEventsInfo = true;
+            let uploadImagesPage = UploadImagesPage();
+            let navigationController = UINavigationController(rootViewController: uploadImagesPage);
+            navigationController.navigationBar.isTranslucent = false;
+            navigationController.navigationBar.barStyle = .blackTranslucent;
+            navigationController.navigationBar.tintColor = UIColor.white;
+            navigationController.navigationBar.barTintColor = UIColor.appBlue;
+            
+            window?.rootViewController = navigationController;
         }else{
             let loginViewController = LoginPage();
             let startingNavigationController = UINavigationController(rootViewController: loginViewController);

@@ -29,6 +29,7 @@ class ReviewPageTitleCell: UICollectionViewCell{
     fileprivate func setupTitleLabel(){
         self.addSubview(titleLabel);
         titleLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: self.bottomAnchor, constantLeft: 25, constantRight: -25, constantTop: 0, constantBottom: 0, width: 0, height: 0);
+        
     }
     
     func setTitle(title: String){

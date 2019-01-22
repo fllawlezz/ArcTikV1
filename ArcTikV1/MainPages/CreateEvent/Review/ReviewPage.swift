@@ -50,6 +50,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         self.collectionView?.register(CreateEventButtonCell.self, forCellWithReuseIdentifier: createEventButtonReuse);
         self.collectionView?.register(ReviewPageListCell.self, forCellWithReuseIdentifier: toListReuse);
         self.collectionView?.register(ReviewPageTitleCell.self, forCellWithReuseIdentifier: titleCell)
+        
     }
     
     fileprivate func setCurrentEventData(){

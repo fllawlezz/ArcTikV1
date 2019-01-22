@@ -8,7 +8,9 @@
 
 import UIKit
 
-class UploadImagesPage: UIViewController{
+import AWSS3
+
+class UploadImagesPage: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     var titleLabel: NormalUILabel = {
         let titleLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 20), textAlign: .left);
@@ -31,6 +33,7 @@ class UploadImagesPage: UIViewController{
         backgroundView.layer.cornerRadius = 3;
         backgroundView.layer.borderColor = UIColor.darkText.cgColor;
         backgroundView.layer.borderWidth = 1;
+        backgroundView.isUserInteractionEnabled = true;
         return backgroundView;
     }()
     
@@ -54,9 +57,14 @@ class UploadImagesPage: UIViewController{
         return imageSelector;
     }()
     
+    var imagePicker = UIImagePickerController();
+    var imageToUpload: UIImage?;
+    var fileName: NSURL?;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
+        imagePicker.delegate = self
         setCurrentEventData();
         setupNavBar();
         setupTitleLabel();
@@ -91,6 +99,9 @@ class UploadImagesPage: UIViewController{
     fileprivate func setupBackgroundView(){
         self.view.addSubview(backgroundView);
         backgroundView.anchor(left: self.titleLabel.leftAnchor, right: self.titleLabel.rightAnchor, top: self.descriptionLabel.bottomAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 10, constantBottom: 0, width: 0, height: 150);
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.showImagePicker));
+        backgroundView.addGestureRecognizer(gestureRecognizer);
     }
     
     fileprivate func setupNextButton(){
@@ -133,8 +144,79 @@ extension UploadImagesPage{
     }
     
     @objc func handleNextButtonPressed(){
-        let layout = UICollectionViewFlowLayout();
-        let reviewPage = ReviewPage(collectionViewLayout: layout);
-        self.navigationController?.pushViewController(reviewPage, animated: true);
+        
+        let imageData = UIImagePNGRepresentation(self.imageToUpload!);
+        
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
+                                                                identityPoolId:"us-west-2:e9c5dc3f-acac-4006-b512-af168e1e47a9")
+        
+        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        
+        let transferUtility = AWSS3TransferUtility.default();
+        transferUtility.uploadData(imageData!, bucket: "arctikimages", key: "fromIphone", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
+            if let error = task.error{
+                print("error");
+            }
+            
+            if let _ = task.result{
+                //do something
+                print("success");
+        
+            
+            }
+            return nil
+        }
+        
+//        transferUtility.uploadData(imageData!, key: "testImg", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
+//            if let error = task.error{
+//                print("error");
+//            }
+//
+//            if let _ = task.result{
+//                //do something
+//                print("success");
+//            }
+//            return nil
+//        }
+//        let remoteName = "testImage";
+//        let s3BucketName = "arctikimages";
+//        let uploadRequest = AWSS3TransferManagerUploadRequest()!
+        
+        
+//        let uploadTask = URLSession.shared.uploadTask(with: request, from: dataEncoded!) { (data, res, err) in
+//            if((err) != nil){print("error")}
+//        }
+//        uploadTask.resume();
+        
+//        let uploadTask = URLSession.shared.uploadTask(with: request, fromFile: self.fileName! as URL) { (data, res, err) in
+//            if((err) != nil){
+//                print("error occured sending the file");
+//            }
+//            if(data != nil){
+//                let response = NSString(data: data!, encoding: 8);
+//                print(response!);
+//            }
+//        }
+//        uploadTask.resume();
+//        let layout = UICollectionViewFlowLayout();
+//        let reviewPage = ReviewPage(collectionViewLayout: layout);
+//        self.navigationController?.pushViewController(reviewPage, animated: true);
+    }
+    
+    @objc func showImagePicker(){
+        imagePicker.sourceType = .photoLibrary;
+        imagePicker.allowsEditing = true;
+        self.present(imagePicker, animated: true, completion: nil);
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+            self.imageToUpload = image;
+        }
+//        self.fileName = info[UIImagePickerControllerImageURL] as? NSURL
+        dismiss(animated: true, completion: nil);
     }
 }
