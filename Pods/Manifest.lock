@@ -1,0 +1,61 @@
+PODS:
+  - AWSCore (2.8.4)
+  - AWSS3 (2.8.4):
+    - AWSCore (= 2.8.4)
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.7.0):
+    - GoogleMaps (= 2.7.0)
+    - GooglePlaces (= 2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
+  - lottie-ios (2.5.2)
+  - NVActivityIndicatorView (4.5.1):
+    - NVActivityIndicatorView/Presenter (= 4.5.1)
+  - NVActivityIndicatorView/Presenter (4.5.1)
+  - Socket.IO-Client-Swift (14.0.0):
+    - Starscream (~> 3.0.6)
+  - Starscream (3.0.6)
+  - Stripe (14.0.0)
+
+DEPENDENCIES:
+  - AWSS3
+  - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
+  - lottie-ios
+  - NVActivityIndicatorView
+  - Socket.IO-Client-Swift (~> 14.0.0)
+  - Stripe
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AWSCore
+    - AWSS3
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+    - lottie-ios
+    - NVActivityIndicatorView
+    - Socket.IO-Client-Swift
+    - Starscream
+    - Stripe
+
+SPEC CHECKSUMS:
+  AWSCore: 734b0d67c2c77f6edae9e5520431a37310ea4193
+  AWSS3: ead679e0887fa3ca8dddd054643a197b55360f1f
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
+  NVActivityIndicatorView: ec34a7b88c51fab270004a1a1f32116e711010cd
+  Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  Stripe: db29ad197c74aca6fb981e4e8355cf7ebd0fca5a
+
+PODFILE CHECKSUM: 25c7b0cb6f2b8bddfebd969cf817429751b879b5
+
+COCOAPODS: 1.5.3
