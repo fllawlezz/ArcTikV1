@@ -169,7 +169,7 @@ extension UploadImagesPage{
     @objc func handleNextButtonPressed(){
         
         currentEvent?.images = self.imagesList.images;
-        
+
         let layout = UICollectionViewFlowLayout();
         let reviewPage = ReviewPage(collectionViewLayout: layout);
         self.navigationController?.pushViewController(reviewPage, animated: true);
@@ -178,14 +178,12 @@ extension UploadImagesPage{
 //
 //        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
 //                                                                identityPoolId:"us-west-2:e9c5dc3f-acac-4006-b512-af168e1e47a9")
-//
 //        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
-//
 //        AWSServiceManager.default().defaultServiceConfiguration = configuration
 //
 //
 //        let transferUtility = AWSS3TransferUtility.default();
-//        transferUtility.uploadData(imageData!, bucket: "arctikimages", key: "fromIphone", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
+//        transferUtility.uploadData(imageData!, bucket: "arctikimages", key: "EventImages/img.png", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
 //            if let _ = task.error{
 //                print("error");
 //            }

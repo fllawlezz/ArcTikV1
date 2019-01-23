@@ -12,6 +12,7 @@ var currentEvent: MyEvent?;
 
 let reloadCreateEventPage = "ReloadCreateEventPage";
 
+
 class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventMainCellDelegate {
     
     let createEventCellReuse = "CreateEventCellReuse";
@@ -45,6 +46,8 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         let name = Notification.Name(rawValue: reloadCreateEventPage);
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadCollectionView), name: name, object: nil);
     }
+    
+ 
     
     fileprivate func setupNavBar(){
         

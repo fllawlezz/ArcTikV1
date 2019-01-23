@@ -386,7 +386,7 @@ extension ReviewPage{
             
             
             let transferUtility = AWSS3TransferUtility.default();
-            transferUtility.uploadData(imageData!, bucket: "arctikimages", key: "./EventImages/\(fileName)", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
+            transferUtility.uploadData(imageData!, bucket: "arctikimages", key: "EventImages/\(fileName)", contentType: "image/png", expression: nil, completionHandler: nil).continueWith { (task) -> Any? in
                 if let _ = task.error{
                     print("error");
                 }
@@ -414,7 +414,9 @@ extension ReviewPage{
     func showSuccessAlert(){
         let alert = UIAlertController(title: "Created!", message: "Your event was created successfully!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok!", style: .default, handler: { (alert) in
-            self.dismiss(animated: true, completion: nil);
+//            self.dismiss(animated: true, completion: nil);
+            let notification = Notification.Name(rawValue: dismissCreateEventPage);
+            NotificationCenter.default.post(name: notification, object: nil);
         }))
         self.present(alert, animated: true, completion: nil);
     }

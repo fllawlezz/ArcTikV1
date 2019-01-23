@@ -7,7 +7,10 @@
 //
 
 import UIKit
+import CoreData
 import NVActivityIndicatorView
+
+let dismissCreateEventPage = "DismissCreatedEventPage";
 
 class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, NVActivityIndicatorViewable{
     
@@ -29,7 +32,21 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.register(CreatedEventsMainTitleHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: titleHeader);
         collectionView?.register(CreatedEventSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeader)
         setupNavBar();
+        setupObservers();
         
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func setupObservers(){
+        let dismissName = Notification.Name(rawValue: dismissCreateEventPage);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissView), name: dismissName, object: nil);
+    }
+    
+    @objc func dismissView(){
+        self.dismiss(animated: true, completion: nil);
     }
     
     fileprivate func setupNavBar(){
@@ -106,6 +123,13 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
             //MARK: Set current Event
             currentEvent = MyEvent();
             currentEvent?.stepNumber = 0;
+            
+            //save into core data that you started the event
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate;
+            let context = appDelegate.persistentContainer.viewContext;
+            let entity = NSEntityDescription.entity(forEntityName: "EventInProgress", in: context)!;
+            let inProgressEvent = NSManagedObject(entity: entity, insertInto: context);
+            
         }
         
         self.handleCreateEvent();

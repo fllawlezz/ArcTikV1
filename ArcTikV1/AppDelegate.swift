@@ -45,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            requirementsPage.fromEventsInfo = true;
 //            let uploadImagesPage = UploadImagesPage();
 //            let thingsToBringPage = ThingsToBringPage();
-//            let navigationController = UINavigationController(rootViewController: thingsToBringPage);
+//            let navigationController = UINavigationController(rootViewController: uploadImagesPage);
 //            navigationController.navigationBar.isTranslucent = false;
 //            navigationController.navigationBar.barStyle = .blackTranslucent;
 //            navigationController.navigationBar.tintColor = UIColor.white;
 //            navigationController.navigationBar.barTintColor = UIColor.appBlue;
-//
+
 //            window?.rootViewController = navigationController;
         }else{
             let loginViewController = LoginPage();
