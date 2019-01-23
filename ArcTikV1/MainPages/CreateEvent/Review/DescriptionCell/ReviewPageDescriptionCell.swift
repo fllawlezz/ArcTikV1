@@ -71,6 +71,12 @@ class ReviewPageDescriptionCell: UICollectionViewCell{
         seeMoreButton.heightAnchor.constraint(equalToConstant: 20).isActive = true;
         seeMoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         
+        if(currentEvent!.description!.count < 40){
+            seeMoreButton.isHidden = true;
+        }else{
+            seeMoreButton.isHidden = false;
+        }
+        
         seeMoreButton.addTarget(self, action: #selector(self.handleSeeMoreButtonPressed), for: .touchUpInside);
     }
     

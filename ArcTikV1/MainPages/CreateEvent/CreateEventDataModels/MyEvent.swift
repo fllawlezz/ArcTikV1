@@ -6,7 +6,10 @@
 //  Copyright © 2019 Brandon In. All rights reserved.
 //
 
+import UIKit
+
 class MyEvent{
+    var eventID: Int?;
     var stepNumber: Int = 0;
     var eventTitle: String?
     var description: String?;
@@ -23,7 +26,7 @@ class MyEvent{
     var endTime: String?
     var charge: Double?
     var thingsToBring: [String]?;
-    var imgURL: String?
+    var images:[UIImage]?;
     
 //    init(stepNumber: Int, eventTitle: String, description: String, country: String, street: String, city: String, zipcode: String, requirements: String, privacy: String, people: Int, startDate: String, endDate: String, startTime: String, endTime: String, charge: Double, imgURL: String){
 //        self.stepNumber = stepNumber;

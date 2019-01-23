@@ -92,8 +92,7 @@ extension ThingsToBringPage{
     
     @objc func handleAddButtonPressed() {
         //handle add button pressed
-        let requirementsList = thingsToBringTableView.thingsToBringList;// value type, not a reference type
-        if(requirementsList.count < 10){
+        if(thingsToBringTableView.thingsToBringList.count < 10){
             let alert = UIAlertController(title: "Enter a requirement", message: "Enter a requirement for any applicants", preferredStyle: .alert);
             alert.addTextField { (textField) in
                 textField.placeholder = "Requirement";
@@ -105,8 +104,8 @@ extension ThingsToBringPage{
                     //                    requirementsList.append(textField!.text!);
                     self.thingsToBringTableView.thingsToBringList.append(textField!.text!);
                     //                    print(self.requirementsListView.requirementsList.count);
-                    if(requirementsList.count > 1){//there were 0 before and now there is 1 item in the list, so reload
-                        self.thingsToBringTableView.insertRows(at: [IndexPath(item: requirementsList.count-1, section: 0)], with: .fade);
+                    if(self.thingsToBringTableView.thingsToBringList.count > 1){//there were 0 before and now there is 1 item in the list, so reload
+                        self.thingsToBringTableView.insertRows(at: [IndexPath(item: self.thingsToBringTableView.thingsToBringList.count-1, section: 0)], with: .fade);
                     }else{
                         self.thingsToBringTableView.reloadData();
                     }

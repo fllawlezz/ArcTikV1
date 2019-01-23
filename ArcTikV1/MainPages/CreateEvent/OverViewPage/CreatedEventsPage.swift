@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, NVActivityIndicatorViewable{
     
     let titleHeader = "CreatedEventsTitleHeaderReuse";
     let sectionHeader = "CreatedEventsSectionHeader";
@@ -16,6 +17,8 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     let createNewEventReuse = "CreatedEventsNewEventCellReuse";
     
     var myEventsInProgress = [MyEvent]();
+    let dispatch = DispatchGroup();
+    var eventID: Int?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -95,17 +98,16 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if(indexPath.item == 0){
-//            self.handleCreateEvent();
-//
-//        }
+
         if(indexPath.item < myEventsInProgress.count){
             currentEvent = self.myEventsInProgress[indexPath.item];
         }else{
-//            currentEvent = MyEvent(stepNumber: 0, eventTitle: "default", description: "default", country: "default", street: "default", city: "default", zipcode: "default", requirements: "default", privacy: "default", people: 0, startDate: "default", endDate: "default", startTime: "default", endTime: "default", charge: 0, imgURL: "default");
+            
+            //MARK: Set current Event
             currentEvent = MyEvent();
             currentEvent?.stepNumber = 0;
         }
+        
         self.handleCreateEvent();
         
     }
@@ -120,14 +122,71 @@ extension CreatedEventsPage{
     }
     
     @objc func handleCreateEvent(){
+        startCreateEvent();
+        self.stopAnimating();
+        
         let layout = UICollectionViewFlowLayout();
         let createEventPage = CreateEventPage(collectionViewLayout: layout);
-        
+
         let navigationController = UINavigationController(rootViewController: createEventPage);
         navigationController.navigationBar.isTranslucent = false;
         navigationController.navigationBar.barStyle = .blackTranslucent;
         navigationController.navigationBar.tintColor = UIColor.white;
         navigationController.navigationBar.barTintColor = UIColor.appBlue;
         self.present(navigationController, animated: true, completion: nil);
+    }
+    
+    func startCreateEvent(){
+        showLoadingView();
+        
+//        let url = URL(string: "http://localhost:3000/createEvent")!;
+//        var request = URLRequest(url: url);
+//        let postBody = "username=XXXX";
+//        let params = ["username" : "hello", "password" : "none"] as Dictionary<String, AnyObject>
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+////        let data = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted);
+//        let data = try? JSONSerialization.data(withJSONObject: params, options: []);
+//        request.httpMethod = "POST";
+////        request.httpBody = postBody.data(using: .utf8);
+//        request.httpBody = data;
+//        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+//        }
+//
+//        task.resume();
+        
+
+        let url = URL(string: "http://localhost:3000/startCreateEvent")!;
+        var request = URLRequest(url: url);
+        let requestBody = "userID=\(user!.userID)"
+//        print(requestBody);
+
+        request.httpMethod = "POST";
+        request.httpBody = requestBody.data(using: .utf8);
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if(err != nil){
+                print("error");
+                return;
+            }
+
+            let response = NSString(data: data!, encoding: 8);
+//            print("response: \(response)");
+            self.eventID = Int(response! as String);
+            self.dispatch.leave();
+        }
+        self.dispatch.enter();
+        dataTask.resume();
+        self.dispatch.wait();
+        if let event = currentEvent{
+            event.eventID = self.eventID;
+//            print(event.eventID)
+        }
+//        print("event id");
+//        print(currentEvent?.eventID);
+        
+    }
+    
+    func showLoadingView(){
+        let size = CGSize(width: 50, height: 50)
+        self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
     }
 }

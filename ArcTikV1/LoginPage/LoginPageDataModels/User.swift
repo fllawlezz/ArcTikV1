@@ -18,6 +18,8 @@ struct User{
     var push: String;
     var sms: String;
     var imgURL: String;
+    var userLatitude: String?;
+    var userLongitude: String?;
     
     init(userID: Int, firstName: String, lastName: String, userName: String, email: String, phoneNumber: String, password: String, push: String, sms: String, imgURL: String) {
         self.userID = userID;

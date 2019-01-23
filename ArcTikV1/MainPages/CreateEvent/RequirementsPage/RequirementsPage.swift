@@ -94,8 +94,7 @@ extension RequirementsPage{
     
     @objc func handleAddButtonPressed() {
         //handle add button pressed
-        let requirementsList = requirementsListView.requirementsList;// value type, not a reference type
-        if(requirementsList.count < 10){
+        if(self.requirementsListView.requirementsList.count < 10){
             let alert = UIAlertController(title: "Enter a requirement", message: "Enter a requirement for any applicants", preferredStyle: .alert);
             alert.addTextField { (textField) in
                 textField.placeholder = "Requirement";
@@ -106,9 +105,10 @@ extension RequirementsPage{
                 if(textField!.text!.count > 0){
 //                    requirementsList.append(textField!.text!);
                     self.requirementsListView.requirementsList.append(textField!.text!);
-//                    print(self.requirementsListView.requirementsList.count);
-                    if(requirementsList.count > 1){//there were 0 before and now there is 1 item in the list, so reload
-                        self.requirementsListView.insertRows(at: [IndexPath(item: requirementsList.count-1, section: 0)], with: .fade);
+                    print(self.requirementsListView.requirementsList.count);
+                    if(self.requirementsListView.requirementsList.count > 1){//there were 0 before and now there is 1 item in the list, so reload
+                        self.requirementsListView.insertRows(at: [IndexPath(item: self.requirementsListView.requirementsList.count-1, section: 0)], with: .fade);
+                        print("inserted rows");
                     }else{
                         self.requirementsListView.reloadData();
                     }

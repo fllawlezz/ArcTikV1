@@ -20,7 +20,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     let titleList = ["Event Title","Description","Location","Requirements","Privacy","Date","Pricing","Things to Bring","Photos","Review"];
     
 //    var currentStep = currentEvent!.stepNumber;
-    
+    var eventID: Int?;
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -132,7 +132,9 @@ extension CreateEventPage{
         let index = indexPath.item;
         var createEventStepPage: UIViewController?;
         switch(index){
-        case 0:createEventStepPage = TitlePage(); break;//Event Title
+        case 0:createEventStepPage = TitlePage();
+        
+        break;//Event Title
         case 1: createEventStepPage = DescriptionPage();break;//Description page
         case 2: let layout = UICollectionViewFlowLayout();
         createEventStepPage = LocationPage(collectionViewLayout: layout);break;//location page
@@ -169,9 +171,6 @@ extension CreateEventPage{
             navigationController.navigationBar.barTintColor = UIColor.appBlue;
             self.present(navigationController, animated: true, completion: nil);
         }
-        
-        
-        
     }
     
 }
