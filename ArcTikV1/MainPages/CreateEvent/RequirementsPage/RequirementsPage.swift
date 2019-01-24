@@ -8,6 +8,8 @@
 
 import UIKit
 
+let requirementsPageUpdateIndexPath = "RequirementsCellUpdateIndexPath";
+
 class RequirementsPage: UIViewController, RequirementsPageListCellDelegate{
     
     var requirementsListView: RequirementsTableView = {
@@ -39,8 +41,14 @@ class RequirementsPage: UIViewController, RequirementsPageListCellDelegate{
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 3;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 3;
+        currentEventInProgress?.step = 3;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -84,7 +92,11 @@ extension RequirementsPage{
     }
     
     @objc func handleNextButtonPressed(){
-        currentEvent?.requirements = self.requirementsListView.requirementsList;
+//        currentEvent?.requirements = self.requirementsListView.requirementsList;
+        
+        let requirementsListData = NSKeyedArchiver.archivedData(withRootObject: requirementsListView.requirementsList);
+        currentEventInProgress?.requirements = requirementsListData as NSData;
+        PersistenceManager.shared.save();
         
         let layout = UICollectionViewFlowLayout();
         let privacyPage = PrivacyPage(collectionViewLayout: layout);
@@ -105,10 +117,10 @@ extension RequirementsPage{
                 if(textField!.text!.count > 0){
 //                    requirementsList.append(textField!.text!);
                     self.requirementsListView.requirementsList.append(textField!.text!);
-                    print(self.requirementsListView.requirementsList.count);
+                    
                     if(self.requirementsListView.requirementsList.count > 1){//there were 0 before and now there is 1 item in the list, so reload
                         self.requirementsListView.insertRows(at: [IndexPath(item: self.requirementsListView.requirementsList.count-1, section: 0)], with: .fade);
-                        print("inserted rows");
+                        
                     }else{
                         self.requirementsListView.reloadData();
                     }
@@ -127,11 +139,18 @@ extension RequirementsPage{
             let alert = UIAlertController(title: "Delete Requirement?", message: "Are you sure you want to delete this requirement?", preferredStyle: .alert);
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
                 self.requirementsListView.requirementsList.remove(at: indexPath.item);
+                
                 if(self.requirementsListView.requirementsList.count > 0){
                     self.requirementsListView.deleteRows(at: [indexPath], with: .fade);
                 }else{
                     self.requirementsListView.reloadData();
                 }
+                
+                
+                
+                let userInfo = ["indexPath":indexPath];
+                let name = Notification.Name(requirementsPageUpdateIndexPath);
+                NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo);
             }))
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
             self.present(alert, animated: true, completion: nil);

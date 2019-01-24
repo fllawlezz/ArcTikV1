@@ -26,10 +26,23 @@ class ThingsToBringList: UITableView, UITableViewDelegate, UITableViewDataSource
         self.register(ThingsToBringCell.self, forCellReuseIdentifier: reuseCell);
         self.register(ThingsToBringEmptyCell.self, forCellReuseIdentifier: emptyCell);
         self.register(ThingsToBringTitleHeader.self, forHeaderFooterViewReuseIdentifier: headerCell);
+        getData();
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError();
+    }
+    
+    fileprivate func getData(){
+        if let event = currentEventInProgress{
+            if(event.thingsToBring != nil){
+                let eventData = NSKeyedUnarchiver.unarchiveObject(with: event.thingsToBring! as Data) as! [String];
+                if(eventData.count > 0){
+                    self.thingsToBringList = eventData;
+                    self.reloadData();
+                }
+            }
+        }
     }
     
     override var numberOfSections: Int{
@@ -40,9 +53,10 @@ class ThingsToBringList: UITableView, UITableViewDelegate, UITableViewDataSource
         if(thingsToBringList.count > 0){
             //            print("requirements Cell dequeed");
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseCell, for: indexPath) as! ThingsToBringCell;
-            cell.delegate = self.thingsToBringPage;
+            cell.thingsDelegate = self.thingsToBringPage;
             cell.indexPath = indexPath;
             cell.setRequirementText(requirement: thingsToBringList[indexPath.item]);
+            cell.setupThingsGesture();
             return cell;
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: emptyCell, for: indexPath) as! ThingsToBringEmptyCell;

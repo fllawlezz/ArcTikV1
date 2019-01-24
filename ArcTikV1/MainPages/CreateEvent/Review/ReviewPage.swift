@@ -34,6 +34,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     let datesTitles = ["Start Date","End Date","Start Time","End Time"];
     
     var descriptionIsExpanded = false;
+    var imageNamesForHostEvent: [String]?;
     var estimatedFrameSize:CGSize?;
     var dispatch = DispatchGroup();
     
@@ -55,8 +56,10 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 9;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 9;
+        currentEventInProgress?.step = 9;
+        PersistenceManager.shared.save();
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -68,7 +71,8 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(indexPath.section == 0){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: titleCell, for: indexPath) as! ReviewPageTitleCell
-            cell.setTitle(title: currentEvent!.eventTitle!);
+//            cell.setTitle(title: currentEvent!.eventTitle!);
+            cell.setTitle(title: currentEventInProgress!.title!);
             return cell;
         }
         
@@ -76,14 +80,15 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptionCellReuse, for: indexPath) as! ReviewPageDescriptionCell;//description cell
             cell.delegate = self;
             cell.isExpanded = self.descriptionIsExpanded;
-            cell.setDescription(description: currentEvent!.description!);
+//            cell.setDescription(description: currentEvent!.description!);
+            cell.setDescription(description: currentEventInProgress!.eventDescription!);
             return cell;
         }
         if(indexPath.section == 2){
             if(indexPath.item == 0){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewInfoCellReuse, for: indexPath) as! ReviewPageInfoCell
                 cell.setTitle(title: reviewPageInfoCellTitles[indexPath.item]);
-                let infoString = "\(currentEvent!.street!), \(currentEvent!.city!)"
+                let infoString = "\(currentEventInProgress!.street!), \(currentEventInProgress!.city!)"
                 cell.setInfoFieldText(text: infoString);
                 return cell;
             }
@@ -95,7 +100,9 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         
         if(indexPath.section == 5){//images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imagesCell, for: indexPath) as! ReviewImagesCell
-            cell.images = currentEvent?.images!;
+            
+            let images = NSKeyedUnarchiver.unarchiveObject(with: currentEventInProgress!.images! as Data) as! [UIImage];
+            cell.images = images;
             return cell;
         }
         
@@ -115,28 +122,30 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         
         if(indexPath.section == 3 && indexPath.item == 0){
             cell.setTitle(title: "Public/Private");
-            cell.setInfoFieldText(text: currentEvent!.privacy!);
+//            cell.setInfoFieldText(text: currentEvent!.privacy!);
+            cell.setInfoFieldText(text: currentEventInProgress!.privacy!);
         }
         
         if(indexPath.section == 3 && indexPath.item == 1){
             cell.setTitle(title: "Number of People");
-            cell.setInfoFieldText(text: "\(currentEvent!.people!)");
+//            cell.setInfoFieldText(text: "\(currentEvent!.people!)");
+            cell.setInfoFieldText(text: "\(currentEventInProgress!.people)")
         }
 
         if(indexPath.section == 4){
             cell.setTitle(title: datesTitles[indexPath.item]);
             switch(indexPath.item){
-            case 0: cell.setInfoFieldText(text: currentEvent!.startDate!);break;
-            case 1: cell.setInfoFieldText(text: currentEvent!.endDate!);break;
-            case 2: cell.setInfoFieldText(text: currentEvent!.startTime!);break;
-            case 3: cell.setInfoFieldText(text: currentEvent!.endTime!);break;
+            case 0: cell.setInfoFieldText(text: currentEventInProgress!.startDate!);break;
+            case 1: cell.setInfoFieldText(text: currentEventInProgress!.endDate!);break;
+            case 2: cell.setInfoFieldText(text: currentEventInProgress!.startTime!);break;
+            case 3: cell.setInfoFieldText(text: currentEventInProgress!.endTime!);break;
             default: break;
             }
         }
 
         if(indexPath.section == 6){
             cell.setTitle(title: "Charge");
-            cell.setInfoFieldText(text: "$\(currentEvent!.charge!)");
+            cell.setInfoFieldText(text: "$\(currentEventInProgress!.price)");
         }
         
         return cell;
@@ -160,10 +169,12 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.section == 2 && indexPath.item == 1){
             //requirements
-            if let event = currentEvent{
+            if let event = currentEventInProgress{
                 let requirementsPage = RequirementsPage();
                 requirementsPage.fromEventsInfo = true;
-                requirementsPage.requirementsListView.requirementsList = event.requirements!
+                let requirementsList = NSKeyedUnarchiver.unarchiveObject(with: event.requirements! as Data) as! [String];
+                
+                requirementsPage.requirementsListView.requirementsList = requirementsList;
                 self.present(requirementsPage, animated: true, completion: nil);
             }
             
@@ -171,10 +182,13 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
         
         if(indexPath.section == 6 && indexPath.item == 1){
             //things to bring
-            if let event = currentEvent{
+            if let event = currentEventInProgress{
                 let thingsToBringPage = ThingsToBringPage();
                 thingsToBringPage.fromEventsInfo = true;
-                thingsToBringPage.thingsToBringTableView.thingsToBringList = event.thingsToBring!
+                
+                let thingsToBringList = NSKeyedUnarchiver.unarchiveObject(with: event.thingsToBring! as Data) as! [String];
+                
+                thingsToBringPage.thingsToBringTableView.thingsToBringList = thingsToBringList
                 self.present(thingsToBringPage, animated: true, completion: nil);
             }
         }
@@ -189,7 +203,7 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
                 return CGSize(width: self.view.frame.width, height: 280);
             }
             
-            if(currentEvent!.description!.count < 40){
+            if(currentEventInProgress!.eventDescription!.count < 40){
                 return CGSize(width: self.view.frame.width, height: 100);
             }
             
@@ -254,7 +268,7 @@ extension ReviewPage{
     }
     
     func seeMoreDescription() {
-        if((currentEvent?.description!.count)! > 40){
+        if((currentEventInProgress?.eventDescription!.count)! > 40){
             descriptionIsExpanded = true;
             
             let cell = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! ReviewPageDescriptionCell
@@ -278,10 +292,12 @@ extension ReviewPage{
         
         user?.userLongitude = "0.0000";
         user?.userLatitude = "0.00000";
-        if let event = currentEvent{
-            let body = constructBody(userID: user!.userID, eventID: event.eventID!,eventTitle: event.eventTitle!, description: event.description!, latitude: user!.userLatitude!, longitude: user!.userLongitude!, country: event.country!, street: event.street!, city: event.city!, zipcode: event.zipcode!, requirements: event.requirements!, privacy: event.privacy!, people: event.people!, startDate: event.startDate!, endDate: event.endDate!, startTime: event.startTime!, endTime: event.endTime!, price: event.charge!,thingsToBring: event.thingsToBring!, images: event.images!);
+        if let event = currentEventInProgress{
+            let requirementsList = NSKeyedUnarchiver.unarchiveObject(with: event.requirements! as Data) as! [String];
+            let thingsToBringList = NSKeyedUnarchiver.unarchiveObject(with: event.thingsToBring! as Data) as! [String];
+            let images = NSKeyedUnarchiver.unarchiveObject(with: event.images! as Data) as! [UIImage];
             
-            
+            let body = constructBody(userID: user!.userID, eventID: Int(event.eventID),eventTitle: event.title!, description: event.eventDescription!, latitude: user!.userLatitude!, longitude: user!.userLongitude!, country: event.country!, street: event.street!, city: event.city!, zipcode: event.zipcode!, requirements: requirementsList, privacy: event.privacy!, people: Int(event.people), startDate: event.startDate!, endDate: event.endDate!, startTime: event.startTime!, endTime: event.endTime!, price: event.price,thingsToBring: thingsToBringList, images: images);
             
             let url = URL(string: "http://localhost:3000/createEvent")!;
             var request = URLRequest(url: url);
@@ -325,10 +341,12 @@ extension ReviewPage{
         var imageNames = [String]();
         var count = 0;
         for _ in images{
-            let newName = "\(currentEvent!.eventID!)_pic\(count).png"
+            let newName = "\(currentEventInProgress!.eventID)_pic\(count).png"
             imageNames.append(newName);
             count+=1;
         }
+        
+        self.imageNamesForHostEvent = imageNames;
         
         if(images.count > 0){
             dispatch.enter();
@@ -414,11 +432,45 @@ extension ReviewPage{
     func showSuccessAlert(){
         let alert = UIAlertController(title: "Created!", message: "Your event was created successfully!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok!", style: .default, handler: { (alert) in
-//            self.dismiss(animated: true, completion: nil);
+
             let notification = Notification.Name(rawValue: dismissCreateEventPage);
             NotificationCenter.default.post(name: notification, object: nil);
         }))
         self.present(alert, animated: true, completion: nil);
+    }
+    
+    
+    func createHostedEvent(){
+        let event = currentEventInProgress!;
+        
+        guard let hostedImageNames = self.imageNamesForHostEvent else {
+            return;
+        }
+        
+        let imageNameData = NSKeyedArchiver.archivedData(withRootObject: hostedImageNames);
+        
+        let newHostedEvent = HostedEvent(context: PersistenceManager.shared.context);
+        newHostedEvent.eventID = event.eventID;
+        newHostedEvent.eventTitle = event.title;
+        newHostedEvent.thingsToBring = event.thingsToBring;
+        newHostedEvent.city = event.city;
+        newHostedEvent.country = event.country;
+        newHostedEvent.endDate = event.endDate;
+        newHostedEvent.endTime = event.endTime;
+        newHostedEvent.eventDescription = event.eventDescription;
+        newHostedEvent.hosterID = event.hosterID;
+        newHostedEvent.imageNames = imageNameData as NSData;
+        newHostedEvent.people = event.people;
+        newHostedEvent.price = event.price;
+        newHostedEvent.privacy = event.privacy;
+        newHostedEvent.requirements = event.requirements;
+        newHostedEvent.startDate = event.startDate;
+        newHostedEvent.startTime = event.startTime;
+        newHostedEvent.street = event.street;
+        newHostedEvent.zipcode = event.zipcode;
+        
+        PersistenceManager.shared.save();
+        
     }
     
     func showLoadingView(){

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ThingsToBringPage: UIViewController, RequirementsPageListCellDelegate{
+let updateThingsToBringIndex = "UpdateThingsToBringIndex";
+
+class ThingsToBringPage: UIViewController, ThingsToBringCellDelegate{
     
     var thingsToBringTableView: ThingsToBringList = {
         let thingsToBringTableView = ThingsToBringList(frame: .zero);
@@ -39,8 +41,14 @@ class ThingsToBringPage: UIViewController, RequirementsPageListCellDelegate{
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 7;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 7;
+        currentEventInProgress?.step = 7;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -56,6 +64,7 @@ class ThingsToBringPage: UIViewController, RequirementsPageListCellDelegate{
     fileprivate func setupRequirementsList(){
         self.view.addSubview(thingsToBringTableView);
         thingsToBringTableView.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.view.topAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0);
+        thingsToBringTableView.thingsToBringPage = self;
     }
     
     fileprivate func setupNextButton(){
@@ -84,7 +93,12 @@ extension ThingsToBringPage{
     
     @objc func handleNextButtonPressed(){
 //        currentEvent?.requirements = self.thingsToBringTableView.requirementsList;
-        currentEvent?.thingsToBring = self.thingsToBringTableView.thingsToBringList;
+//        currentEvent?.thingsToBring = self.thingsToBringTableView.thingsToBringList;
+        
+        let thingsToBringData = NSKeyedArchiver.archivedData(withRootObject: self.thingsToBringTableView.thingsToBringList);
+        currentEventInProgress?.thingsToBring = thingsToBringData as NSData;
+        PersistenceManager.shared.save();
+        
         let uploadImagesPage = UploadImagesPage();
         self.navigationController?.pushViewController(uploadImagesPage, animated: true);
     }
@@ -129,6 +143,10 @@ extension ThingsToBringPage{
                 }else{
                     self.thingsToBringTableView.reloadData();
                 }
+                let userInfo = ["indexPath":indexPath];
+                
+                let name = Notification.Name(rawValue: updateThingsToBringIndex);
+                NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo);
             }))
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
             self.present(alert, animated: true, completion: nil);

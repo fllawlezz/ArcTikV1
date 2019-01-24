@@ -23,6 +23,7 @@ class RequirementsPageListCell: UITableViewCell{
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier);
         self.backgroundColor = UIColor.white;
+        addObservers();
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false;
         titleLabel.numberOfLines = 0;
@@ -32,13 +33,36 @@ class RequirementsPageListCell: UITableViewCell{
         setupBorder();
         
         self.isUserInteractionEnabled = true;
-        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(holdGesture));
-        self.addGestureRecognizer(gesture);
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError();
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func addObservers(){
+        let name = Notification.Name(requirementsPageUpdateIndexPath);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateIndexPath(notification:)), name: name, object: nil);
+    }
+    
+    func setupRequirementGestureRecognizer(){
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(holdGesture));
+        self.addGestureRecognizer(gesture);
+    }
+    
+    @objc func updateIndexPath(notification:NSNotification){
+        if let userInfo = notification.userInfo{
+            let indexPath = userInfo["indexPath"] as! IndexPath;
+            
+            if(indexPath.item < self.indexPath!.item){
+                let newIndexPath = IndexPath(item: self.indexPath!.item - 1, section: self.indexPath!.section);
+                self.indexPath = newIndexPath;
+            }
+        }
     }
     
     fileprivate func setupTitleLabel(){

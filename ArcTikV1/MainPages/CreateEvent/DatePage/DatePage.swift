@@ -45,8 +45,15 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         // Do any additional setup after loading the view.
     }
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 5;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 5;
+        currentEventInProgress?.step = 5;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        //set the time stamps
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -91,9 +98,28 @@ class DatePage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: datePageReuse, for: indexPath) as! DatePageCell
         if(indexPath.section == 0){
             cell.setTitle(title: self.cellTitles[indexPath.item], placeholder: placeholderTitles[indexPath.item]);
+            
+                if let event = currentEventInProgress{
+                    if(indexPath.item == 0){
+                        cell.infoField.text = event.startDate;
+                    }else{
+                        cell.infoField.text = event.endDate;
+                    }
+                }
+            
+            
             cell.setDatePicker();
         }else{
             cell.setTitle(title: self.cellTitles[indexPath.item + 2], placeholder: placeholderTitles[indexPath.item + 2])
+            
+            if let event = currentEventInProgress{
+                if(indexPath.item == 0){
+                    cell.infoField.text = event.startTime;
+                }else{
+                    cell.infoField.text = event.endTime;
+                }
+            }
+            
             cell.setTimePicker();
         }
         // Configure the cell
@@ -152,6 +178,10 @@ extension DatePage{
         }
         return isEmpty;
     }
+    
+    func populateFields(){
+        
+    }
 
     
     @objc func handleNextButtonPressed(){
@@ -166,10 +196,17 @@ extension DatePage{
             let cell3 = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! DatePageCell;
             let cell4 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 1)) as! DatePageCell;
             
-            currentEvent?.startDate = cell.infoField.text!
-            currentEvent?.endDate = cell2.infoField.text!;
-            currentEvent?.startTime = cell3.infoField.text!;
-            currentEvent?.endTime = cell4.infoField.text!;
+//            currentEvent?.startDate = cell.infoField.text!
+//            currentEvent?.endDate = cell2.infoField.text!;
+//            currentEvent?.startTime = cell3.infoField.text!;
+//            currentEvent?.endTime = cell4.infoField.text!;
+            
+            currentEventInProgress?.startDate = cell.infoField.text!;
+            currentEventInProgress?.endDate = cell2.infoField.text!;
+            currentEventInProgress?.startTime = cell3.infoField.text!;
+            currentEventInProgress?.endTime = cell4.infoField.text!;
+            
+            PersistenceManager.shared.save();
             
             let pricingPage = PricingPage();
             self.navigationController?.pushViewController(pricingPage, animated: true);

@@ -11,21 +11,23 @@ import CoreData
 import NVActivityIndicatorView
 
 let dismissCreateEventPage = "DismissCreatedEventPage";
+let reloadOverViewPage = "ReloadOverViewPage";
+let overviewPageUpdateIndexPath = "OverViewPageUpdateIndexPath";
 
-class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, NVActivityIndicatorViewable{
+class OverviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, NVActivityIndicatorViewable, CreatedEventsInProgressCellDelegate{
     
     let titleHeader = "CreatedEventsTitleHeaderReuse";
     let sectionHeader = "CreatedEventsSectionHeader";
     let cellReuse = "CreatedEventsCellReuse";
     let createNewEventReuse = "CreatedEventsNewEventCellReuse";
     
-    var myEventsInProgress = [MyEvent]();
+    var myEventsInProgress = [EventInProgress]();
     let dispatch = DispatchGroup();
     var eventID: Int?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.collectionView?.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
+        self.collectionView?.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 20, right: 0);
         self.collectionView?.backgroundColor = UIColor.superLightGray;
         collectionView?.register(CreatedEventsInProgressCell.self, forCellWithReuseIdentifier: cellReuse);
         collectionView?.register(CreatedEventsNewEventCell.self, forCellWithReuseIdentifier: createNewEventReuse);
@@ -33,7 +35,7 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.register(CreatedEventSectionHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeader)
         setupNavBar();
         setupObservers();
-        
+        getEventsInProgress();
     }
     
     deinit {
@@ -42,11 +44,47 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     
     fileprivate func setupObservers(){
         let dismissName = Notification.Name(rawValue: dismissCreateEventPage);
-        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissView), name: dismissName, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissView(notification:)), name: dismissName, object: nil);
+        
+        let reloadName = Notification.Name(rawValue: reloadOverViewPage);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadCollectionView), name: reloadName, object: nil);
     }
     
-    @objc func dismissView(){
+    @objc func dismissView(notification: NSNotification){
+        /*
+         0. get info from notification, holds image names
+         1. create new hosted event
+         2. save new hosted event
+         3. remove in progress event from collection view
+         4. delete in progress event
+         */
+        let removeIndexPath = getIndexToRemove(eventID: Int(currentEventInProgress!.eventID));
+        if(removeIndexPath != nil){
+            self.myEventsInProgress.remove(at: removeIndexPath!.item);
+//            self.collectionView?.deleteItems(at: [removeIndexPath!]);
+            self.collectionView?.reloadData();
+        }
+        PersistenceManager.shared.context.delete(currentEventInProgress!);//class is a reference type not a value type, so we are deleting the object
+        PersistenceManager.shared.save();
+        currentEventInProgress = nil;
+        
+        
         self.dismiss(animated: true, completion: nil);
+    }
+    
+    func getIndexToRemove(eventID: Int) -> IndexPath?{
+        if(currentEventInProgress != nil){
+            var count = 0;
+            while(count < myEventsInProgress.count){
+                let eventCompare = myEventsInProgress[count];
+                if(eventCompare.eventID == eventID){
+                    return IndexPath(item: count, section: 1);
+                }
+                count+=1;
+            }
+        }
+        
+        return nil;
     }
     
     fileprivate func setupNavBar(){
@@ -62,7 +100,20 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
         if(indexPath.section == 1){
             if(indexPath.item < myEventsInProgress.count){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuse, for: indexPath) as! CreatedEventsInProgressCell;
-                cell.setTitle(title: "Poker game at my place");
+//                cell.setTitle(title: "Poker game at my place");
+                let eventInProgress = myEventsInProgress[indexPath.item];
+                cell.eventID = Int(eventInProgress.eventID);
+                cell.indexPath = indexPath;
+                cell.delegate = self;
+                
+                if(eventInProgress.title != nil){
+                    cell.setTitle(title: eventInProgress.title!);
+                }else{
+                    cell.setTitle(title: "Event title goes here");
+                }
+                
+                cell.setSteps(stepNumber: Int(eventInProgress.step));
+                
                 return cell;
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: createNewEventReuse, for: indexPath) as! CreatedEventsNewEventCell;
@@ -117,41 +168,53 @@ class CreatedEventsPage: UICollectionViewController, UICollectionViewDelegateFlo
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         if(indexPath.item < myEventsInProgress.count){
-            currentEvent = self.myEventsInProgress[indexPath.item];
+            let event = self.myEventsInProgress[indexPath.item]
+            currentEventInProgress = event;
+            //load event
+            loadEventCreator();
         }else{
-            
             //MARK: Set current Event
-            currentEvent = MyEvent();
-            currentEvent?.stepNumber = 0;
             
-            //save into core data that you started the event
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate;
-            let context = appDelegate.persistentContainer.viewContext;
-            let entity = NSEntityDescription.entity(forEntityName: "EventInProgress", in: context)!;
-            let inProgressEvent = NSManagedObject(entity: entity, insertInto: context);
-            
+                self.handleCreateEvent();
         }
-        
-        self.handleCreateEvent();
-        
+    }
+    
+    func getEventsInProgress(){
+        let eventsInProgress = PersistenceManager.shared.fetch(EventInProgress.self);
+        if(eventsInProgress.count > 0){
+            myEventsInProgress = eventsInProgress;
+        }else{
+            print("none");
+        }
     }
     
 }
 
-extension CreatedEventsPage{
+extension OverviewPage{
     @objc func handleClearPressed(){
         self.navigationController?.popViewController(animated: true);
-//        self.dismiss(animated: true, completion: nil);
-        //        self.navigationController?.dismiss(animated: true, completion: nil);
+    }
+    
+    @objc func reloadCollectionView(){
+        
+        getEventsInProgress();
+        self.collectionView?.reloadData();
     }
     
     @objc func handleCreateEvent(){
-        startCreateEvent();
-        self.stopAnimating();
-        
+        if(myEventsInProgress.count < 5){
+            currentEventInProgress = nil;
+            self.stopAnimating();
+            loadEventCreator();
+        }else{
+            self.showErrorAlertCreatingEvent();
+        }
+    }
+    
+    func loadEventCreator(){
         let layout = UICollectionViewFlowLayout();
         let createEventPage = CreateEventPage(collectionViewLayout: layout);
-
+        
         let navigationController = UINavigationController(rootViewController: createEventPage);
         navigationController.navigationBar.isTranslucent = false;
         navigationController.navigationBar.barStyle = .blackTranslucent;
@@ -160,57 +223,36 @@ extension CreatedEventsPage{
         self.present(navigationController, animated: true, completion: nil);
     }
     
-    func startCreateEvent(){
-        showLoadingView();
-        
-//        let url = URL(string: "http://localhost:3000/createEvent")!;
-//        var request = URLRequest(url: url);
-//        let postBody = "username=XXXX";
-//        let params = ["username" : "hello", "password" : "none"] as Dictionary<String, AnyObject>
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-////        let data = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted);
-//        let data = try? JSONSerialization.data(withJSONObject: params, options: []);
-//        request.httpMethod = "POST";
-////        request.httpBody = postBody.data(using: .utf8);
-//        request.httpBody = data;
-//        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
-//        }
-//
-//        task.resume();
-        
-
-        let url = URL(string: "http://localhost:3000/startCreateEvent")!;
-        var request = URLRequest(url: url);
-        let requestBody = "userID=\(user!.userID)"
-//        print(requestBody);
-
-        request.httpMethod = "POST";
-        request.httpBody = requestBody.data(using: .utf8);
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
-            if(err != nil){
-                print("error");
-                return;
-            }
-
-            let response = NSString(data: data!, encoding: 8);
-//            print("response: \(response)");
-            self.eventID = Int(response! as String);
-            self.dispatch.leave();
-        }
-        self.dispatch.enter();
-        dataTask.resume();
-        self.dispatch.wait();
-        if let event = currentEvent{
-            event.eventID = self.eventID;
-//            print(event.eventID)
-        }
-//        print("event id");
-//        print(currentEvent?.eventID);
-        
-    }
-    
     func showLoadingView(){
         let size = CGSize(width: 50, height: 50)
         self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
     }
+    
+    func handleLongPress(indexPath: IndexPath) {
+        
+        let alert = UIAlertController(title: "Delete?", message: "Are you sure you want to delete this event?", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+            //delete event
+            let eventToDelete = self.myEventsInProgress[indexPath.item];
+            PersistenceManager.shared.context.delete(eventToDelete);
+            PersistenceManager.shared.save();
+            
+            self.myEventsInProgress.remove(at: indexPath.item);
+            self.collectionView?.deleteItems(at: [indexPath]);
+            
+            let userInfo = ["indexPath":indexPath];
+            
+            let name = Notification.Name(rawValue: overviewPageUpdateIndexPath);
+            NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo);
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showErrorAlertCreatingEvent(){
+        let alert = UIAlertController(title: "Warning", message: "You cannot be working on 5 different events at the same time. You host as many events as you want, but you cannot have more than 5 events not completed.", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
 }

@@ -90,8 +90,14 @@ class UploadImagesPage: UIViewController, UIImagePickerControllerDelegate,UINavi
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 8;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 8;
+        currentEventInProgress?.step = 8;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -168,7 +174,11 @@ extension UploadImagesPage{
     
     @objc func handleNextButtonPressed(){
         
-        currentEvent?.images = self.imagesList.images;
+//        currentEvent?.images = self.imagesList.images;
+        
+        let imagesData = NSKeyedArchiver.archivedData(withRootObject: self.imagesList.images);
+        currentEventInProgress?.images = imagesData as NSData;
+        PersistenceManager.shared.save();
 
         let layout = UICollectionViewFlowLayout();
         let reviewPage = ReviewPage(collectionViewLayout: layout);

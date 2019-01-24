@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol CreatedEventsInProgressCellDelegate{
+    
+    func handleLongPress(indexPath: IndexPath);
+    
+}
+
 class CreatedEventsInProgressCell: UICollectionViewCell{
     
     var eventTitleLabel: NormalUILabel = {
@@ -38,20 +44,46 @@ class CreatedEventsInProgressCell: UICollectionViewCell{
         return rightArrowImageView;
     }()
     
+    var delegate: CreatedEventsInProgressCellDelegate?;
+    var indexPath: IndexPath?;
+    var eventID: Int?;
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
         self.layer.borderColor = UIColor.veryLightGray.cgColor;
         self.layer.borderWidth = 0.4;
+        self.isUserInteractionEnabled = true;
+        self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress)));
         setupEventTitleLabel();
         setupBorderTop();
         setupInstructionsLabel();
         setupStepCounter();
         setupRightArrow();
+        addObservers();
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError();
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func addObservers(){
+        let name = Notification.Name(rawValue: overviewPageUpdateIndexPath);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateIndexPath(notification:)), name: name, object: nil);
+    }
+    
+    @objc func updateIndexPath(notification:NSNotification){
+        if let userInfo = notification.userInfo{
+            let compareIndexPath = userInfo["indexPath"] as! IndexPath
+            if(self.indexPath!.item > compareIndexPath.item){
+                let newIndexPath = IndexPath(item: self.indexPath!.item - 1, section: self.indexPath!.section);
+                self.indexPath = newIndexPath;
+            }
+        }
     }
     
     fileprivate func setupEventTitleLabel(){
@@ -82,8 +114,21 @@ class CreatedEventsInProgressCell: UICollectionViewCell{
 //        rightArrowImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
     }
     
+    @objc func handleLongPress(g: UIGestureRecognizer){
+        if let indexPath = self.indexPath{
+            if(g.state == .began){
+//                print("long press");
+                delegate?.handleLongPress(indexPath: indexPath);
+                
+            }
+        }
+        
+        
+    }
+    
     func setSteps(stepNumber: Int){
-        self.stepsCounterLabel.text = "Steps: \(stepNumber)/8";
+        let readableStepNumber = stepNumber + 1;
+        self.stepsCounterLabel.text = "Steps: \(readableStepNumber)/10";
     }
     
     func setTitle(title:String){

@@ -8,10 +8,10 @@
 
 import UIKit
 
-var currentEvent: MyEvent?;
+//var currentEvent: MyEvent?;
+var currentEventInProgress: EventInProgress?;
 
 let reloadCreateEventPage = "ReloadCreateEventPage";
-
 
 class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, CreateEventMainCellDelegate {
     
@@ -73,25 +73,42 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
         cell.delegate = self;
         cell.indexPath = indexPath;
         
-        if(indexPath.item == currentEvent!.stepNumber){
-            cell.revealContinueButton();
-        }else{
-            cell.continueButton.isHidden = true;
+        if let currentEvent = currentEventInProgress{
+            if(indexPath.item == Int(currentEvent.step)){
+                cell.revealContinueButton();
+            }else{
+                cell.continueButton.isHidden = true;
+            }
+            
+            if(indexPath.item < Int(currentEvent.step)){
+                cell.revealGreenCheck();
+            }else{
+                cell.checkMarkImage.isHidden = true;
+            }
         }
         
-        if(indexPath.item < currentEvent!.stepNumber){
-            cell.revealGreenCheck();
-        }else{
-            cell.checkMarkImage.isHidden = true;
+        if(currentEventInProgress == nil){
+            if(indexPath.item == 0){
+                cell.revealContinueButton();
+            }
         }
         // Configure the cell
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(indexPath.item == currentEvent!.stepNumber){
-            return CGSize(width: self.view.frame.width, height: 110);
+        if let currentEvent = currentEventInProgress{
+            if(indexPath.item == Int(currentEvent.step)){
+                return CGSize(width: self.view.frame.width, height: 110);
+            }
         }
+        
+        if(currentEventInProgress == nil){
+            if(indexPath.item == 0){
+                return CGSize(width: self.view.frame.width, height: 110);
+            }
+        }
+        
         return CGSize(width: self.view.frame.width, height: 50);
     }
     
@@ -112,7 +129,7 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(currentEvent!.stepNumber > indexPath.item){
+        if(Int(currentEventInProgress!.step) > indexPath.item){
 //            print(indexPath.item);
 //            print(currentEvent!.stepNumber);
             self.continuePressed(indexPath: indexPath);

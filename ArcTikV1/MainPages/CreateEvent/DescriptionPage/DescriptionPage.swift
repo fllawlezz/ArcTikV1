@@ -45,11 +45,18 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 1;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 1;
+        currentEventInProgress?.step = 1;
+        PersistenceManager.shared.save();
+        
+//        print(currentEventInProgress?.step);
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
         
-        if let description = currentEvent?.description{
+        if let description = currentEventInProgress?.eventDescription{
             self.descriptionTextView.text = description;
         }
     }
@@ -79,26 +86,6 @@ class DescriptionPage: UIViewController, UITextViewDelegate{
 }
 
 extension DescriptionPage{
-//    func textViewDidChange(_ textView: UITextView) {
-//        wordCount = textView.text.count;
-//        self.wordCountLabel.text = "\(wordCount)/225"
-//
-//        if(wordCount == 225){
-//            self.wordCountLabel.textColor = UIColor.red;
-//        }else if(wordCount < 225){
-//            self.wordCountLabel.textColor = UIColor.darkText;
-//        }else if(wordCount > 225){
-//            wordCount = 225;
-//            self.wordCountLabel.text = "\(wordCount)/225"
-//
-//            let currentText = textView.text;
-//            let newText = currentText?.dropLast();
-//            descriptionTextView.text = String(newText!);
-//        }
-//    }
-}
-
-extension DescriptionPage{
     @objc func handleClearPressed(){
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
@@ -116,7 +103,9 @@ extension DescriptionPage{
     
     @objc func handleNextButtonPressed(){
         if(descriptionTextView.text.count > 0){
-            currentEvent?.description = self.descriptionTextView.text!;
+//            currentEvent?.description = self.descriptionTextView.text!;
+            currentEventInProgress?.eventDescription = self.descriptionTextView.text!;
+            PersistenceManager.shared.save();
             
             let layout = UICollectionViewFlowLayout();
             let locationPage = LocationPage(collectionViewLayout: layout);

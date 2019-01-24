@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class TitlePage: UIViewController, UITextViewDelegate{
+class TitlePage: UIViewController, UITextViewDelegate, NVActivityIndicatorViewable{
     
     var titleLabel: NormalUILabel = {
         let titleLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 18), textAlign: .left);
@@ -38,6 +39,8 @@ class TitlePage: UIViewController, UITextViewDelegate{
         return nextButton;
     }()
     
+    let dispatch = DispatchGroup();
+    var eventID: Int?;
     var wordCount = 0;
     
     override func viewDidLoad() {
@@ -54,7 +57,11 @@ class TitlePage: UIViewController, UITextViewDelegate{
     }
     
     fileprivate func setCurrentData(){
-        if let titleString = currentEvent?.eventTitle{
+//        if let titleString = currentEvent?.eventTitle{
+//            self.titleTextView.text = titleString;
+//        }
+        
+        if let titleString = currentEventInProgress?.title{
             self.titleTextView.text = titleString;
         }
     }
@@ -113,7 +120,15 @@ extension TitlePage{
     
     @objc func handleNextButtonPressed(){
         if(titleTextView.text.count > 0){
-            currentEvent?.eventTitle = titleTextView.text;
+//            currentEvent?.eventTitle = titleTextView.text;
+            currentEventInProgress?.title = titleTextView.text!;
+            
+            if(currentEventInProgress == nil){
+                self.showLoadingView();
+                createEventOnServer()
+                createAndSaveEvent();
+                self.stopAnimating();
+            }
             
             let descriptionPage = DescriptionPage();
             self.navigationController?.pushViewController(descriptionPage, animated: true);
@@ -121,6 +136,53 @@ extension TitlePage{
             self.showEmptyAlert();
         }
         
+    }
+    
+    func createEventOnServer(){
+        let url = URL(string: "http://localhost:3000/startCreateEvent")!;
+        var request = URLRequest(url: url);
+        let requestBody = "userID=\(user!.userID)"
+        request.httpMethod = "POST";
+        request.httpBody = requestBody.data(using: .utf8);
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if(err != nil){
+                print("error");
+                return;
+            }
+            
+            let response = NSString(data: data!, encoding: 8);
+            self.eventID = Int(response! as String);
+            self.dispatch.leave();
+        }
+        self.dispatch.enter();
+        dataTask.resume();
+        self.dispatch.wait();
+        
+    }
+    
+    func createAndSaveEvent(){
+        let inProgressEvent = EventInProgress(context: PersistenceManager.shared.context);
+        inProgressEvent.step = 1;
+        inProgressEvent.hosterID = Int16(user!.userID)
+        //set eventID
+        inProgressEvent.eventID = Int16(self.eventID!)
+        inProgressEvent.price = 0;
+        inProgressEvent.people = 2;
+        inProgressEvent.title = titleTextView.text!;
+        inProgressEvent.hosterID = Int16(user!.userID);
+        PersistenceManager.shared.save();
+        
+        currentEventInProgress = inProgressEvent;
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let reloadName = Notification.Name(rawValue: reloadOverViewPage);
+        NotificationCenter.default.post(name: reloadName, object: nil);
+    }
+    func showLoadingView(){
+        let size = CGSize(width: 50, height: 50)
+        self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
     }
     
     fileprivate func showEmptyAlert(){

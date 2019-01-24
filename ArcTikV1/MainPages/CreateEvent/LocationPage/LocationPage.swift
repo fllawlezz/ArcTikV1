@@ -62,9 +62,17 @@ class LocationPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 2;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 2;
+        currentEventInProgress?.step = 2;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
+        
+        let currentEvent = currentEventInProgress;
         
         if let country = currentEvent?.country{
             self.country = country;
@@ -211,14 +219,20 @@ extension LocationPage{
             
             var locationData = getData();
             
-            currentEvent?.country = locationData[0];
-            currentEvent?.street = locationData[1];
-            currentEvent?.city = locationData[2];
-            currentEvent?.zipcode = locationData[3];
+//            currentEvent?.country = locationData[0];
+//            currentEvent?.street = locationData[1];
+//            currentEvent?.city = locationData[2];
+//            currentEvent?.zipcode = locationData[3];
+            
+            currentEventInProgress?.country = locationData[0];
+            currentEventInProgress?.street = locationData[1];
+            currentEventInProgress?.city = locationData[2];
+            currentEventInProgress?.zipcode = locationData[3];
+            
+            PersistenceManager.shared.save();
+            
             
             let requirementsPage = RequirementsPage();
-            
-//            let requirementsPage = RequirementsPageList();
             
             self.navigationController?.pushViewController(requirementsPage, animated: true);
         }
@@ -239,7 +253,7 @@ extension LocationPage{
         self.present(alert, animated: true, completion: nil);
     }
     
-    func setAddressData(address: String, zipcode: String, city: String, country: String) {
+    func setAddressData(address: String, zipcode: String?, city: String?, country: String?) {
         var count = 0;
         while(count < titles.count){
              let cell = self.collectionView?.cellForItem(at: IndexPath(item: count, section: 0)) as! LocationPageCell;

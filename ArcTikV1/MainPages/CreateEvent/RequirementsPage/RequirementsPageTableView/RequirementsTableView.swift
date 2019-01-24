@@ -26,10 +26,23 @@ class RequirementsTableView: UITableView, UITableViewDelegate, UITableViewDataSo
         self.register(RequirementsPageListCell.self, forCellReuseIdentifier: reuseCell);
         self.register(RequirementsEmptyCell.self, forCellReuseIdentifier: emptyCell);
         self.register(RequirementsPageTitleHeader.self, forHeaderFooterViewReuseIdentifier: headerCell);
+        getData();
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError();
+    }
+    
+    fileprivate func getData(){
+        if let event = currentEventInProgress{
+            if(event.requirements != nil){
+                let eventData = NSKeyedUnarchiver.unarchiveObject(with: event.requirements! as Data) as! [String];
+                if(eventData.count > 0){
+                    self.requirementsList = eventData;
+                    self.reloadData();
+                }
+            }
+        }
     }
     
     override var numberOfSections: Int{
@@ -42,6 +55,7 @@ class RequirementsTableView: UITableView, UITableViewDelegate, UITableViewDataSo
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseCell, for: indexPath) as! RequirementsPageListCell;
             cell.delegate = self.requirementsPage;
             cell.indexPath = indexPath;
+            cell.setupRequirementGestureRecognizer();
             cell.setRequirementText(requirement: requirementsList[indexPath.item]);
             return cell;
         }else{

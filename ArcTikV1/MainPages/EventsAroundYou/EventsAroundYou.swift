@@ -68,7 +68,7 @@ extension EventsAroundYou{
     @objc func handleCreateEvent(){
         let layout = UICollectionViewFlowLayout();
 //        let createEventPage = CreateEventPage(collectionViewLayout: layout);
-        let createdEventsPage = CreatedEventsPage(collectionViewLayout: layout);
+        let createdEventsPage = OverviewPage(collectionViewLayout: layout);
         createdEventsPage.hidesBottomBarWhenPushed = true;
         self.navigationController?.pushViewController(createdEventsPage, animated: true);
         

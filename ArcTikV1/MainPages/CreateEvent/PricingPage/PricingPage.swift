@@ -55,8 +55,18 @@ class PricingPage: UIViewController, UITextFieldDelegate{
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 6;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 6;
+        currentEventInProgress?.step = 6;
+        PersistenceManager.shared.save();
+        
+        if let charge = currentEventInProgress?.price{
+            self.chargeField.text = "$\(charge)"
+        }
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -118,8 +128,11 @@ extension PricingPage{
             //show error alert
         }else{
             let noDollarSignText = chargeField.text?.replacingOccurrences(of: "$", with: "");
-            let chargeInt = Double(noDollarSignText!);
-            currentEvent?.charge = chargeInt;
+            let chargeDouble = Double(noDollarSignText!);
+            
+//            currentEvent?.charge = chargeDouble;
+            currentEventInProgress?.price = chargeDouble ?? 0;
+            PersistenceManager.shared.save();
             
             let thingsToBringPage = ThingsToBringPage();
             self.navigationController?.pushViewController(thingsToBringPage, animated: true);

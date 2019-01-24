@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 
 protocol AskForAddressPageDelegate{
-    func setAddressData(address: String, zipcode: String, city: String, country: String);
+    func setAddressData(address: String, zipcode: String?, city: String?, country: String?);
 }
 
 class AskForAddressPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
@@ -130,8 +130,8 @@ class AskForAddressPage: UICollectionViewController, UICollectionViewDelegateFlo
                 
             }
             
+                self.addressPageDelegate?.setAddressData(address: self.addressResults[indexPath.item].attributedPrimaryText.string, zipcode: self.zipcodeResult, city: self.cityResult, country: self.countryResult);
             
-            self.addressPageDelegate?.setAddressData(address: self.addressResults[indexPath.item].attributedPrimaryText.string, zipcode: self.zipcodeResult!, city: self.cityResult!, country: self.countryResult!);
 
             self.dismiss(animated: true, completion: nil);
         })

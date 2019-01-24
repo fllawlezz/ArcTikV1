@@ -41,8 +41,14 @@ class PrivacyPage: UICollectionViewController, UICollectionViewDelegateFlowLayou
     }
     
     fileprivate func setCurrentEventData(){
-        currentEvent?.stepNumber = 4;
-        let name = Notification.Name(rawValue: reloadCreateEventPage);
+//        currentEvent?.stepNumber = 4;
+        currentEventInProgress?.step = 4;
+        PersistenceManager.shared.save();
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
+        let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
     
@@ -200,10 +206,13 @@ extension PrivacyPage{
             var numberOfPeopleString = numberOfPeopleCell.infoField.text;
             numberOfPeopleString = numberOfPeopleString?.replacingOccurrences(of: "+", with: "");
             
-            currentEvent?.privacy = cellString;
-            currentEvent?.people = Int(numberOfPeopleString!);
+//            currentEvent?.privacy = cellString;
+//            currentEvent?.people = Int(numberOfPeopleString!);
             
-            print(currentEvent!.people!);
+            currentEventInProgress?.privacy = cellString;
+            currentEventInProgress?.people = Int16(numberOfPeopleString!)!;
+            PersistenceManager.shared.save();
+//            print(currentEvent!.people!);
             
             let layout = UICollectionViewFlowLayout();
             let datePage = DatePage(collectionViewLayout: layout);
@@ -211,5 +220,6 @@ extension PrivacyPage{
         }
 
     }
+
 }
 
