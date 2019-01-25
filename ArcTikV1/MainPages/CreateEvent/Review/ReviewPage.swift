@@ -59,6 +59,12 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
 //        currentEvent?.stepNumber = 9;
         currentEventInProgress?.step = 9;
         PersistenceManager.shared.save();
+        
+//        print(currentEventInProgress?.step);
+        
+        let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
+        NotificationCenter.default.post(name: createEventName, object: nil);
+        
         let name = Notification.Name(rawValue: reloadOverViewPage);
         NotificationCenter.default.post(name: name, object: nil);
     }
@@ -173,9 +179,15 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
                 let requirementsPage = RequirementsPage();
                 requirementsPage.fromEventsInfo = true;
                 let requirementsList = NSKeyedUnarchiver.unarchiveObject(with: event.requirements! as Data) as! [String];
-                
                 requirementsPage.requirementsListView.requirementsList = requirementsList;
-                self.present(requirementsPage, animated: true, completion: nil);
+                
+                let navigationController = UINavigationController(rootViewController: requirementsPage);
+                navigationController.navigationBar.isTranslucent = false;
+                navigationController.navigationBar.barStyle = .blackTranslucent;
+                navigationController.navigationBar.tintColor = UIColor.white;
+                navigationController.navigationBar.barTintColor = UIColor.appBlue;
+                self.present(navigationController, animated: true, completion: nil);
+                
             }
             
         }
@@ -189,7 +201,14 @@ class ReviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayout
                 let thingsToBringList = NSKeyedUnarchiver.unarchiveObject(with: event.thingsToBring! as Data) as! [String];
                 
                 thingsToBringPage.thingsToBringTableView.thingsToBringList = thingsToBringList
-                self.present(thingsToBringPage, animated: true, completion: nil);
+                
+                let navigationController = UINavigationController(rootViewController: thingsToBringPage);
+                navigationController.navigationBar.isTranslucent = false;
+                navigationController.navigationBar.barStyle = .blackTranslucent;
+                navigationController.navigationBar.tintColor = UIColor.white;
+                navigationController.navigationBar.barTintColor = UIColor.appBlue;
+                self.present(navigationController, animated: true, completion: nil);
+                
             }
         }
     }
@@ -257,6 +276,7 @@ extension ReviewPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            PersistenceManager.shared.save();
             self.dismiss(animated: true, completion: nil);
             //            self.navigationController?.popToRootViewController(animated: true);
         }))
@@ -273,7 +293,7 @@ extension ReviewPage{
             
             let cell = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! ReviewPageDescriptionCell
             let size = CGSize(width: self.view.frame.width-20, height: .infinity)
-            self.estimatedFrameSize = cell.descriptionTextView.sizeThatFits(size)
+            self.estimatedFrameSize = cell.descriptionTextView.sizeThatFits(size);
             
             if(descriptionIsExpanded){
                 UIView.animate(withDuration: 0.3) {
@@ -290,8 +310,9 @@ extension ReviewPage{
         self.showLoadingView();
         var serverResponse: String?;
         
-        user?.userLongitude = "0.0000";
-        user?.userLatitude = "0.00000";
+//        user?.userLongitude = "0.0000";
+//        user?.userLatitude = "0.00000";
+        
         if let event = currentEventInProgress{
             let requirementsList = NSKeyedUnarchiver.unarchiveObject(with: event.requirements! as Data) as! [String];
             let thingsToBringList = NSKeyedUnarchiver.unarchiveObject(with: event.thingsToBring! as Data) as! [String];
@@ -300,6 +321,7 @@ extension ReviewPage{
             let body = constructBody(userID: user!.userID, eventID: Int(event.eventID),eventTitle: event.title!, description: event.eventDescription!, latitude: user!.userLatitude!, longitude: user!.userLongitude!, country: event.country!, street: event.street!, city: event.city!, zipcode: event.zipcode!, requirements: requirementsList, privacy: event.privacy!, people: Int(event.people), startDate: event.startDate!, endDate: event.endDate!, startTime: event.startTime!, endTime: event.endTime!, price: event.price,thingsToBring: thingsToBringList, images: images);
             
             let url = URL(string: "http://localhost:3000/createEvent")!;
+//            let url = URL(string: "http://arctikllc.com:3000/createEvent")!;
             var request = URLRequest(url: url);
             request.httpMethod = "POST";
             request.httpBody = body;

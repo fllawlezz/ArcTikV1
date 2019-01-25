@@ -18,12 +18,14 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     let eventsReuse = "eventsReuse";
     let eventsImageReuse = "eventsImageReuse";
     
+    var events = [Event]();
+    
     var eventsAroundYouDelegate: EventsAroundYouCollectionViewDelegate?;
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout);
         
-        self.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+        self.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         self.translatesAutoresizingMaskIntoConstraints = false;
         self.backgroundColor = UIColor.veryLightGray;
         self.alwaysBounceVertical = true;
@@ -39,17 +41,20 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2;
+        return events.count;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if(indexPath.item == 1){
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsReuse, for: indexPath) as! EventsAroundYouCell
-            cell.delegate = self;
-            return cell;
-        }else{
+        let event = self.events[indexPath.item];
+        if(event.cellImage != nil){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsImageReuse, for: indexPath) as! EventsAroundYouImageCell
             cell.delegate = self;
+            cell.cellEvent = event;
+            return cell;
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsReuse, for: indexPath) as! EventsAroundYouCell
+            cell.delegate = self;
+            cell.cellEvent = events[indexPath.item];
             return cell;
         }
     }
@@ -59,7 +64,15 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.frame.width-20, height: 170);
+        let event = events[indexPath.item];
+        if(event.cellImage != nil){
+            return CGSize(width: self.frame.width-20, height: 240);
+        }else{
+            if(event.eventDescription!.count < 100){
+                return CGSize(width: self.frame.width-20, height: 180);
+            }
+            return CGSize(width: self.frame.width-20, height: 200);
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

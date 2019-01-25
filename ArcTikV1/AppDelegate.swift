@@ -37,8 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userID = standard?.object(forKey: "userID");
         if(userID != nil){
             populateUser();
-            let customTab = CustomTabBar();
-            window?.rootViewController = customTab;
+            
+            let splashPage = SplashPage();
+            window?.rootViewController = splashPage;
+//            let customTab = CustomTabBar();
+//            window?.rootViewController = customTab;
 //            let layout = UICollectionViewFlowLayout();
 //            let reviewPage = ReviewPage(collectionViewLayout: layout);
 //            let requirementsPage = RequirementsPage();

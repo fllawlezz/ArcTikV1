@@ -10,6 +10,8 @@ import UIKit
 
 class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
     
+    var eventsAroundYouPage: EventsAroundYou?;
+    
     var eventsAroundYouController: UINavigationController?
     var messagesController: UINavigationController?;
     var myEventsController: UINavigationController?;
@@ -30,9 +32,9 @@ class CustomTabBar: UITabBarController, UITabBarControllerDelegate{
     }
     
     func setupEventsAroundYou(){
-        let eventsAroundYouPage = EventsAroundYou();
+        eventsAroundYouPage = EventsAroundYou();
         
-        eventsAroundYouController = UINavigationController(rootViewController: eventsAroundYouPage);
+        eventsAroundYouController = UINavigationController(rootViewController: eventsAroundYouPage!);
         eventsAroundYouController?.navigationBar.isTranslucent = false;
         eventsAroundYouController?.navigationBar.barTintColor = UIColor.appBlue;
         eventsAroundYouController?.navigationBar.tintColor = UIColor.white;

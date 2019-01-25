@@ -58,6 +58,14 @@ class OverviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
          3. remove in progress event from collection view
          4. delete in progress event
          */
+        if let userInfo = notification.userInfo{
+            let failedCreateEvent = userInfo["failed"] as! Bool
+            if(failedCreateEvent){
+                self.dismiss(animated: true, completion: nil);
+                return;
+            }
+        }
+        
         let removeIndexPath = getIndexToRemove(eventID: Int(currentEventInProgress!.eventID));
         if(removeIndexPath != nil){
             self.myEventsInProgress.remove(at: removeIndexPath!.item);
@@ -68,8 +76,9 @@ class OverviewPage: UICollectionViewController, UICollectionViewDelegateFlowLayo
         PersistenceManager.shared.save();
         currentEventInProgress = nil;
         
-        
         self.dismiss(animated: true, completion: nil);
+        
+        
     }
     
     func getIndexToRemove(eventID: Int) -> IndexPath?{

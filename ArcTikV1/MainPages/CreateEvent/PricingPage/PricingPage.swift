@@ -111,13 +111,12 @@ extension PricingPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.savePricingData();
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
             //not save
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         self.present(alert, animated: true, completion: nil);
     }
@@ -127,17 +126,23 @@ extension PricingPage{
         if((self.chargeField.text?.count)! < 2){
             //show error alert
         }else{
-            let noDollarSignText = chargeField.text?.replacingOccurrences(of: "$", with: "");
-            let chargeDouble = Double(noDollarSignText!);
-            
-//            currentEvent?.charge = chargeDouble;
-            currentEventInProgress?.price = chargeDouble ?? 0;
-            PersistenceManager.shared.save();
+            self.savePricingData();
             
             let thingsToBringPage = ThingsToBringPage();
             self.navigationController?.pushViewController(thingsToBringPage, animated: true);
         }
         
         
+    }
+}
+
+extension PricingPage{
+    func savePricingData(){
+        let noDollarSignText = chargeField.text?.replacingOccurrences(of: "$", with: "");
+        let chargeDouble = Double(noDollarSignText!);
+        
+        //            currentEvent?.charge = chargeDouble;
+        currentEventInProgress?.price = chargeDouble ?? 0;
+        PersistenceManager.shared.save();
     }
 }

@@ -119,44 +119,64 @@ extension TitlePage{
     }
     
     @objc func handleNextButtonPressed(){
+        self.showLoadingView()
         if(titleTextView.text.count > 0){
 //            currentEvent?.eventTitle = titleTextView.text;
             currentEventInProgress?.title = titleTextView.text!;
             
             if(currentEventInProgress == nil){
-                self.showLoadingView();
-                createEventOnServer()
-                createAndSaveEvent();
-                self.stopAnimating();
+                
+                let errorExists = createEventOnServer();
+
+                if(!errorExists){
+                    self.stopAnimating();
+                    createAndSaveEvent();
+                    let descriptionPage = DescriptionPage();
+                    self.navigationController?.pushViewController(descriptionPage, animated: true);
+                }else{
+                    self.stopAnimating();
+                    self.showServerAlert();
+                }
+                
+                
             }
-            
-            let descriptionPage = DescriptionPage();
-            self.navigationController?.pushViewController(descriptionPage, animated: true);
         }else{
             self.showEmptyAlert();
         }
         
     }
     
-    func createEventOnServer(){
+    func createEventOnServer() -> Bool{
+        
+        var errorExists = false;
         let url = URL(string: "http://localhost:3000/startCreateEvent")!;
+//        let url = URL(string: "http://arctikllc.com:3000/startCreateEvent")!;
         var request = URLRequest(url: url);
         let requestBody = "userID=\(user!.userID)"
         request.httpMethod = "POST";
         request.httpBody = requestBody.data(using: .utf8);
+        request.timeoutInterval = 10;
         let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
             if(err != nil){
-                print("error");
-                return;
+                errorExists = true;
+                self.dispatch.leave();
+                
+            }else{
+                if(data != nil){
+                    let response = NSString(data: data!, encoding: 8);
+                    self.eventID = Int(response! as String);
+                    self.dispatch.leave();
+                }
             }
             
-            let response = NSString(data: data!, encoding: 8);
-            self.eventID = Int(response! as String);
-            self.dispatch.leave();
+            
         }
+        
         self.dispatch.enter();
         dataTask.resume();
         self.dispatch.wait();
+        
+        return errorExists;
         
     }
     
@@ -188,6 +208,18 @@ extension TitlePage{
     fileprivate func showEmptyAlert(){
         let alert = UIAlertController(title: "Oops!", message: "You didn't fill out the title field!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showServerAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "There was a problem submitting your title! Try again later!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            
+            let userInfo = ["failed":true];
+            
+            let notification = Notification.Name(rawValue: dismissCreateEventPage);
+            NotificationCenter.default.post(name: notification, object: nil, userInfo: userInfo);
+        }))
         self.present(alert, animated: true, completion: nil);
     }
 }

@@ -216,21 +216,7 @@ extension LocationPage{
             //get alert
             showEmptyAlert();
         }else{
-            
-            var locationData = getData();
-            
-//            currentEvent?.country = locationData[0];
-//            currentEvent?.street = locationData[1];
-//            currentEvent?.city = locationData[2];
-//            currentEvent?.zipcode = locationData[3];
-            
-            currentEventInProgress?.country = locationData[0];
-            currentEventInProgress?.street = locationData[1];
-            currentEventInProgress?.city = locationData[2];
-            currentEventInProgress?.zipcode = locationData[3];
-            
-            PersistenceManager.shared.save();
-            
+            saveLocationData();
             
             let requirementsPage = RequirementsPage();
             
@@ -242,6 +228,7 @@ extension LocationPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.saveLocationData();
             self.dismiss(animated: true, completion: nil);
             //            self.navigationController?.popToRootViewController(animated: true);
         }))
@@ -277,8 +264,6 @@ extension LocationPage{
     
     func handleEnterStreet() {
         
-        
-        
         let layout = UICollectionViewFlowLayout();
         let addressPage = AskForAddressPage(collectionViewLayout: layout);
         
@@ -291,5 +276,17 @@ extension LocationPage{
         navigationController.navigationBar.barTintColor = UIColor.appBlue;
         self.present(navigationController, animated: true, completion: nil);
 
+    }
+}
+
+extension LocationPage{
+    func saveLocationData(){
+        var locationData = getData();
+        currentEventInProgress?.country = locationData[0];
+        currentEventInProgress?.street = locationData[1];
+        currentEventInProgress?.city = locationData[2];
+        currentEventInProgress?.zipcode = locationData[3];
+        
+        PersistenceManager.shared.save();
     }
 }

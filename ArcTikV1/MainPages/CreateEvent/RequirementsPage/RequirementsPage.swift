@@ -77,26 +77,26 @@ class RequirementsPage: UIViewController, RequirementsPageListCellDelegate{
 
 extension RequirementsPage{
     @objc func handleClearPressed(){
-        let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-            //save
+        if(!fromEventsInfo){
+            let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                //save
+                self.saveRequirementsData();
+                self.dismiss(animated: true, completion: nil);
+            }))
+            alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
+                //not save
+                self.dismiss(animated: true, completion: nil);
+            }))
+            self.present(alert, animated: true, completion: nil);
+        }else{
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
-        }))
-        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
-            //not save
-            self.dismiss(animated: true, completion: nil);
-//            self.navigationController?.popToRootViewController(animated: true);
-        }))
-        self.present(alert, animated: true, completion: nil);
+        }
     }
     
     @objc func handleNextButtonPressed(){
 //        currentEvent?.requirements = self.requirementsListView.requirementsList;
-        
-        let requirementsListData = NSKeyedArchiver.archivedData(withRootObject: requirementsListView.requirementsList);
-        currentEventInProgress?.requirements = requirementsListData as NSData;
-        PersistenceManager.shared.save();
+        saveRequirementsData();
         
         let layout = UICollectionViewFlowLayout();
         let privacyPage = PrivacyPage(collectionViewLayout: layout);
@@ -158,4 +158,12 @@ extension RequirementsPage{
         
     }
     
+}
+
+extension RequirementsPage{
+    func saveRequirementsData(){
+        let requirementsListData = NSKeyedArchiver.archivedData(withRootObject: requirementsListView.requirementsList);
+        currentEventInProgress?.requirements = requirementsListData as NSData;
+        PersistenceManager.shared.save();
+    }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class EventsAroundYouCellInfoView: UIView {
    
-    var timeStampLabel: NormalUILabel = {
+    var dateLabel: NormalUILabel = {
         let timeStampLabel = NormalUILabel(textColor: .darkText, font: .montserratRegular(fontSize: 12), textAlign: .center);
         timeStampLabel.text = "30 minutes ago"
         return timeStampLabel;
@@ -42,17 +42,17 @@ class EventsAroundYouCellInfoView: UIView {
     }
     
     fileprivate func setupTimeStampLabel(){
-        self.addSubview(timeStampLabel);
-        timeStampLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
-        timeStampLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
-        timeStampLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
-        timeStampLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
+        self.addSubview(dateLabel);
+        dateLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
+        dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
+        dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
+        dateLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
         
     }
     
     fileprivate func setupPeopleLabel(){
         self.addSubview(numberOfPeopleLabel);
-        numberOfPeopleLabel.leftAnchor.constraint(equalTo: self.timeStampLabel.rightAnchor).isActive = true;
+        numberOfPeopleLabel.leftAnchor.constraint(equalTo: self.dateLabel.rightAnchor).isActive = true;
         numberOfPeopleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true;
         numberOfPeopleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         numberOfPeopleLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
@@ -65,6 +65,27 @@ class EventsAroundYouCellInfoView: UIView {
         priceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         priceLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
 //        priceLabel.backgroundColor = UIColor.red;
+    }
+    
+    func setNumberOfPeople(currentPeople: Int, people: Int){
+        if(people == 91){
+            self.numberOfPeopleLabel.text = "People: \(currentPeople)/\(people)+"
+        }else{
+            self.numberOfPeopleLabel.text = "People: \(currentPeople)/\(people)"
+        }
+    }
+    
+    func setPrice(price: Double){
+        if(price == 0){
+            self.priceLabel.text = "Free";
+        }else{
+            let doubleFormat = String(format: "%.2f", price);
+            self.priceLabel.text = "$\(doubleFormat)";
+        }
+    }
+    
+    func setDate(date: String){
+        self.dateLabel.text = date;
     }
     
 }

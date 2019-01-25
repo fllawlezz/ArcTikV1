@@ -90,6 +90,7 @@ extension DescriptionPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.saveDescription();
             self.dismiss(animated: true, completion: nil);
 //            self.navigationController?.popToRootViewController(animated: true);
         }))
@@ -104,8 +105,7 @@ extension DescriptionPage{
     @objc func handleNextButtonPressed(){
         if(descriptionTextView.text.count > 0){
 //            currentEvent?.description = self.descriptionTextView.text!;
-            currentEventInProgress?.eventDescription = self.descriptionTextView.text!;
-            PersistenceManager.shared.save();
+            saveDescription();
             
             let layout = UICollectionViewFlowLayout();
             let locationPage = LocationPage(collectionViewLayout: layout);
@@ -119,5 +119,12 @@ extension DescriptionPage{
         let alert = UIAlertController(title: "Oops!", message: "You didn't fill out the description field!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
+    }
+}
+
+extension DescriptionPage{
+    func saveDescription(){
+        currentEventInProgress?.eventDescription = self.descriptionTextView.text!;
+        PersistenceManager.shared.save();
     }
 }

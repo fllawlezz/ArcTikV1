@@ -17,7 +17,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
     var posterImageView: UIImageView = {
         let posterImage = UIImageView();
         posterImage.translatesAutoresizingMaskIntoConstraints = false;
-        posterImage.backgroundColor = UIColor.orange;
+//        posterImage.backgroundColor = UIColor.orange;
         posterImage.contentMode = .scaleAspectFill
         posterImage.layer.cornerRadius = 15;
         posterImage.clipsToBounds = true;
@@ -49,6 +49,14 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         return eventImageView;
     }()
     
+    var titleLabel: NormalUILabel = {
+        let titleLabel = NormalUILabel(textColor: .darkText, font: .montserratSemiBold(fontSize: 16), textAlign: .left);
+        titleLabel.text = "Title goes here";
+        titleLabel.isUserInteractionEnabled = false;
+        titleLabel.numberOfLines = 2;
+        return titleLabel;
+    }()
+    
     var descriptionTextView: UITextView = {
         let descriptionTextView = UITextView();
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false;
@@ -73,6 +81,17 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         return eventsCellInfo;
     }()
     
+    var cellEvent: Event?{
+        didSet{
+            self.setTitle(title: cellEvent!.eventTitle!);
+            self.setDescription(description: cellEvent!.eventDescription!);
+            self.setEventImage();
+            self.setPosterImage();
+            self.setPosterName(name: cellEvent!.posterName!);
+            self.setBottomBarData();
+        }
+    }
+    
     var delegate: EventsAroundYouImageCellDelegate?;
     
     override init(frame: CGRect) {
@@ -80,7 +99,8 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         self.backgroundColor = UIColor.white;
         setupPosterImageView();
         setupPosterNameLabel();
-        setupCategoryLabel();
+//        setupCategoryLabel();
+        setupTitleLabel();
         setupEventImageView();
         setupDescriptionTextView();
         setupBorder();
@@ -120,10 +140,15 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         //        categoryLabel.backgroundColor = UIColor.blue;
     }
     
+    fileprivate func setupTitleLabel(){
+        self.addSubview(titleLabel);
+        titleLabel.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.posterImageView.bottomAnchor, bottom: nil, constantLeft: 10, constantRight: -10, constantTop: 5, constantBottom: 0, width: 0, height: 40);
+    }
+    
     fileprivate func setupEventImageView(){
         self.addSubview(eventImageView);
         eventImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true;
-        eventImageView.topAnchor.constraint(equalTo: self.posterImageView.bottomAnchor, constant: 5).isActive = true;
+        eventImageView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5).isActive = true;
         eventImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40).isActive = true;
         eventImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true;
     }
@@ -132,7 +157,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         self.addSubview(descriptionTextView);
         descriptionTextView.leftAnchor.constraint(equalTo: self.eventImageView.rightAnchor, constant: 5).isActive = true;
         descriptionTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true;
-        descriptionTextView.topAnchor.constraint(equalTo: self.posterImageView.bottomAnchor, constant: 5).isActive = true;
+        descriptionTextView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5).isActive = true;
         descriptionTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40).isActive = true;
         //        descriptionTextView.backgroundColor = UIColor.yellow;
     }
@@ -154,13 +179,42 @@ class EventsAroundYouImageCell: UICollectionViewCell{
     }
     
     func setPosterImage(){
-        let posterImage = UIImage(named: "dneg");
-        self.posterImageView.image = posterImage;
+//        let posterImage = UIImage(named: "dneg");
+        if(cellEvent?.posterImage == nil){
+            self.posterImageView.image = #imageLiteral(resourceName: "noImageIcon");
+        }else{
+            self.posterImageView.image = cellEvent!.posterImage!
+        }
+    }
+    
+    func setTitle(title:String){
+        self.titleLabel.text = title;
+    }
+    
+    func setDescription(description: String){
+        self.descriptionTextView.text = description;
     }
     
     func setEventImage(){
-        let eventImage = UIImage(named: "poker");
-        self.eventImageView.image = eventImage;
+        if(cellEvent?.cellImage != nil){
+            self.eventImageView.image = cellEvent!.cellImage!
+        }else{
+            let image = #imageLiteral(resourceName: "poker");
+            self.eventImageView.image = image;
+        }
+    }
+    
+    func setPosterName(name: String){
+        self.posterNameLabel.text = name;
+    }
+    
+    func setBottomBarData(){
+        if(cellEvent != nil){
+            self.eventsCellInfo.setPrice(price: cellEvent!.price!);
+            self.eventsCellInfo.setDate(date: cellEvent!.startDate!);
+            self.eventsCellInfo.setNumberOfPeople(currentPeople: cellEvent!.currentPeople!, people: cellEvent!.people!);
+        }
+        
     }
     
 }

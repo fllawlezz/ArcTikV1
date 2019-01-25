@@ -169,6 +169,7 @@ extension PrivacyPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.savePrivacyData();
             self.dismiss(animated: true, completion: nil);
             //            self.navigationController?.popToRootViewController(animated: true);
         }))
@@ -199,19 +200,7 @@ extension PrivacyPage{
         if(isEmpty){
             //showAlert
         }else{
-            let cell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! LocationPageCell;
-            let numberOfPeopleCell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! LocationPageCell;
-            
-            let cellString = cell.infoField.text;
-            var numberOfPeopleString = numberOfPeopleCell.infoField.text;
-            numberOfPeopleString = numberOfPeopleString?.replacingOccurrences(of: "+", with: "");
-            
-//            currentEvent?.privacy = cellString;
-//            currentEvent?.people = Int(numberOfPeopleString!);
-            
-            currentEventInProgress?.privacy = cellString;
-            currentEventInProgress?.people = Int16(numberOfPeopleString!)!;
-            PersistenceManager.shared.save();
+            savePrivacyData();
 //            print(currentEvent!.people!);
             
             let layout = UICollectionViewFlowLayout();
@@ -223,3 +212,20 @@ extension PrivacyPage{
 
 }
 
+extension PrivacyPage{
+    func savePrivacyData(){
+        let cell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! LocationPageCell;
+        let numberOfPeopleCell = self.collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! LocationPageCell;
+        
+        let cellString = cell.infoField.text;
+        var numberOfPeopleString = numberOfPeopleCell.infoField.text;
+        numberOfPeopleString = numberOfPeopleString?.replacingOccurrences(of: "+", with: "");
+        
+        //            currentEvent?.privacy = cellString;
+        //            currentEvent?.people = Int(numberOfPeopleString!);
+        
+        currentEventInProgress?.privacy = cellString;
+        currentEventInProgress?.people = Int16(numberOfPeopleString!)!;
+        PersistenceManager.shared.save();
+    }
+}

@@ -129,11 +129,12 @@ class CreateEventPage: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(Int(currentEventInProgress!.step) > indexPath.item){
-//            print(indexPath.item);
-//            print(currentEvent!.stepNumber);
-            self.continuePressed(indexPath: indexPath);
+        if let event = currentEventInProgress{
+            if(Int(event.step) > indexPath.item){
+                self.continuePressed(indexPath: indexPath);
+            }
         }
+
     }
 
 }

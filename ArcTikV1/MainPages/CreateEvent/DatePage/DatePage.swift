@@ -147,13 +147,12 @@ extension DatePage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.saveDateData()
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
             //not save
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         self.present(alert, animated: true, completion: nil);
     }
@@ -190,24 +189,7 @@ extension DatePage{
             //show error alert
             self.showEmptyAlert();
         }else{
-            let cell = collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! DatePageCell;
-            let cell2 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 0)) as! DatePageCell;
-            
-            let cell3 = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! DatePageCell;
-            let cell4 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 1)) as! DatePageCell;
-            
-//            currentEvent?.startDate = cell.infoField.text!
-//            currentEvent?.endDate = cell2.infoField.text!;
-//            currentEvent?.startTime = cell3.infoField.text!;
-//            currentEvent?.endTime = cell4.infoField.text!;
-            
-            currentEventInProgress?.startDate = cell.infoField.text!;
-            currentEventInProgress?.endDate = cell2.infoField.text!;
-            currentEventInProgress?.startTime = cell3.infoField.text!;
-            currentEventInProgress?.endTime = cell4.infoField.text!;
-            
-            PersistenceManager.shared.save();
-            
+            saveDateData()
             let pricingPage = PricingPage();
             self.navigationController?.pushViewController(pricingPage, animated: true);
         }
@@ -217,5 +199,22 @@ extension DatePage{
         let alert = UIAlertController(title: "Oops!", message: "There are empty fields! Please fill out all fields!", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
+    }
+}
+
+extension DatePage{
+    func saveDateData(){
+        let cell = collectionView?.cellForItem(at: IndexPath(item: 0, section: 0)) as! DatePageCell;
+        let cell2 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 0)) as! DatePageCell;
+        
+        let cell3 = collectionView?.cellForItem(at: IndexPath(item: 0, section: 1)) as! DatePageCell;
+        let cell4 = collectionView?.cellForItem(at: IndexPath(item: 1, section: 1)) as! DatePageCell;
+        
+        currentEventInProgress?.startDate = cell.infoField.text!;
+        currentEventInProgress?.endDate = cell2.infoField.text!;
+        currentEventInProgress?.startTime = cell3.infoField.text!;
+        currentEventInProgress?.endTime = cell4.infoField.text!;
+        
+        PersistenceManager.shared.save();
     }
 }

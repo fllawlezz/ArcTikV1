@@ -10,7 +10,13 @@ import UIKit
 
 class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
     
-    var selector = UISegmentedControl(items: ["Public","Private"])
+    var selector = UISegmentedControl(items: ["Public","Private"]);
+    
+    var events:[Event]?{
+        didSet{
+            self.eventsAroundYouList.events = self.events!;
+        }
+    }
     
     var eventsAroundYouList: EventsAroundYouCollectionView = {
         let layout = UICollectionViewFlowLayout();

@@ -51,7 +51,7 @@ class UploadImagesPage: UIViewController, UIImagePickerControllerDelegate,UINavi
         return imageSelector;
     }()
     
-    var imagesList: UploadImagesList = {
+    lazy var imagesList: UploadImagesList = {
         let layout = UICollectionViewFlowLayout();
         layout.scrollDirection = .horizontal;
         layout.itemSize = CGSize(width: 200, height: 220);
@@ -93,6 +93,11 @@ class UploadImagesPage: UIViewController, UIImagePickerControllerDelegate,UINavi
 //        currentEvent?.stepNumber = 8;
         currentEventInProgress?.step = 8;
         PersistenceManager.shared.save();
+        
+        if let eventImageData = currentEventInProgress?.images{
+            let images = NSKeyedUnarchiver.unarchiveObject(with: eventImageData as Data) as! [UIImage];
+            self.imagesList.images = images;
+        }
         
         let createEventName = Notification.Name(rawValue: reloadCreateEventPage);
         NotificationCenter.default.post(name: createEventName, object: nil);
@@ -145,7 +150,12 @@ class UploadImagesPage: UIViewController, UIImagePickerControllerDelegate,UINavi
         self.view.addSubview(imagesList);
 //        imagesList.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.descriptionLabel.bottomAnchor, bottom: self.view.bottomAnchor);
         imagesList.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: self.descriptionLabel.bottomAnchor, bottom: nil, constantLeft: 10, constantRight: -10, constantTop: 10, constantBottom: 0, width: 0, height: 170);
-        imagesList.isHidden = true;
+        
+        if(imagesList.images.count == 0){
+            imagesList.isHidden = true;
+        }else{
+            imagesList.isHidden = false;
+        }
         imagesList.uploadImagesPage = self;
     }
     
@@ -161,13 +171,12 @@ extension UploadImagesPage{
         let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             //save
+            self.saveImagesData();
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
             //not save
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
         }))
         self.present(alert, animated: true, completion: nil);
     }
@@ -176,9 +185,7 @@ extension UploadImagesPage{
         
 //        currentEvent?.images = self.imagesList.images;
         
-        let imagesData = NSKeyedArchiver.archivedData(withRootObject: self.imagesList.images);
-        currentEventInProgress?.images = imagesData as NSData;
-        PersistenceManager.shared.save();
+        self.saveImagesData();
 
         let layout = UICollectionViewFlowLayout();
         let reviewPage = ReviewPage(collectionViewLayout: layout);
@@ -252,4 +259,12 @@ extension UploadImagesPage{
     }
     
     
+}
+
+extension UploadImagesPage{
+    func saveImagesData(){
+        let imagesData = NSKeyedArchiver.archivedData(withRootObject: self.imagesList.images);
+        currentEventInProgress?.images = imagesData as NSData;
+        PersistenceManager.shared.save();
+    }
 }

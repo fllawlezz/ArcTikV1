@@ -77,27 +77,26 @@ class ThingsToBringPage: UIViewController, ThingsToBringCellDelegate{
 
 extension ThingsToBringPage{
     @objc func handleClearPressed(){
-        let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-            //save
+        if(!fromEventsInfo){
+            let alert = UIAlertController(title: "Exit", message: "Do you want to save your listing?", preferredStyle: .alert);
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                //save
+                self.saveThingsToBringData();
+                
+                self.dismiss(animated: true, completion: nil);
+            }))
+            alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
+                //not save
+                self.dismiss(animated: true, completion: nil);
+            }))
+            self.present(alert, animated: true, completion: nil);
+        }else{
             self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
-        }))
-        alert.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { (action) in
-            //not save
-            self.dismiss(animated: true, completion: nil);
-            //            self.navigationController?.popToRootViewController(animated: true);
-        }))
-        self.present(alert, animated: true, completion: nil);
+        }
     }
     
     @objc func handleNextButtonPressed(){
-//        currentEvent?.requirements = self.thingsToBringTableView.requirementsList;
-//        currentEvent?.thingsToBring = self.thingsToBringTableView.thingsToBringList;
-        
-        let thingsToBringData = NSKeyedArchiver.archivedData(withRootObject: self.thingsToBringTableView.thingsToBringList);
-        currentEventInProgress?.thingsToBring = thingsToBringData as NSData;
-        PersistenceManager.shared.save();
+        saveThingsToBringData();
         
         let uploadImagesPage = UploadImagesPage();
         self.navigationController?.pushViewController(uploadImagesPage, animated: true);
@@ -156,3 +155,10 @@ extension ThingsToBringPage{
     
 }
 
+extension ThingsToBringPage{
+    func saveThingsToBringData(){
+        let thingsToBringData = NSKeyedArchiver.archivedData(withRootObject: self.thingsToBringTableView.thingsToBringList);
+        currentEventInProgress?.thingsToBring = thingsToBringData as NSData;
+        PersistenceManager.shared.save();
+    }
+}
