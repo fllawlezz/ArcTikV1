@@ -31,11 +31,16 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     let thingsToBringCellReuse = "EventsInfoThingsToBringReuse";
     
     let headerTitles = ["Description","Requirements"];
-    let cellData = ["Poker Tournament at my House! We gone have a really good time! Yeah!!!","Henderson, Nevada, United States","Hi everybody, as one of the best poker players on the planet, I am hosting a poker tournament within my home. The buy in is $60, and the prize pool is $5,000. We will only host if at least 90 people sign up! I hope that we can make this a really good time for everyone because I really do feel that poker is and should be considered a very fun and inviting atmosphere. Everyone should be sitting around, having a few drinks, and laughing their asses off. Hopefully everyone signs up! On another note, I'd like to say that I am truly blessed to be where I'm at today, there were and still could be so many different circumstances that would cause me to go bankrupt, but they don't and probably won't happen. That is what is good about America. You can be what you want and who you want. You can change your own life.","- Not Jason Koon \n- Able to play poker \n- Knows the game well\n- Not Phil Hellmuth \n- Yes Phil Hellmuth \n- Yes Tom Dwan \n- Not Andrew Robl \n - Not Elton Tsang \n - Not the president"];
     
     var descriptionIsExpanded = false;
     var requirementsIsExpanded = false;
     var estimatedFrameSize:CGSize?;
+    var event: Event?{
+        didSet{
+//            self.collectionView?.reloadData();
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -52,6 +57,11 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.register(EventsInfoDescriptionCell.self, forCellWithReuseIdentifier: descriptionCellReuse);
         collectionView?.register(EventsInfoThingsToBringCell.self, forCellWithReuseIdentifier: thingsToBringCellReuse);
         collectionView?.contentInsetAdjustmentBehavior = .never;
+        
+        if(event!.eventDescription!.count < 150){
+            self.descriptionIsExpanded = true;
+        }
+        
         if(UIScreenHeight! >= 812){
             collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0);
             setupBottomBarCover();
@@ -60,6 +70,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         setupEventsBottomBar();
+        setBottomBarText();
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -90,13 +101,18 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if(indexPath.section != 0){
-            if(descriptionIsExpanded && indexPath.section == 1 && indexPath.item == 0){
+            if(descriptionIsExpanded && indexPath.section == 1 && indexPath.item == 0 && event!.eventDescription!.count > 150){
                 if let height = self.estimatedFrameSize?.height{
 //                    print("yes height");
                     return CGSize(width: self.view.frame.width, height: height+60);
                 }
+                
                 return CGSize(width: self.view.frame.width, height: 280);
                 
+            }
+            
+            if(indexPath.section == 1 && indexPath.item == 0 && event!.eventDescription!.count < 150){
+                return CGSize(width: self.view.frame.width, height: 100);
             }
             
             if(indexPath.section == 1 && indexPath.item != 0){
@@ -121,11 +137,13 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         if(indexPath.section == 0){
             if(indexPath.item == 0){
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: titleCellReuse, for: indexPath) as! EventInfoTitleCell
-                cell.setTitle(title: cellData[indexPath.item]);
+//                cell.setTitle(title: cellData[indexPath.item]);
+                cell.setTitle(title: event!.eventTitle!);
                 return cell;
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: locationCellReuse, for: indexPath) as! EventsInfoLocationCell
-                cell.setLocation(location: cellData[indexPath.item]);
+//                cell.setLocation(location: cellData[indexPath.item]);
+                cell.setLocation(location: "\(self.event!.city!), CA \(self.event!.country!)")
                 return cell;
             }
         }else{
@@ -134,7 +152,8 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
                 cell.indexPath = indexPath;
                 cell.delegate = self;
                 if(indexPath.section == 1){
-                    cell.setupText(description: cellData[2]);
+//                    cell.setupText(description: cellData[2]);
+                    cell.setupText(description: self.event!.eventDescription!);
                     cell.isExpanded = self.descriptionIsExpanded;
                 }
 //                else{
@@ -156,6 +175,10 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         if(indexPath.section == 0){
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellReuse, for: indexPath) as! EventsInfoHeader;
             header.delegate = self;
+            header.setImage(image: self.event!.cellImage!);
+            header.setName(name: self.event!.posterName!);
+            header.setDateAndTime(date: self.event!.startDate!, time: self.event!.startTime!);
+            header.setProfileImage(image: self.event!.posterImage);
             return header;
         }else{
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderReuse, for: indexPath) as! EventsInfoSectionHeader;
@@ -230,6 +253,11 @@ extension EventsInfoPage{
                 self.collectionView?.reloadItems(at: [indexPath]);
             }
         }
+    }
+    
+    func setBottomBarText(){
+        self.eventsInfoBottomBar.setCost(cost: event!.price!);
+        self.eventsInfoBottomBar.setPeople(currentPeople: self.event!.currentPeople!, people: self.event!.people!);
     }
     
 }

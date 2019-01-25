@@ -18,6 +18,7 @@ class EventsInfoHeader: UICollectionReusableView{
         let eventsImageView = UIImageView(image: #imageLiteral(resourceName: "poker"))
         eventsImageView.translatesAutoresizingMaskIntoConstraints = false;
         eventsImageView.contentMode = .scaleAspectFill;
+        eventsImageView.clipsToBounds = true;
         return eventsImageView;
     }()
     
@@ -76,6 +77,27 @@ class EventsInfoHeader: UICollectionReusableView{
     fileprivate func setupProfileView(){
         self.addSubview(profileView);
         profileView.anchor(left: self.leftAnchor, right: nil, top: nil, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 250, height: 60);
+    }
+    
+    func setImage(image: UIImage){
+        self.eventsImageView.image = image;
+    }
+    
+    func setDateAndTime(date: String, time: String){
+        self.profileView.setDateAndTime(date: date, time: time);
+    }
+    
+    func setName(name: String){
+        self.profileView.setName(name: name);
+    }
+    
+    func setProfileImage(image: UIImage?){
+        if(image == nil){
+            let noImage = #imageLiteral(resourceName: "noImageIcon")
+            self.profileView.setProfileImage(image: noImage);
+        }else{
+            self.profileView.setProfileImage(image: image!);
+        }
     }
     
 }

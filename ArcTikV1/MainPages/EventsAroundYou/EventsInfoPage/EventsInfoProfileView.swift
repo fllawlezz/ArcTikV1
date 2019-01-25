@@ -17,6 +17,7 @@ class EventsInfoProfileView: UIView {
         profileImageView.layer.cornerRadius = 35;
         profileImageView.layer.borderColor = UIColor.appBlue.cgColor;
         profileImageView.layer.borderWidth = 3;
+        profileImageView.backgroundColor = UIColor.white;
         return profileImageView;
     }()
     
@@ -59,5 +60,16 @@ class EventsInfoProfileView: UIView {
     fileprivate func setupDateLabel(){
         self.addSubview(dateLabel);
         dateLabel.anchor(left: profileImageView.rightAnchor, right: nil, top: nil, bottom: self.profileNameLabel.topAnchor, constantLeft: 5, constantRight: 0, constantTop: 0, constantBottom: 0, width: 200, height: 25);
+    }
+    
+    func setDateAndTime(date: String, time: String){
+        self.dateLabel.text = "\(date) \(time)"
+    }
+    func setName(name: String){
+        self.profileNameLabel.text = name;
+    }
+    
+    func setProfileImage(image: UIImage){
+        self.profileImageView.image = image;
     }
 }

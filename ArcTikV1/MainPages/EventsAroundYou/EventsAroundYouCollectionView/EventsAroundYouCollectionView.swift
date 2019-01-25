@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EventsAroundYouCollectionViewDelegate{
-    func handleToEventsInfoPage();
+    func handleToEventsInfoPage(event:Event);
     func handleProfileImagePressed();
 }
 
@@ -84,7 +84,7 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        eventsAroundYouDelegate?.handleToEventsInfoPage();
+        eventsAroundYouDelegate?.handleToEventsInfoPage(event: self.events[indexPath.item]);
     }
 }
 

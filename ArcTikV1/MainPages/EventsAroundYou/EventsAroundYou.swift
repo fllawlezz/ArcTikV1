@@ -86,9 +86,10 @@ extension EventsAroundYou{
 //        self.present(navigationController, animated: true, completion: nil);
     }
     
-    func handleToEventsInfoPage() {
+    func handleToEventsInfoPage(event: Event) {
         let layout = StretchyHeaderLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
+        eventsInfo.event = event;
         eventsInfo.hidesBottomBarWhenPushed = true;
         navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent;
         self.navigationController?.pushViewController(eventsInfo, animated: true);

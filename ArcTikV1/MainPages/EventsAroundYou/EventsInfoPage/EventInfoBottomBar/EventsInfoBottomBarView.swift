@@ -67,4 +67,17 @@ class EventsInfoBottomBarView: UIView {
         costView.anchor(left: self.peopleView.rightAnchor, right: nil, top: nil, bottom: nil, constantLeft: 50, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 60);
         costView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
     }
+    
+    func setPeople(currentPeople: Int, people: Int){
+        self.peopleView.setText(numberOfPeople: "\(currentPeople)/\(people)")
+    }
+    
+    func setCost(cost: Double){
+        if(cost != 0){
+            let costString = String(format: "%.2f", cost);
+            self.costView.costLabel.text = "$\(costString)"
+        }else{
+            self.costView.costLabel.text = "Free";
+        }
+    }
 }
