@@ -10,17 +10,19 @@ import UIKit
 
 class EventsInfoRequirementsPage: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
-    let requirementsList = [
-        "Not Jason Koon",
-        "Able to play poker",
-        "Knows the game well",
-        "Not Phil Hellmuth",
-        "Yes Phil Hellmuth",
-        "Yes Tom Dwan",
-        "Not Andrew Robl",
-        "Not Elton Tsang",
-        "Not the president"
-    ]
+//    let requirementsList = [
+//        "Not Jason Koon",
+//        "Able to play poker",
+//        "Knows the game well",
+//        "Not Phil Hellmuth",
+//        "Yes Phil Hellmuth",
+//        "Yes Tom Dwan",
+//        "Not Andrew Robl",
+//        "Not Elton Tsang",
+//        "Not the president"
+//    ]
+    
+    var requirementsList = [String]();
     
     var cellReuse = "EventsInfoRequirementsCellReuse"
     var headerReuse = "EventsInfoRequirementsHeaderReuse";

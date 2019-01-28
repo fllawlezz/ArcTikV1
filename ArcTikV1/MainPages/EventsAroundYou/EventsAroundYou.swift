@@ -14,7 +14,9 @@ class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
     
     var events:[Event]?{
         didSet{
-            self.eventsAroundYouList.events = self.events!;
+            if(events != nil){
+                self.eventsAroundYouList.events = self.events!;
+            }
         }
     }
     
@@ -78,12 +80,6 @@ extension EventsAroundYou{
         createdEventsPage.hidesBottomBarWhenPushed = true;
         self.navigationController?.pushViewController(createdEventsPage, animated: true);
         
-//        let navigationController = UINavigationController(rootViewController: createdEventsPage);
-//        navigationController.navigationBar.isTranslucent = false;
-//        navigationController.navigationBar.barStyle = .blackTranslucent;
-//        navigationController.navigationBar.tintColor = UIColor.white;
-//        navigationController.navigationBar.barTintColor = UIColor.appBlue;
-//        self.present(navigationController, animated: true, completion: nil);
     }
     
     func handleToEventsInfoPage(event: Event) {

@@ -30,6 +30,8 @@ class Event{
     var endTime: String?;
     var price: Double?;
     var cellImage: UIImage?;
+    var thingsToBring: [String]?;
+    var requirements: [String]?;
     
     
 }

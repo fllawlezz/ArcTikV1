@@ -19,6 +19,8 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     let eventsImageReuse = "eventsImageReuse";
     
     var events = [Event]();
+    let dispatch = DispatchGroup();
+    var jsonResponse: NSDictionary?;
     
     var eventsAroundYouDelegate: EventsAroundYouCollectionViewDelegate?;
     
@@ -84,11 +86,75 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //load requirements
+        let event = self.events[indexPath.item];//an event is a reference type, so any changes will affect the original reference
+        if(event.thingsToBring == nil || event.requirements == nil){
+            //load things to bring
+            self.loadRequirements(event: event);
+        }
+        
         eventsAroundYouDelegate?.handleToEventsInfoPage(event: self.events[indexPath.item]);
     }
 }
 
 extension EventsAroundYouCollectionView{
+    
+    func loadRequirements(event: Event){
+        let url = URL(string: "http://localhost:3000/loadRequirementsAndThings")!;
+        var request = URLRequest(url: url);
+        let body = "eventID=\(event.eventID!)"
+        request.httpMethod = "POST";
+        request.httpBody = body.data(using: .utf8);
+        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if(err != nil){
+                //print error/show error alert
+                print("error");
+                self.dispatch.leave();
+            }else{
+                let response = NSString(data: data!, encoding: 8);
+                if(response != "error"){
+                    do{
+                        self.jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary;
+                        print(self.jsonResponse);
+                        
+                    }catch{
+                        print(error);
+                    }
+                }
+                self.dispatch.leave();
+            }
+        }
+        
+        self.dispatch.enter();
+        task.resume();
+        self.dispatch.wait();
+        
+        if(jsonResponse != nil){
+            let requirementsArray = jsonResponse!["requirements"] as! NSArray;
+            let thingsArray = jsonResponse!["thingsToBring"] as! NSArray;
+            
+            var requirements = [String]();
+            var things = [String]();
+            
+            for req in requirementsArray{
+                requirements.append(req as! String);
+            }
+            
+            for thing in thingsArray{
+                things.append(thing as! String);
+            }
+            
+            event.requirements = requirements;
+            event.thingsToBring = things;
+        }else{
+            let requirements = [String]();
+            let things = [String]();
+            event.thingsToBring = things;
+            event.requirements = requirements;
+        }
+    }
+    
+    
     func handleProfileImagePressed() {
         eventsAroundYouDelegate?.handleProfileImagePressed();
     }

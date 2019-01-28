@@ -13,6 +13,8 @@ class EventsInfoToBringPage: UICollectionViewController, UICollectionViewDelegat
     let headerReuse = "ToBringPageHeaderReuse"
     let cellReuse = "ToBringPageCellReuse";
     
+    var thingsToBring = [String]();
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.collectionView?.backgroundColor = UIColor.white;
@@ -28,7 +30,7 @@ class EventsInfoToBringPage: UICollectionViewController, UICollectionViewDelegat
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuse, for: indexPath) as! EventsInfoRequirementsCell;
-        cell.setTitle(text: "$60");
+        cell.setTitle(text: thingsToBring[indexPath.item]);
         return cell;
     }
     
@@ -37,7 +39,7 @@ class EventsInfoToBringPage: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1;
+        return thingsToBring.count;
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -199,6 +199,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         if(indexPath.section == 1 && indexPath.item == 1){
             let layout = UICollectionViewFlowLayout();
             let requirementsPage = EventsInfoRequirementsPage(collectionViewLayout: layout);
+            requirementsPage.requirementsList = self.event!.requirements!;
             let newNavigationController = UINavigationController(rootViewController: requirementsPage);
             newNavigationController.navigationBar.isTranslucent = false;
             newNavigationController.navigationBar.barTintColor = UIColor.white;
@@ -209,6 +210,7 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         }else if(indexPath.section == 1 && indexPath.item == 2){
             let layout = UICollectionViewFlowLayout();
             let thingsToBringPage = EventsInfoToBringPage(collectionViewLayout: layout);
+            thingsToBringPage.thingsToBring = self.event!.thingsToBring!;
             let newNavigationController = UINavigationController(rootViewController: thingsToBringPage);
             newNavigationController.navigationBar.isTranslucent = false;
             newNavigationController.navigationBar.barTintColor = UIColor.white;
