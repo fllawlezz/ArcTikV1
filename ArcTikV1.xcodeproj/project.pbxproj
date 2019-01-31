@@ -74,7 +74,6 @@
 		8775D1F321E98918007062BB /* PricingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8775D1F221E98918007062BB /* PricingPage.swift */; };
 		877C92A721E1E998005C4E88 /* UserProfileRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */; };
 		877C92A921E1F184005C4E88 /* UserProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */; };
-		877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AC21E1FB19005C4E88 /* FiltersPage.swift */; };
 		877C92B021E1FB50005C4E88 /* FiltersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92AF21E1FB50005C4E88 /* FiltersCollectionView.swift */; };
 		877C92B221E1FBEA005C4E88 /* FiltersDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B121E1FBEA005C4E88 /* FiltersDistanceCell.swift */; };
 		877C92B621E1FC8C005C4E88 /* DistanceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C92B521E1FC8C005C4E88 /* DistanceCollectionView.swift */; };
@@ -111,6 +110,7 @@
 		87B31F1021DDE7BE0054254C /* ForgotPasswordPage2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */; };
 		87B31F1321DDED8D0054254C /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1221DDED8D0054254C /* CustomTabBar.swift */; };
 		87B31F1621DDEE7D0054254C /* EventsAroundYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */; };
+		87BC0E162203902C00F436A7 /* EventsAroundYouEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC0E152203902C00F436A7 /* EventsAroundYouEmptyCell.swift */; };
 		87C6631121EEB969002C701A /* EventsInfoToBringPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C6631021EEB969002C701A /* EventsInfoToBringPage.swift */; };
 		87C6631421EEBE84002C701A /* MainFiltersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C6631321EEBE84002C701A /* MainFiltersPage.swift */; };
 		87C6631721EEC040002C701A /* MainFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C6631621EEC040002C701A /* MainFilterCell.swift */; };
@@ -256,7 +256,6 @@
 		8775D1F221E98918007062BB /* PricingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingPage.swift; sourceTree = "<group>"; };
 		877C92A621E1E998005C4E88 /* UserProfileRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRatingView.swift; sourceTree = "<group>"; };
 		877C92A821E1F184005C4E88 /* UserProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCollectionViewCell.swift; sourceTree = "<group>"; };
-		877C92AC21E1FB19005C4E88 /* FiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPage.swift; sourceTree = "<group>"; };
 		877C92AF21E1FB50005C4E88 /* FiltersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersCollectionView.swift; sourceTree = "<group>"; };
 		877C92B121E1FBEA005C4E88 /* FiltersDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersDistanceCell.swift; sourceTree = "<group>"; };
 		877C92B521E1FC8C005C4E88 /* DistanceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCollectionView.swift; sourceTree = "<group>"; };
@@ -293,6 +292,7 @@
 		87B31F0F21DDE7BE0054254C /* ForgotPasswordPage2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordPage2.swift; sourceTree = "<group>"; };
 		87B31F1221DDED8D0054254C /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		87B31F1521DDEE7D0054254C /* EventsAroundYou.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYou.swift; sourceTree = "<group>"; };
+		87BC0E152203902C00F436A7 /* EventsAroundYouEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsAroundYouEmptyCell.swift; sourceTree = "<group>"; };
 		87C6631021EEB969002C701A /* EventsInfoToBringPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsInfoToBringPage.swift; sourceTree = "<group>"; };
 		87C6631321EEBE84002C701A /* MainFiltersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFiltersPage.swift; sourceTree = "<group>"; };
 		87C6631621EEC040002C701A /* MainFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFilterCell.swift; sourceTree = "<group>"; };
@@ -753,7 +753,6 @@
 			children = (
 				87C6631521EEC02D002C701A /* MainFilterCells */,
 				877C92AE21E1FB3E005C4E88 /* FiltersPageCollectionVIew */,
-				877C92AC21E1FB19005C4E88 /* FiltersPage.swift */,
 				87C6631321EEBE84002C701A /* MainFiltersPage.swift */,
 				87C6631A21EECA66002C701A /* FiltersButtonView.swift */,
 			);
@@ -1117,6 +1116,7 @@
 			children = (
 				87F9AE2421DE88FD0094679F /* EventsAroundYouCell.swift */,
 				87F9AE2721DE92970094679F /* EventsAroundYouCellInfoView.swift */,
+				87BC0E152203902C00F436A7 /* EventsAroundYouEmptyCell.swift */,
 			);
 			path = EventsAroundYouCell;
 			sourceTree = "<group>";
@@ -1523,7 +1523,6 @@
 				87F6CB8A21E5996E00A6F6AF /* SendMessageView.swift in Sources */,
 				874794FC21DF07A100397271 /* AppliedHeader.swift in Sources */,
 				8752761C21E6CEDE00041E32 /* SettingsPageCell.swift in Sources */,
-				877C92AD21E1FB19005C4E88 /* FiltersPage.swift in Sources */,
 				8707706B21F7A245003AE825 /* ReviewImagesCollectionView.swift in Sources */,
 				87D5956921E775EF005478E5 /* DescriptionPage.swift in Sources */,
 				8775D1ED21E973F9007062BB /* DatePage.swift in Sources */,
@@ -1534,6 +1533,7 @@
 				8718CA2821DD7E3400C00916 /* NormalUILabel.swift in Sources */,
 				87F6CB8C21E59B6100A6F6AF /* MessageTextView.swift in Sources */,
 				872E432821DD8BF10051F563 /* SignUpView.swift in Sources */,
+				87BC0E162203902C00F436A7 /* EventsAroundYouEmptyCell.swift in Sources */,
 				87F9AE2821DE92970094679F /* EventsAroundYouCellInfoView.swift in Sources */,
 				8743750921F2802000222883 /* RequirementsTableView.swift in Sources */,
 				872F6A3721E9BE910022CD97 /* SplashPage.swift in Sources */,

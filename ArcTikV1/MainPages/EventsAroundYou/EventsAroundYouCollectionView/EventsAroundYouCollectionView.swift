@@ -17,6 +17,7 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     
     let eventsReuse = "eventsReuse";
     let eventsImageReuse = "eventsImageReuse";
+    let emptyCellReuse = "emptyCellReuse";
     
     var events = [Event]();
     let dispatch = DispatchGroup();
@@ -35,6 +36,7 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
         self.dataSource = self;
         self.register(EventsAroundYouCell.self, forCellWithReuseIdentifier: eventsReuse);
         self.register(EventsAroundYouImageCell.self, forCellWithReuseIdentifier: eventsImageReuse);
+        self.register(EventsAroundYouEmptyCell.self, forCellWithReuseIdentifier: emptyCellReuse)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,12 +45,21 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(events.count == 0){
+            return 1;
+        }
+        
         return events.count;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if(events.count == 0){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellReuse, for: indexPath) as! EventsAroundYouEmptyCell;
+            return cell;
+        }
+        
         let event = self.events[indexPath.item];
-        if(event.cellImage != nil){
+        if(event.eventImages!.count > 0){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: eventsImageReuse, for: indexPath) as! EventsAroundYouImageCell
             cell.delegate = self;
             cell.cellEvent = event;
@@ -66,8 +77,12 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if(events.count == 0){
+            return CGSize(width: self.frame.width, height: 120);
+        }
+        
         let event = events[indexPath.item];
-        if(event.cellImage != nil){
+        if(event.eventImages!.count > 0){
             return CGSize(width: self.frame.width-20, height: 240);
         }else{
             if(event.eventDescription!.count < 100){
@@ -115,7 +130,7 @@ extension EventsAroundYouCollectionView{
                 if(response != "error"){
                     do{
                         self.jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary;
-                        print(self.jsonResponse);
+//                        print(self.jsonResponse);
                         
                     }catch{
                         print(error);

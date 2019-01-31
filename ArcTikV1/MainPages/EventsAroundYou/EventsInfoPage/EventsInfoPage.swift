@@ -175,7 +175,12 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
         if(indexPath.section == 0){
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerCellReuse, for: indexPath) as! EventsInfoHeader;
             header.delegate = self;
-            header.setImage(image: self.event!.cellImage!);
+            if(self.event!.eventImages!.count > 0){
+                header.setImage(image: self.event!.eventImages![0]);
+            }else{
+                header.setImage(image: #imageLiteral(resourceName: "camera"));
+            }
+            
             header.setName(name: self.event!.posterName!);
             header.setDateAndTime(date: self.event!.startDate!, time: self.event!.startTime!);
             header.setProfileImage(image: self.event!.posterImage);

@@ -78,7 +78,7 @@ extension SplashPage{
     @objc func lookupEventsAroundYou(){
         let url = URL(string: "http://localhost:3000/loadPublicEvents")!;
         var request = URLRequest(url: url);
-        let body = "latitude=\(user!.userLatitude!)&longitude=\(user!.userLongitude!)&userID=\(user!.userID)&distance=10"
+        let body = "latitude=\(user!.userLatitude!)&longitude=\(user!.userLongitude!)&userID=\(user!.userID)&distance=10&bottomPrice=0&topPrice=1000000"
         request.httpMethod = "POST";
         request.httpBody = body.data(using: .utf8);
         let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
@@ -89,12 +89,25 @@ extension SplashPage{
             }
             if(data != nil){
                 let response = NSString(data: data!, encoding: 8);
-                if(response == "error"){
+                if(response == "error" || response == "none"){
+                    if(response == "none"){
+                        //none
+                        self.dispatch.leave();
+                        DispatchQueue.main.async {
+                            //handle none
+                            self.handleNoneReturned();
+                        }
+                    }else{
+                        //error handle error shown
+                        self.dispatch.leave();
+                        DispatchQueue.main.async {
+                            self.handleError();
+                        }
+                    }
                     //error
                 }else{
                     do{
                         let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary;
-                        print(jsonData);
                         
                         self.json = jsonData;
                         self.dispatch.leave();
@@ -116,6 +129,8 @@ extension SplashPage{
             return;
         }
         
+        print(json);
+        
         var eventArray = [Event]();
         
         let eventIDs = json["eventIDs"] as! NSArray;
@@ -134,11 +149,13 @@ extension SplashPage{
         let endTimes = json["endTimes"] as! NSArray;
         let prices = json["prices"] as! NSArray;
         let userNames = json["userNames"] as! NSArray;
-        let userProfileUrls = json["userProfileUrls"] as! NSArray;
-        let cellImages = json["cellImages"] as! NSArray;
+//        let userProfileUrls = json["userProfileUrls"] as! NSArray;
+        let numberOfPhotos = json["numberOfPhotos"] as! NSArray;
         let currentPeople = json["currentPeople"] as! NSArray;
+        let photoUrls = json["photoUrls"] as! NSArray//array of links that are ordered by descending events
         
         var count = 0;
+        var previousPhotosCount = 0;
         while(count<eventIDs.count){
             let newEvent = Event();
             newEvent.posterName = (userNames[count] as! String);
@@ -159,12 +176,31 @@ extension SplashPage{
             newEvent.price = (prices[count] as! Double);
             newEvent.currentPeople = (currentPeople[count] as! Int);
             
-//            print("downloading cell image: \(cellImages[count] as! String)")
-            let cellImage = downloadImage(filePath: cellImages[count] as! String);
-            let profileImage = downloadImage(filePath: userProfileUrls[count] as! String);
             
-            newEvent.cellImage = cellImage;
-            newEvent.posterImage = profileImage;
+            //use numberofPhotos[count] as a indicator for how many photos to filter through
+            let eventPhotosCount = (numberOfPhotos[count] as! Int)
+            
+            var eventImages = [UIImage]();
+            
+            var countPhotos = 0;
+            while(countPhotos < eventPhotosCount){
+                //get the url from photoUrls
+                let url = (photoUrls[previousPhotosCount] as! String);
+                let image = downloadImage(filePath: url);
+                if(image != nil){
+                    eventImages.append(image!);
+                }
+                previousPhotosCount+=1;//says that we saved one photo
+                countPhotos+=1;
+            }
+            
+            newEvent.eventImages = eventImages;
+//            print("downloading cell image: \(cellImages[count] as! String)")
+//            let cellImage = downloadImage(filePath: cellImages[count] as! String);
+//            let profileImage = downloadImage(filePath: userProfileUrls[count] as! String);
+            
+//            newEvent.cellImage = cellImage;
+//            newEvent.posterImage = profileImage;
             
             eventArray.append(newEvent);
             
@@ -178,6 +214,7 @@ extension SplashPage{
     }
     
     func downloadImage(filePath: String) -> UIImage?{
+        
         var downloadedImage: UIImage?;
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
                                                                 identityPoolId:"us-west-2:e9c5dc3f-acac-4006-b512-af168e1e47a9")
@@ -189,6 +226,7 @@ extension SplashPage{
         transferUtility.downloadData(
         fromBucket: "arctikimages", key: "EventImages/\(filePath)", expression: nil) { (task, url, data, err) in
             if(err != nil){
+//                print(err);
                 print("error downloading images splash page");
             }else{
                 if(data != nil){
@@ -202,5 +240,17 @@ extension SplashPage{
         }
         dispatch.wait()
         return downloadedImage;
+    }
+    
+    func handleNoneReturned(){
+//        print("none");
+        self.events = [Event]();//empty list of events
+    }
+    
+    func handleError(){
+        let alert = UIAlertController(title: "Oops", message: "There was a problem connecting to our servers! Try again later! Sorry for the mess up, we will try and solve the problem as quickly as possible. To help us, you can make sure that you are connected to the internet! Thanks - ArcTik team", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default
+            , handler: nil));
+        self.present(alert, animated: true, completion: nil);
     }
 }

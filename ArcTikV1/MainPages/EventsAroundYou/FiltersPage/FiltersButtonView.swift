@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FiltersButtonViewDelegate{
+    func handleSearchButtonPressed();
+}
+
 class FiltersButtonView: UIView{
     
     var searchButton: NormalUIButton = {
@@ -17,6 +21,8 @@ class FiltersButtonView: UIView{
     }()
     
     var border = BorderView();
+    
+    var delegate: FiltersButtonViewDelegate?;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -40,11 +46,18 @@ class FiltersButtonView: UIView{
         searchButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true;
         searchButton.widthAnchor.constraint(equalToConstant: 225).isActive = true;
         searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true;
+        
+        searchButton.addTarget(self, action: #selector(self.handleSearchButtonPressed), for: .touchUpInside);
     }
     
     fileprivate func setupBorder(){
         self.addSubview(border);
         border.anchor(left: self.leftAnchor, right: self.rightAnchor, top: self.topAnchor, bottom: nil, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0.4);
+    }
+    
+    @objc func handleSearchButtonPressed(){
+//        print("handle it");
+        self.delegate?.handleSearchButtonPressed();
     }
     
 }

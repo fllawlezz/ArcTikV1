@@ -8,8 +8,8 @@
 
 import UIKit
 
-class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate{
-    
+class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate,FiltersPageDelegate{
+
     var selector = UISegmentedControl(items: ["Public","Private"]);
     
     var events:[Event]?{
@@ -64,6 +64,7 @@ extension EventsAroundYou{
         let layout = UICollectionViewFlowLayout();
         let filtersPage = MainFiltersPage(collectionViewLayout: layout)
 //        let filtersPage = FiltersPage();
+        filtersPage.delegate = self;
         
         let filtersNavigationController = UINavigationController(rootViewController: filtersPage);
         filtersNavigationController.navigationBar.tintColor = UIColor.white;
@@ -97,4 +98,17 @@ extension EventsAroundYou{
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil));
         self.present(alert, animated: true, completion: nil);
     }
+}
+
+extension EventsAroundYou{
+    func handleSearchFilters(events: [Event]) {
+//        print("searched filters");
+        if(events.count != 0){
+            self.events = events;
+            self.eventsAroundYouList.reloadData();
+        }
+
+    }
+    
+    
 }

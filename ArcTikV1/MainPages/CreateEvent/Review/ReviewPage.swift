@@ -398,6 +398,7 @@ extension ReviewPage{
         bodyObject.setValue(price, forKey: "price");
         bodyObject.setValue(thingsToBring, forKey: "thingsToBring");
         bodyObject.setValue(imageNames, forKey: "imageNames");
+        bodyObject.setValue(images.count, forKey: "photoCount");
         
         
         do{

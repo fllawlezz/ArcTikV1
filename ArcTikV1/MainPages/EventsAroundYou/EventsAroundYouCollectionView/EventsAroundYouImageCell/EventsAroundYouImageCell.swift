@@ -196,11 +196,14 @@ class EventsAroundYouImageCell: UICollectionViewCell{
     }
     
     func setEventImage(){
-        if(cellEvent?.cellImage != nil){
-            self.eventImageView.image = cellEvent!.cellImage!
-        }else{
+        if(cellEvent == nil){
             let image = #imageLiteral(resourceName: "poker");
             self.eventImageView.image = image;
+            return;
+        }
+        
+        if(cellEvent!.eventImages!.count > 0){
+            self.eventImageView.image = cellEvent!.eventImages![0];
         }
     }
     
