@@ -57,12 +57,13 @@ class TitlePage: UIViewController, UITextViewDelegate, NVActivityIndicatorViewab
     }
     
     fileprivate func setCurrentData(){
-//        if let titleString = currentEvent?.eventTitle{
-//            self.titleTextView.text = titleString;
-//        }
-        
         if let titleString = currentEventInProgress?.title{
             self.titleTextView.text = titleString;
+            wordCount = titleString.count;
+            self.wordCountLabel.text = "\(wordCount)/65";
+            if(wordCount >= 65){
+                self.wordCountLabel.textColor = UIColor.red;
+            }
         }
     }
     
@@ -123,22 +124,25 @@ extension TitlePage{
         if(titleTextView.text.count > 0){
 //            currentEvent?.eventTitle = titleTextView.text;
             currentEventInProgress?.title = titleTextView.text!;
-            
+            self.showLoadingView();
             if(currentEventInProgress == nil){
                 
-                let errorExists = createEventOnServer();
-
-                if(!errorExists){
-                    self.stopAnimating();
-                    createAndSaveEvent();
-                    let descriptionPage = DescriptionPage();
-                    self.navigationController?.pushViewController(descriptionPage, animated: true);
-                }else{
-                    self.stopAnimating();
-                    self.showServerAlert();
+               createEventOnServer { (bool) in
+                    if(!bool){
+                        self.stopAnimating();
+                        self.createAndSaveEvent();
+                        let descriptionPage = DescriptionPage();
+                        self.navigationController?.pushViewController(descriptionPage, animated: true);
+                    }else{
+                        self.stopAnimating();
+                        self.showServerAlert();
+                    }
                 }
                 
-                
+            }else{
+                self.stopAnimating();
+                let descriptionPage = DescriptionPage();
+                self.navigationController?.pushViewController(descriptionPage, animated: true);
             }
         }else{
             self.showEmptyAlert();
@@ -146,37 +150,45 @@ extension TitlePage{
         
     }
     
-    func createEventOnServer() -> Bool{
-        
-        var errorExists = false;
-        let url = URL(string: "http://localhost:3000/startCreateEvent")!;
-//        let url = URL(string: "http://arctikllc.com:3000/startCreateEvent")!;
-        var request = URLRequest(url: url);
-        let requestBody = "userID=\(user!.userID)"
-        request.httpMethod = "POST";
-        request.httpBody = requestBody.data(using: .utf8);
-        request.timeoutInterval = 10;
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
-            if(err != nil){
-                errorExists = true;
-                self.dispatch.leave();
-                
-            }else{
-                if(data != nil){
-                    let response = NSString(data: data!, encoding: 8);
-                    self.eventID = Int(response! as String);
-                    self.dispatch.leave();
+    func createEventOnServer(completion: @escaping (Bool) -> Void){
+        DispatchQueue.global(qos: .background).async {
+//            var errorExists = false;
+            let url = URL(string: "http://localhost:3000/startCreateEvent")!;
+            //        let url = URL(string: "http://arctikllc.com:3000/startCreateEvent")!;
+            var request = URLRequest(url: url);
+            let requestBody = "userID=\(user!.userID)"
+            request.httpMethod = "POST";
+            request.httpBody = requestBody.data(using: .utf8);
+            request.timeoutInterval = 10;
+            let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
+                if(err != nil){
+//                    self.dispatch.leave();
+                    DispatchQueue.main.async {
+                        completion(true);
+                    }
+                    
+                }else{
+                    if(data != nil){
+                        
+                        DispatchQueue.main.async {
+                            let response = NSString(data: data!, encoding: 8);
+                            self.eventID = Int(response! as String);
+                            completion(false);
+                        }
+//                        self.dispatch.leave();
+                        
+                    }
                 }
             }
-            
-            
+            dataTask.resume();
         }
         
-        self.dispatch.enter();
-        dataTask.resume();
-        self.dispatch.wait();
         
-        return errorExists;
+//        self.dispatch.enter();
+//        dataTask.resume();
+//        self.dispatch.wait();
+        
+//        return errorExists;
         
     }
     

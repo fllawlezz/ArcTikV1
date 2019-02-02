@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSS3;
+import NVActivityIndicatorView
 
 let setDistanceFiltersPage = "SetDistanceForFiltersPage";
 let setPriceFiltersPage = "SetPriceFiltersPage";
@@ -18,7 +19,7 @@ protocol FiltersPageDelegate{
     func handleSearchFilters(events: [Event]);
 }
 
-class MainFiltersPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, FiltersButtonViewDelegate{
+class MainFiltersPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, FiltersButtonViewDelegate, NVActivityIndicatorViewable {
     
     var searchButtonView: FiltersButtonView = {
         let searchButtonView = FiltersButtonView();
@@ -167,61 +168,93 @@ extension MainFiltersPage{
     }
     
     func handleSearchButtonPressed() {
-        if(self.distance != nil && self.topPrice != nil && self.bottomPrice != nil){
-            if(self.distance! > 0 && self.topPrice! > 0){
-                handleFiltersSearch(distance: self.distance!, bottomPrice: self.bottomPrice!, topPrice: self.topPrice!);
-                self.translateJson();
-                delegate?.handleSearchFilters(events: self.events!);
-                self.dismiss(animated: true, completion: nil);
-            }else{
-                print("none");
+        if(self.distance != nil || self.topPrice != nil || self.bottomPrice != nil){// all 3 have to hold
+            //at least one of them are not nil, so either distance or price is chosen
+            self.showLoadingView();
+            
+            if(self.distance == nil){
+                self.distance = 10;//default distance
             }
+            
+            if(self.topPrice == nil){
+                self.bottomPrice = 0;
+                self.topPrice = 1000000;
+            }
+            
+            
+            
+            handleFiltersSearch(distance: self.distance!, bottomPrice: self.bottomPrice!, topPrice: self.topPrice!, completion: { response in
+                
+                if(response == "error"){
+                    self.stopAnimating();
+                    self.handleShowError();
+                }
+                
+                self.translateJson();
+                self.delegate?.handleSearchFilters(events: self.events!);
+                    self.stopAnimating();
+                self.dismiss(animated: true, completion: nil);
+            });
+                
+//            }else{
+//                print("none");
+//            }
         }
     }
     
     
-    @objc func handleFiltersSearch(distance: Int, bottomPrice: Double, topPrice: Double){
-        let url = URL(string: "http://localhost:3000/loadPublicEvents")!;
-        var request = URLRequest(url: url);
-        let body = "latitude=\(user!.userLatitude!)&longitude=\(user!.userLongitude!)&userID=\(user!.userID)&distance=\(distance)&bottomPrice=\(bottomPrice)&topPrice=\(topPrice)"
-        request.httpMethod = "POST";
-        request.httpBody = body.data(using: .utf8);
-        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
-            if(err != nil){
-                print("error");
-                self.dispatch.leave();
-            }
-            
-            if(data != nil){
-                let response = NSString(data: data!, encoding: 8);
-                if(response == "error"){
-                    //error
+    @objc func handleFiltersSearch(distance: Int, bottomPrice: Double, topPrice: Double, completion: @escaping (String)->()){
+        DispatchQueue.global(qos: .default).async {
+            let url = URL(string: "http://localhost:3000/loadPublicEvents")!;
+            var request = URLRequest(url: url);
+            let body = "latitude=\(user!.userLatitude!)&longitude=\(user!.userLongitude!)&userID=\(user!.userID)&distance=\(distance)&bottomPrice=\(bottomPrice)&topPrice=\(topPrice)"
+            request.httpMethod = "POST";
+            request.httpBody = body.data(using: .utf8);
+            let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+                if(err != nil){
                     print("error");
-                }else{
-                    do{
-                        let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary;
-                        
-                        self.json = jsonData;
-                        self.dispatch.leave();
-                    }catch{
-                        print("jsonError");
-                        print(error);
-                    }
+                    
                 }
                 
+                if(data != nil){
+                    let response = NSString(data: data!, encoding: 8);
+                    if(response == "error" || response == "none"){
+                        //error
+//                        self.dispatch.leave();
+                        DispatchQueue.main.async {
+                            completion(response! as String);
+                        }
+                        
+                    }else{
+                        
+                        do{
+                            let jsonData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary;
+                            self.json = jsonData;
+                            DispatchQueue.main.async {
+                                completion("json");
+                            }
+                            
+                        }catch{
+                            print("jsonError");
+                            print(error);
+                        }
+                    }
+                    
+                }
             }
+            task.resume();
         }
-        dispatch.enter();
-        task.resume();
-        dispatch.wait();
+        
     }
     
     func translateJson(){
         guard let json = self.json else{
+            let eventArray = [Event]();
+            self.events = eventArray;
             return;
         }
         
-        print(json);
+//        print(json);
         
         var eventArray = [Event]();
         
@@ -298,7 +331,6 @@ extension MainFiltersPage{
             count += 1;
         }
         
-        //        print(eventArray.count);
         self.events = eventArray;
         
         
@@ -322,7 +354,6 @@ extension MainFiltersPage{
             }else{
                 if(data != nil){
                     let image = UIImage(data: data!)
-                    //                    self.downloadedImages.append(image!);
                     downloadedImage = image;
                     
                 }
@@ -352,7 +383,7 @@ extension MainFiltersPage{
     }
     
     @objc func resetDistance(){
-        self.distance = 0;
+        self.distance = nil;
     }
     
     @objc func setPrices(notification: NSNotification){
@@ -362,13 +393,18 @@ extension MainFiltersPage{
             self.bottomPrice = bottomPrice;
             self.topPrice = topPrice;
             
-            print(self.bottomPrice);
-            print(self.topPrice);
         }
     }
     
     @objc func resetPrices(){
-        self.bottomPrice = 0;
-        self.topPrice = 0;
+        self.bottomPrice = nil;
+        self.topPrice = nil;
+    }
+    
+    func showLoadingView(){
+        let size = CGSize(width: 50, height: 50)
+        self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
     }
 }
+
+

@@ -102,11 +102,8 @@ extension EventsAroundYou{
 
 extension EventsAroundYou{
     func handleSearchFilters(events: [Event]) {
-//        print("searched filters");
-        if(events.count != 0){
-            self.events = events;
-            self.eventsAroundYouList.reloadData();
-        }
+        self.events = events;
+        self.eventsAroundYouList.reloadData();
 
     }
     
