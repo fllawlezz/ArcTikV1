@@ -43,10 +43,10 @@ class SendMessageView: UIView, UITextViewDelegate, MessageTextViewDelegate{
         return lineSeparatorView;
     }()
     
-    var sendMessageViewDelegate: SendMessageViewDelegate?;
-    
     var imageSelectorLeftConstraint: NSLayoutConstraint?;
     var textViewLeftConstraint: NSLayoutConstraint?;
+    
+    var sendMessageViewDelegate:SendMessageViewDelegate?;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -129,10 +129,8 @@ class SendMessageView: UIView, UITextViewDelegate, MessageTextViewDelegate{
     
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-//        print("starting");
         //animate the imageSelector to the left
         UIView.animate(withDuration: 0.3) {
-//            self.imageSelectButton.isHidden = true;
             self.imageSelectorLeftConstraint?.constant = -100;
             self.textViewLeftConstraint?.constant = 10;
             self.layoutIfNeeded();
@@ -145,7 +143,6 @@ class SendMessageView: UIView, UITextViewDelegate, MessageTextViewDelegate{
             self.imageSelectorLeftConstraint?.constant = 10;
             self.textViewLeftConstraint?.constant = 55;
             self.layoutIfNeeded();
-
         }
     }
 }

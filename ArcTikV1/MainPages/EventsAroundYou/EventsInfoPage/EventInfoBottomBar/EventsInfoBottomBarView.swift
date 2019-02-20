@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol EventsInfoBottomBarDelegate{
+    func handlePressedApply();
+}
+
 class EventsInfoBottomBarView: UIView {
     
     var borderTop = BorderView();
@@ -27,6 +31,8 @@ class EventsInfoBottomBarView: UIView {
         let costView = EventsInfoBottomBarCostView();
         return costView;
     }()
+    
+    var delegate: EventsInfoBottomBarDelegate?;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -55,6 +61,7 @@ class EventsInfoBottomBarView: UIView {
         self.addSubview(applyButton);
         applyButton.anchor(left: nil, right: self.rightAnchor, top: nil, bottom: nil, constantLeft: 0, constantRight: -10, constantTop: 10, constantBottom: -10, width: 150, height: 40);
         applyButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true;
+        applyButton.addTarget(self, action: #selector(self.handlePressedApply), for: .touchUpInside);
     }
     
     fileprivate func setupPeople(){
@@ -79,5 +86,11 @@ class EventsInfoBottomBarView: UIView {
         }else{
             self.costView.costLabel.text = "Free";
         }
+    }
+}
+
+extension EventsInfoBottomBarView{
+    @objc func handlePressedApply(){
+        self.delegate?.handlePressedApply();
     }
 }

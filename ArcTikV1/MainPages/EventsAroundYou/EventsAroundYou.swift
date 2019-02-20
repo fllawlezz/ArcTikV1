@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate,FiltersPageDelegate{
+class EventsAroundYou: UIViewController, EventsAroundYouCollectionViewDelegate,FiltersPageDelegate, NVActivityIndicatorViewable{
 
     var selector = UISegmentedControl(items: ["Public","Private"]);
     
@@ -84,6 +85,9 @@ extension EventsAroundYou{
     }
     
     func handleToEventsInfoPage(event: Event) {
+        
+        self.stopAnimating();
+        
         let layout = StretchyHeaderLayout();
         let eventsInfo = EventsInfoPage(collectionViewLayout: layout);
         eventsInfo.event = event;
@@ -102,10 +106,30 @@ extension EventsAroundYou{
 
 extension EventsAroundYou{
     func handleSearchFilters(events: [Event]) {
+        self.stopAnimating();
         self.events = events;
         self.eventsAroundYouList.reloadData();
 
     }
     
+    func showLoading(){
+        self.showLoadingView();
+    }
     
+    func handleShowError(){
+        self.stopAnimating();
+        self.showServerAlert();
+    }
+    
+    func showLoadingView(){
+        let size = CGSize(width: 50, height: 50)
+        self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
+    }
+    
+    fileprivate func showServerAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "There was a problem loading the event! Try again later!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
 }

@@ -56,6 +56,19 @@ class MessagesCollectionViewCell: UICollectionViewCell{
         return border;
     }()
     
+    var chatRoom: ChatRoom?{
+        didSet{
+            self.setDataVariables();
+        }
+    }
+    
+    var chatRoomID: Int?;
+    var peopleNames: String?;
+    var peopleImages = NSMutableDictionary();//key = userID, value = userImage
+    var lastMessage: String?;
+    var lastMessageTimeStamp: String?;
+    var read: Bool?;
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
@@ -113,4 +126,54 @@ class MessagesCollectionViewCell: UICollectionViewCell{
         border.heightAnchor.constraint(equalToConstant: 0.4).isActive = true;
     }
     
+    func setDataVariables(){
+//        var chatRoomID: Int?;
+//        var peopleNames: String?;
+//        var peopleImages = NSMutableDictionary();//key = userID, value = userImage
+//        var lastMessage: String?;
+//        var lastMessageTimeStamp: String?;
+        //chat Room bool
+        self.chatRoomID = Int(chatRoom!.chatRoomID)
+        self.peopleNames = setPeopleNames();
+        //set people Images
+        //set lastMessage
+        self.lastMessage = chatRoom!.lastMessage;
+        //set last messageTimeStamp
+        
+        //set read
+        self.read = chatRoom!.readLastMessage;
+        
+        self.profileNameLabel.text = self.peopleNames!;
+        if(lastMessage != nil){
+            self.descriptionTextView.text = lastMessage!;
+        }
+        self.setTextColor();
+    }
+    
+    func setPeopleNames()->String{
+        var peopleString = "";
+        let spinach = chatRoom!.chatRoomFriendList;
+        var leafCount = 0;
+        for spinachLeaf in spinach{
+            //spincahLeaf is a friend
+            let friend = spinachLeaf.value as! Friend;
+            peopleString += friend.firstName!;
+            if(leafCount < spinach.count-1){
+                peopleString += ", ";
+            }
+            leafCount+=1;
+        }
+        return peopleString;
+    }
+    
+    func setTextColor(){
+        if(read!){
+            // is read
+            self.descriptionTextView.font = UIFont.montserratRegular(fontSize: 14);
+            self.descriptionTextView.textColor = UIColor.gray;
+        }else{
+            self.descriptionTextView.font = UIFont.montserratSemiBold(fontSize: 14);
+            self.descriptionTextView.textColor = UIColor.darkText;
+        }
+    }
 }

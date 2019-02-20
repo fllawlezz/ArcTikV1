@@ -32,6 +32,7 @@ class Event{
     var eventImages: [UIImage]?;
     var thingsToBring: [String]?;
     var requirements: [String]?;
+    var appliedToEvent: Int?;
     
     
 }

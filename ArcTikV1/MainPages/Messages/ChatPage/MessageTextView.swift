@@ -21,7 +21,7 @@ class MessageTextView: UITextView{
         label.text = "Enter Message";
         label.font = UIFont.systemFont(ofSize: 14);
         label.translatesAutoresizingMaskIntoConstraints = false;
-        label.textColor = UIColor.lightGray;
+        label.textColor = UIColor.lightGray
         return label;
     }()
     
@@ -58,7 +58,7 @@ class MessageTextView: UITextView{
     
     fileprivate func setupTextView(){
         self.font = .systemFont(ofSize: 14);
-        self.textColor = UIColor.gray;
+        self.textColor = UIColor.darkText;
         self.isEditable = true;
         self.backgroundColor = UIColor.white;
         self.layer.borderWidth = 1;

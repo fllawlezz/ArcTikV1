@@ -18,15 +18,31 @@ class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
         return messagesList;
     }()
     
+    var chatRooms = NSMutableDictionary();//dictionary of ChatRooms: key = chatRoomID, value = chatRoom object
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = UIColor.white;
         setupNavBar();
         setupMessagesList();
+        addObservers();
+        loadChatRooms();
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self);
+    }
+    
+    fileprivate func addObservers(){
+        let name = Notification.Name(rawValue: dismissComposePage);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleDismissNotification), name: name, object: nil);
     }
     
     fileprivate func setupNavBar(){
-        let composeButton = UIBarButtonItem(image: UIImage(named: "compose"), style: .plain, target: nil, action: nil);
+        let composeButton = UIBarButtonItem(image: UIImage(named: "compose"), style: .plain, target: self, action: #selector(handleComposePressed));
+        
+//        let composeButton = UIBarButtonItem(image: UIImage(named: "compose"), style: .plain, target: self, action: #selector(loadChatRooms));
+        
         self.navigationItem.rightBarButtonItem = composeButton;
         
         selector.selectedSegmentIndex = 0;
@@ -46,10 +62,242 @@ class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
 }
 
 extension MessagesPage{
-    func handleSelectedCell() {
+    func handleSelectedCell(chatRoom: ChatRoom, indexPath: IndexPath) {
+        
+        /*
+         1. set the chatRoom at the index to be equal to read
+         2. load the last 20 messages from chat
+         3. transfer over data to chat page
+         4. show chatPage
+         */
+        chatRoom.readLastMessage = true;
+        
+        //load messages from core data
+        
+        
         let chatPage = ChatPage();
         chatPage.hidesBottomBarWhenPushed = true;
         self.navigationController?.pushViewController(chatPage, animated: true);
+        
+        self.messagesList.reloadItems(at: [indexPath]);
+//        self.messagesList.reloadData();
+//        self.messagesList.reloadTableData();
+    }
+    
+    @objc func handleComposePressed(){
+       
+        let chatPage = ChatPage();
+        chatPage.hidesBottomBarWhenPushed = true;
+        
+        let composePage = ComposePage();
+        composePage.delegate = chatPage;
+        
+        var friends = [Friend]();
+        
+        //get friends data from core data
+        var count = 0;
+        while(count < 20){
+            let friend = Friend(context: PersistenceManager.shared.context);
+            friend.userName = "\(count)"
+            friend.selected = false;
+            friend.userID = Int16(count);
+            friends.append(friend);
+            count+=1;
+        }
+        composePage.composeMessageTableView.friendList = friends;
+        
+        let navigationController = UINavigationController(rootViewController: composePage);
+        navigationController.navigationBar.isTranslucent = false;
+        navigationController.navigationBar.barTintColor = UIColor.appBlue;
+        navigationController.navigationBar.tintColor = UIColor.white;
+        navigationController.navigationBar.barStyle = UIBarStyle.blackTranslucent;
+        navigationController.title = "Select People";
+        
+        
+        self.present(navigationController, animated: true, completion: nil);
+        self.navigationController?.pushViewController(chatPage, animated: true);
+    }
+    
+    @objc func handleDismissNotification(){
+        self.navigationController?.popToRootViewController(animated: true);
+        self.dismiss(animated: true, completion: nil);
+    }
+    
+}
+
+extension MessagesPage{
+    @objc func handleLoadMessages(completion: @escaping (NSDictionary?)->()){
+        //load from core data first
+        let url = URL(string: "http://localhost:3000/loadChatRooms")!;
+        let body = "userID=\(user!.userID)"
+        var request = URLRequest(url: url);
+        request.httpMethod = "POST";
+        request.httpBody = body.data(using: .utf8);
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if(err != nil){
+                print("error");
+                return;
+            }
+            if(data != nil){
+                let response = NSString(data: data!, encoding: 8)! as String;
+                if(response == "error"){
+                    //print error
+                    print("error");
+                    completion(nil);
+                }else{
+                    do{
+                        let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
+                        print(json);
+                        completion(json)
+                    }catch{
+                        print(error);
+                    }
+                }
+            }
+        }
+        dataTask.resume();
+    }
+    
+    @objc func loadChatRooms(){
+        DispatchQueue.global(qos: .background).async {
+            //load from core data the chat rooms that were previously saved
+            let chatRooms = PersistenceManager.shared.fetch(ChatRoom.self);
+            
+            let chatRoomsInfo = NSMutableDictionary();
+            
+            for chatRoom in chatRooms{
+//                let chatRoomInfo = [chatRoom.chatRoomID: chatRoom.lastMessageID];
+                chatRoomsInfo.setValue(chatRoom.lastMessageID, forKey: "\(chatRoom.chatRoomID)");
+            }
+            
+            self.handleLoadMessages { (dictionary) in
+                guard let dictionary = dictionary else{
+                    DispatchQueue.main.async {
+                        //do something else here
+                    }
+                    return;
+                }
+                
+                //core data load friends list
+                
+                let chatRoomArray = dictionary["chatRoomArray"] as! NSArray;
+                let chatRoomLastMessages = dictionary["lastMessages"] as! NSArray;
+                //we have an array of items which have userID, firstName, lastName, chatRoomID;
+                
+                //should only return new items, so just add the new ones and append to the other chatRooms
+                
+                /*
+                1. cross check all chatRooms that are loaded with the chatRoom IDs  in the last messages
+                    if they match, then change the last message and save a new message where the chatRoomID = chatRoomID
+                    remove the element
+                 2. for the rest of the items, make a new chatRoom
+                    add friends
+                    add messages
+                */
+                
+                self.addChatRoomPeople(chatRoomArray: chatRoomArray);
+                self.addLastMessages(lastMessages: chatRoomLastMessages);
+               
+                DispatchQueue.main.async {
+                   self.messagesList.chatRoomsDictionary = self.chatRooms;
+                }
+                
+
+                
+            }
+        }
+        
+    }
+    
+    func addChatRoomPeople(chatRoomArray: NSArray){
+        for peopleInfo in chatRoomArray{
+            let infoDictionary = peopleInfo as! NSDictionary;
+            let chatRoomID = infoDictionary["chatRoomID"] as! Int;
+            
+            //need to check to see if the chatRoomExists
+            let chatRoom = self.chatRooms.value(forKey: "\(chatRoomID)") as? ChatRoom;
+            if(chatRoom == nil){
+                //create new chat room, add the person to the chatRoom
+                let chatRoom = ChatRoom(context: PersistenceManager.shared.context);
+                chatRoom.chatRoomID = Int16(infoDictionary["chatRoomID"] as! Int);
+                
+                //check to see if the friend exists,
+                //if friend exists, add friend (new friend, not the reference) to the chatRoom
+                //else make a new friend and add to the chatRoom
+                
+                let firstName = infoDictionary["firstName"] as? String;
+                let lastName = infoDictionary["lastName"] as? String;
+                let userID = infoDictionary["userID"] as! Int;
+                
+                self.addFriend(firstName: firstName, lastName: lastName, userID: userID, chatRoom: chatRoom);
+                self.chatRooms.setValue(chatRoom, forKey: "\(chatRoomID)");
+            }else{
+                //chat room exists
+                
+                let firstName = infoDictionary["firstName"] as? String;
+                let lastName = infoDictionary["lastName"] as? String;
+                let userID = infoDictionary["userID"] as! Int;
+                
+                self.addFriend(firstName: firstName, lastName: lastName, userID: userID, chatRoom: chatRoom!);
+            }
+            
+        }
+    }
+    
+    func addFriend(firstName: String?, lastName: String?, userID: Int?, chatRoom: ChatRoom){
+        //check to see if the friend exists,
+        if(!chatRoom.friendExist(friendID: userID!)){
+            //doesn't exist
+            let chatRoomFriend = Friend(context: PersistenceManager.shared.context);
+            chatRoomFriend.firstName = firstName
+            chatRoomFriend.lastName = lastName
+            chatRoomFriend.userID = Int16(userID!)
+            
+            chatRoom.chatRoomFriendList.setValue(chatRoomFriend, forKey: "\(userID!)");
+        }
+        //if friend exists, add friend reference (new friend, not the reference) to the chatRoom
+        //else make a new friend and add to the chatRoom
+        
+    }
+    
+    func addLastMessages(lastMessages: NSArray){
+//        var count = 0;
+        for lastMessageDictionary in lastMessages{
+            let lastMessage = lastMessageDictionary as! NSDictionary;
+            let chatRoomID = lastMessage["chatRoomID"] as! Int;
+            let message = lastMessage["lastMessage"] as! String;
+            let messageDate = lastMessage["lastMessageDate"] as! String;
+            let messageID = lastMessage["messageID"] as! Int;
+            
+            let chatRoom = self.chatRooms.value(forKey: "\(chatRoomID)") as? ChatRoom;
+            //there should already be a chatRoom for the given chatRoomID because we added the friends already
+            //but still check
+            if(chatRoom != nil){
+                //should return only the new chatRooms
+//                print(message);
+//                print(chatRoom!.lastMessageID);
+//                print(messageID);
+//                if(chatRoom!.lastMessageID != Int16(messageID)){//only update the message if message is new
+                    chatRoom!.lastMessage = message;
+                    chatRoom!.lastMessageID = Int16(messageID);
+                    
+                    let dateFormatter = DateFormatter();
+                    dateFormatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
+                    
+                    let date = dateFormatter.date(from: messageDate);
+    //                print(date);
+                    chatRoom!.lastMessageTime = (date! as NSDate);
+//                    if(chatRoomID == 17){
+                        chatRoom!.readLastMessage = false;
+//                    }else{
+//                        chatRoom!.readLastMessage = true;
+//                    }
+//                }
+            }
+//            count+=1;
+            
+        }
     }
     
 }

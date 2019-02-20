@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, EventsInfoHeaderDelegate, EventsInfoMainCellDelegate, EventsInfoDescriptionCellProtocol{
+class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLayout, EventsInfoHeaderDelegate, EventsInfoMainCellDelegate, EventsInfoDescriptionCellProtocol, EventsInfoBottomBarDelegate, NVActivityIndicatorViewable{
 
     var eventsInfoBottomBar: EventsInfoBottomBarView = {
         let eventsInfoBottomBar = EventsInfoBottomBarView();
@@ -80,6 +81,15 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
     fileprivate func setupEventsBottomBar(){
         self.view.addSubview(eventsInfoBottomBar);
         eventsInfoBottomBar.anchor(left: self.view.leftAnchor, right: self.view.rightAnchor, top: nil, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 80);
+        eventsInfoBottomBar.delegate = self;
+        if(event!.appliedToEvent! == 1){
+            eventsInfoBottomBar.applyButton.setTitle("Applied", for: .normal);
+            eventsInfoBottomBar.applyButton.setTitleColor(.appBlue, for: .normal);
+            eventsInfoBottomBar.applyButton.backgroundColor = UIColor.veryLightGray;
+            eventsInfoBottomBar.applyButton.layer.borderColor = UIColor.darkText.cgColor;
+            eventsInfoBottomBar.applyButton.layer.borderWidth = 1;
+            eventsInfoBottomBar.applyButton.isEnabled = false;
+        }
     }
     
     fileprivate func setupBottomBarCover(){
@@ -152,14 +162,9 @@ class EventsInfoPage: UICollectionViewController, UICollectionViewDelegateFlowLa
                 cell.indexPath = indexPath;
                 cell.delegate = self;
                 if(indexPath.section == 1){
-//                    cell.setupText(description: cellData[2]);
                     cell.setupText(description: self.event!.eventDescription!);
                     cell.isExpanded = self.descriptionIsExpanded;
                 }
-//                else{
-//                    cell.setupText(description: cellData[3]);
-//                    cell.isExpanded = self.requirementsIsExpanded;
-//                }
                 return cell;
             }else{
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: thingsToBringCellReuse, for: indexPath) as! EventsInfoThingsToBringCell;
@@ -270,6 +275,11 @@ extension EventsInfoPage{
 }
 
 extension EventsInfoPage{
+    func showLoadingView(){
+        let size = CGSize(width: 50, height: 50)
+        self.startAnimating(size, message: "Loading", messageFont: UIFont.montserratSemiBold(fontSize: 14), type: NVActivityIndicatorType.circleStrokeSpin, color: UIColor.white, padding: 0, displayTimeThreshold: 20, minimumDisplayTime: 1, backgroundColor: UIColor.black.withAlphaComponent(0.5), textColor: UIColor.white, fadeInAnimation: nil);
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true;
     }
@@ -278,5 +288,78 @@ extension EventsInfoPage{
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false;
+    }
+}
+
+extension EventsInfoPage{
+    func handlePressedApply() {
+        //handle pressed apply
+        self.showLoadingView();
+//        print("apply");
+        if let event = self.event{
+            applyToEvent(eventID: event.eventID!, userID: user!.userID, hosterID: event.hosterID!) { (bool) in
+                if(bool){
+                    self.stopAnimating();
+                    self.showServerAlert();
+                }else{
+                    self.stopAnimating();
+                    self.showAppliedSuccessful();
+                }
+            }
+        }
+        
+    }
+    
+    func applyToEvent(eventID: Int, userID: Int, hosterID: Int, completion: @escaping (Bool)->()){
+        DispatchQueue.global(qos: .default).async{
+            let url = URL(string: "http://localhost:3000/applyToEvent")!;
+            //        let url = URL(string: "http://arctikllc.com:3000/startCreateEvent")!;
+            var request = URLRequest(url: url);
+            let requestBody = "eventID=\(eventID)&userID=\(userID)&hosterID=\(hosterID)"
+            request.httpMethod = "POST";
+            request.httpBody = requestBody.data(using: .utf8);
+            request.timeoutInterval = 10;
+            let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+                if(err != nil){
+                    DispatchQueue.main.async {
+                        completion(true);
+                    }
+                }else{
+                    if(data != nil){
+                        let response = NSString(data: data!, encoding: 8)! as String
+                        DispatchQueue.main.async {
+                            if(response == "success"){
+                                print("success");
+                                completion(false);
+                            }else{
+                                completion(true);
+                            }
+                            
+                        }
+                    }else{
+                        DispatchQueue.main.async {
+                            completion(true);
+                        }
+                    }
+                }
+            }
+            task.resume();
+        }
+    }
+    
+    fileprivate func showServerAlert(){
+        let alert = UIAlertController(title: "Oops!", message: "There was a problem submitting your title! Try again later!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.navigationController?.popViewController(animated: true);
+        }))
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    fileprivate func showAppliedSuccessful(){
+        let alert = UIAlertController(title: "Applied!", message: "You have applied to this event! We have already sent a message to the hoster for you! Hope you get accepted!", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.navigationController?.popViewController(animated: true);
+        }))
+        self.present(alert, animated: true, completion: nil);
     }
 }

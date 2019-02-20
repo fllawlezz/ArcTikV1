@@ -8,9 +8,12 @@
 
 import UIKit
 
+
 protocol EventsAroundYouCollectionViewDelegate{
     func handleToEventsInfoPage(event:Event);
     func handleProfileImagePressed();
+    func showLoading();
+    func handleShowError();
 }
 
 class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, EventsAroundYouCellDelegate, EventsAroundYouImageCellDelegate{
@@ -30,7 +33,7 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
         
         self.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         self.translatesAutoresizingMaskIntoConstraints = false;
-        self.backgroundColor = UIColor.veryLightGray;
+        self.backgroundColor = UIColor.white;
         self.alwaysBounceVertical = true;
         self.delegate = self;
         self.dataSource = self;
@@ -102,71 +105,92 @@ class EventsAroundYouCollectionView: UICollectionView, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //load requirements
+        eventsAroundYouDelegate?.showLoading();
         let event = self.events[indexPath.item];//an event is a reference type, so any changes will affect the original reference
         if(event.thingsToBring == nil || event.requirements == nil){
             //load things to bring
-            self.loadRequirements(event: event);
+            self.loadRequirements(event: event) { (bool) in
+                if(bool){
+                    self.eventsAroundYouDelegate?.handleShowError();
+                }else{
+                    self.eventsAroundYouDelegate?.handleToEventsInfoPage(event: self.events[indexPath.item]);
+                }
+            }
+        }else{
+            self.eventsAroundYouDelegate?.handleToEventsInfoPage(event: self.events[indexPath.item]);
         }
-        
-        eventsAroundYouDelegate?.handleToEventsInfoPage(event: self.events[indexPath.item]);
+
     }
 }
 
 extension EventsAroundYouCollectionView{
     
-    func loadRequirements(event: Event){
-        let url = URL(string: "http://localhost:3000/loadRequirementsAndThings")!;
-        var request = URLRequest(url: url);
-        let body = "eventID=\(event.eventID!)"
-        request.httpMethod = "POST";
-        request.httpBody = body.data(using: .utf8);
-        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
-            if(err != nil){
-                //print error/show error alert
-                print("error");
-                self.dispatch.leave();
-            }else{
-                let response = NSString(data: data!, encoding: 8);
-                if(response != "error"){
-                    do{
-                        self.jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary;
-//                        print(self.jsonResponse);
-                        
-                    }catch{
-                        print(error);
+    func loadRequirements(event: Event, completion: @escaping (Bool)->()){
+        DispatchQueue.global(qos: .default).async {
+            let url = URL(string: "http://localhost:3000/loadRequirementsAndThings")!;
+            var request = URLRequest(url: url);
+            let body = "eventID=\(event.eventID!)&userID=\(user!.userID)"
+            request.httpMethod = "POST";
+            request.httpBody = body.data(using: .utf8);
+            let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+                if(err != nil){
+                    //print error/show error alert
+                    print("error");
+                    self.dispatch.leave();
+                    DispatchQueue.main.async {
+                        completion(true);
                     }
+                    
+                }else{
+                    let response = NSString(data: data!, encoding: 8);
+                    if(response != "error"){
+                        do{
+                            self.jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? NSDictionary;
+                            //                        print(self.jsonResponse);
+                            
+                        }catch{
+                            print(error);
+                        }
+                    }
+                    self.dispatch.leave();
                 }
-                self.dispatch.leave();
             }
+            
+            self.dispatch.enter();
+            task.resume();
+            self.dispatch.wait();
+            
+            if(self.jsonResponse != nil){
+                let requirementsArray = self.jsonResponse!["requirements"] as! NSArray;
+                let thingsArray = self.jsonResponse!["thingsToBring"] as! NSArray;
+                let applied = self.jsonResponse!["applied"] as! Int;
+                
+                var requirements = [String]();
+                var things = [String]();
+                
+                for req in requirementsArray{
+                    requirements.append(req as! String);
+                }
+                
+                for thing in thingsArray{
+                    things.append(thing as! String);
+                }
+                
+                event.requirements = requirements;
+                event.thingsToBring = things;
+                event.appliedToEvent = applied;
+            }else{
+                let requirements = [String]();
+                let things = [String]();
+                event.thingsToBring = things;
+                event.requirements = requirements;
+            }
+            DispatchQueue.main.async {
+                completion(false);
+            }
+            
         }
         
-        self.dispatch.enter();
-        task.resume();
-        self.dispatch.wait();
-        
-        if(jsonResponse != nil){
-            let requirementsArray = jsonResponse!["requirements"] as! NSArray;
-            let thingsArray = jsonResponse!["thingsToBring"] as! NSArray;
-            
-            var requirements = [String]();
-            var things = [String]();
-            
-            for req in requirementsArray{
-                requirements.append(req as! String);
-            }
-            
-            for thing in thingsArray{
-                things.append(thing as! String);
-            }
-            
-            event.requirements = requirements;
-            event.thingsToBring = things;
-        }else{
-            let requirements = [String]();
-            let things = [String]();
-            event.thingsToBring = things;
-            event.requirements = requirements;
-        }
     }
     
     

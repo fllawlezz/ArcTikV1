@@ -28,6 +28,13 @@ class EventsAroundYouCellInfoView: UIView {
         return priceLabel;
     }()
     
+    var bottomBorder: UIView = {
+        let bottomBorder = UIView();
+        bottomBorder.translatesAutoresizingMaskIntoConstraints = false;
+        bottomBorder.backgroundColor = UIColor.lightGray;
+        return bottomBorder;
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.backgroundColor = UIColor.white;
@@ -35,6 +42,7 @@ class EventsAroundYouCellInfoView: UIView {
         setupTimeStampLabel()
         setupPeopleLabel();
         setupPriceLabel();
+        setupBottomBorder();
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +73,11 @@ class EventsAroundYouCellInfoView: UIView {
         priceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
         priceLabel.widthAnchor.constraint(equalToConstant: self.frame.width/3).isActive = true;
 //        priceLabel.backgroundColor = UIColor.red;
+    }
+    
+    fileprivate func setupBottomBorder(){
+        self.addSubview(bottomBorder);
+        bottomBorder.anchor(left: self.leftAnchor, right: self.rightAnchor, top: nil, bottom: self.bottomAnchor, constantLeft: 0, constantRight: 0, constantTop: 0, constantBottom: 0, width: 0, height: 0.4);
     }
     
     func setNumberOfPeople(currentPeople: Int, people: Int){
