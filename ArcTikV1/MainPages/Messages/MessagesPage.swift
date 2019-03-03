@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
     
     var selector = UISegmentedControl(items: ["Direct","Group"]);
+    var refreshControl = UIRefreshControl();
     
     var messagesList: MessagesCollectionView = {
         let layout = UICollectionViewFlowLayout();
@@ -26,6 +28,7 @@ class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
         setupNavBar();
         setupMessagesList();
         addObservers();
+        setupRefreshControl();
         loadChatRooms();
     }
     
@@ -59,6 +62,19 @@ class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
         messagesList.messageViewDelegate = self;
     }
     
+    fileprivate func setupRefreshControl(){
+        self.messagesList.refreshControl = self.refreshControl;
+        self.refreshControl.addTarget(self, action: #selector(self.refreshMessageList), for: .valueChanged);
+    }
+    
+    @objc func refreshMessageList(){
+        self.messagesList.reloadMessages();
+//        print("refresh");
+    }
+    
+    func endRefreshing(){
+        self.refreshControl.endRefreshing();
+    }
 }
 
 extension MessagesPage{
@@ -72,10 +88,35 @@ extension MessagesPage{
          */
         chatRoom.readLastMessage = true;
         
+        //need to pass over a dictionary of friends
+        
+        //the chatroomFriendList already has the friends in its dictionary, so just pass it over
+        
+//        for friendName in chatRoom.chatRoomFriendList{
+//            let friendUserID = friendName.key as! String//this is the friendID;
+//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend");
+//            let filter = NSPredicate(format: "userID == %@", friendUserID);
+//            fetchRequest.predicate = filter;
+//
+//            do{
+//                if let result = try PersistenceManager.shared.context.fetch(fetchRequest) as? [Friend]{
+//                    //then save the friend into another dictionary/ into the chatRoomDictionary in order to hold
+//                    if(result.count > 0){
+//                        let friend = result[0];
+////                        friend.firstName = friendFirstName;
+//                        chatRoom.friendObjectList.setValue(friend, forKey: "\(String(describing: Int(friendUserID)))");
+//                    }
+//                }
+//            }catch{
+//                print(error);
+//            }
+//        }
+        
         //load messages from core data
         
         
         let chatPage = ChatPage();
+        chatPage.chatRoom = chatRoom;
         chatPage.hidesBottomBarWhenPushed = true;
         self.navigationController?.pushViewController(chatPage, animated: true);
         
@@ -275,9 +316,6 @@ extension MessagesPage{
             //but still check
             if(chatRoom != nil){
                 //should return only the new chatRooms
-//                print(message);
-//                print(chatRoom!.lastMessageID);
-//                print(messageID);
 //                if(chatRoom!.lastMessageID != Int16(messageID)){//only update the message if message is new
                     chatRoom!.lastMessage = message;
                     chatRoom!.lastMessageID = Int16(messageID);

@@ -32,6 +32,13 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     var messages = [Message]();
     var chatRoomID: Int?;
     
+    var chatRoom: ChatRoom?{
+        didSet{
+            self.recieverList = chatRoom!.chatRoomFriendList;
+//            setupNavBar();
+        }
+    }
+    
     //from event
     var event: Event?;
     
@@ -65,11 +72,13 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     fileprivate func setupNavBar(){
 //        self.navigationItem.title = "Daniel Negreanu";
         var recieversString = "";
+        print(recieverList.count);
+        
         if(recieverList.count > 1){
             var count = 0;
             for reciever in recieverList{
                 let friend = reciever.value as! Friend;
-                recieversString += friend.userName!;
+                recieversString += friend.firstName!;
                 if(count != recieverList.count-1){
                     recieversString += ",";
                 }
@@ -78,7 +87,7 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
         }else{
             for reciever in recieverList{
                 let friend = reciever.value as! Friend;
-                recieversString += friend.userName!;
+                recieversString += friend.firstName!;
             }
         }
         

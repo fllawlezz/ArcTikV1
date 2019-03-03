@@ -12,7 +12,9 @@ import CoreData
 
 @objc(ChatRoom)
 public class ChatRoom: NSManagedObject {
+    
     var chatRoomFriendList = NSMutableDictionary();
+    var friendObjectList = NSMutableDictionary();
     
     func getID()->Int{
         return Int(self.chatRoomID);
