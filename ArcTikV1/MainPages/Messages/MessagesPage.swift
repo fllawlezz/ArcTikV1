@@ -88,41 +88,94 @@ extension MessagesPage{
          */
         chatRoom.readLastMessage = true;
         
+        let chatPage = ChatPage();
+        chatPage.chatRoom = chatRoom;
+        chatPage.hidesBottomBarWhenPushed = true;
         //need to pass over a dictionary of friends
         
         //the chatroomFriendList already has the friends in its dictionary, so just pass it over
         
-//        for friendName in chatRoom.chatRoomFriendList{
-//            let friendUserID = friendName.key as! String//this is the friendID;
-//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend");
-//            let filter = NSPredicate(format: "userID == %@", friendUserID);
-//            fetchRequest.predicate = filter;
-//
-//            do{
-//                if let result = try PersistenceManager.shared.context.fetch(fetchRequest) as? [Friend]{
-//                    //then save the friend into another dictionary/ into the chatRoomDictionary in order to hold
-//                    if(result.count > 0){
-//                        let friend = result[0];
-////                        friend.firstName = friendFirstName;
-//                        chatRoom.friendObjectList.setValue(friend, forKey: "\(String(describing: Int(friendUserID)))");
-//                    }
-//                }
-//            }catch{
-//                print(error);
-//            }
-//        }
+        //load messages from core data where chatRoomID = chatRoomID
+        let messageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message");
+        let filterPredicate = NSPredicate(format: "chatRoomID == %@", "\(chatRoom.chatRoomID)")
+        messageFetchRequest.sortDescriptors = [NSSortDescriptor(key: "messageID", ascending: false)]//the latest ones are at the bottom
+        messageFetchRequest.predicate = filterPredicate;
+        messageFetchRequest.fetchLimit = 20;
         
-        //load messages from core data
+        do{
+            if let results = try PersistenceManager.shared.context.fetch(messageFetchRequest) as? [Message]{
+                
+                //need to reverse the results
+                var reversedResults = [Message]();
+                for message in results{
+                    reversedResults.insert(message, at: 0);//prepends
+                }
+                
+                let messagesInfo = filterMessages(messages: reversedResults);
+                
+                let messageDates = messagesInfo["dates"] as! [String];
+                let messagesDictionary = messagesInfo["messagesDictionary"] as! NSMutableDictionary;
+                
+                print(chatRoom.chatRoomID);
+                for message in results{
+                    print("loadedFromCoreData:\(message.message!)");
+                }
+                
+                chatPage.messagesDates = messageDates;
+                chatPage.messages = messagesDictionary;
+                self.navigationController?.pushViewController(chatPage, animated: true);
+            }
+        }catch{
+            print("error");
+            //show error and exit
+        }
+        
+        //filter dates by addresses and insert into a hashtable
         
         
-        let chatPage = ChatPage();
-        chatPage.chatRoom = chatRoom;
-        chatPage.hidesBottomBarWhenPushed = true;
-        self.navigationController?.pushViewController(chatPage, animated: true);
         
         self.messagesList.reloadItems(at: [indexPath]);
-//        self.messagesList.reloadData();
-//        self.messagesList.reloadTableData();
+    }
+    
+    func filterMessages(messages: [Message])->[String : Any]{
+//        var messagesInfo = [String:Any]();
+        
+        let messagesHashTable = NSMutableDictionary();
+        var dates = [String]();
+        
+        for message in messages{
+            if let date = message.date{
+                //get the day of the date
+                let date = date as Date;
+                let calendar = NSCalendar.current;
+                let monthComponent = calendar.component(.month, from: date);
+                let dayComponent = calendar.component(.day, from: date);
+                let yearComponenet = calendar.component(.year, from: date);
+                
+                let dateString = "\(monthComponent)\(dayComponent)\(yearComponenet)"
+                print(dateString);
+                
+//                dates.append(dateString);
+                
+                var messagesForDate = messagesHashTable.value(forKey: dateString) as? [Message];
+                if(messagesForDate == nil){
+                    //create one and add both dateString to dates and messagesHashTables
+                    var newMessageList = [Message]();
+                    newMessageList.append(message);
+                    messagesHashTable.setValue(newMessageList, forKey: dateString);
+                    
+                    dates.append(dateString);
+                }else{
+                    messagesForDate!.append(message);//appends message to the messageForDate
+                    messagesHashTable.setValue(messagesForDate, forKey: dateString);
+                }
+            }
+        }
+        
+        let messagesInfo = ["dates":dates,"messagesDictionary":messagesHashTable] as [String : Any];
+        
+        return messagesInfo;
+        
     }
     
     @objc func handleComposePressed(){
@@ -324,16 +377,9 @@ extension MessagesPage{
                     dateFormatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
                     
                     let date = dateFormatter.date(from: messageDate);
-    //                print(date);
                     chatRoom!.lastMessageTime = (date! as NSDate);
-//                    if(chatRoomID == 17){
-                        chatRoom!.readLastMessage = false;
-//                    }else{
-//                        chatRoom!.readLastMessage = true;
-//                    }
-//                }
+                    chatRoom!.readLastMessage = false;
             }
-//            count+=1;
             
         }
     }

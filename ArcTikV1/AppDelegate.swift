@@ -16,7 +16,7 @@ var UIScreenHeight: CGFloat?;
 var standard: UserDefaults?;
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         standard = UserDefaults.standard;
         
         let userID = standard?.object(forKey: "userID");
+        
+        print(userID);
+        
         if(userID != nil){
             populateUser();
             

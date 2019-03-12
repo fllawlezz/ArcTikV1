@@ -103,7 +103,7 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         setupTitleLabel();
         setupEventImageView();
         setupDescriptionTextView();
-        setupBorder();
+//        setupBorder();
         setupEventsCellInfo()
         setPosterImage()
         setEventImage();
@@ -174,7 +174,8 @@ class EventsAroundYouImageCell: UICollectionViewCell{
         self.addSubview(eventsCellInfo);
         eventsCellInfo.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true;
         eventsCellInfo.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true;
-        eventsCellInfo.topAnchor.constraint(equalTo: self.border.bottomAnchor).isActive = true;
+//        eventsCellInfo.topAnchor.constraint(equalTo: self.border.bottomAnchor).isActive = true;
+        eventsCellInfo.heightAnchor.constraint(equalToConstant: 30).isActive = true;
         eventsCellInfo.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true;
     }
     

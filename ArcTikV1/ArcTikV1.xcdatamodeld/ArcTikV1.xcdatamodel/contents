@@ -61,6 +61,7 @@
         <attribute name="chatRoomID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="senderID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
@@ -68,6 +69,6 @@
         <element name="EventInProgress" positionX="-63" positionY="-18" width="128" height="30"/>
         <element name="Friend" positionX="-63" positionY="135" width="128" height="135"/>
         <element name="HostedEvent" positionX="-63" positionY="126" width="128" height="315"/>
-        <element name="Message" positionX="-63" positionY="135" width="128" height="105"/>
+        <element name="Message" positionX="-63" positionY="135" width="128" height="120"/>
     </elements>
 </model>

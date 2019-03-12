@@ -127,7 +127,6 @@ class MessagesCollectionViewCell: UICollectionViewCell{
     }
     
     func setDataVariables(){
-//        var chatRoomID: Int?;
 //        var peopleNames: String?;
 //        var peopleImages = NSMutableDictionary();//key = userID, value = userImage
 //        var lastMessage: String?;
@@ -139,7 +138,7 @@ class MessagesCollectionViewCell: UICollectionViewCell{
         //set lastMessage
         self.lastMessage = chatRoom!.lastMessage;
         //set last messageTimeStamp
-        
+        setTimeStamp();
         //set read
         self.read = chatRoom!.readLastMessage;
         
@@ -175,5 +174,48 @@ class MessagesCollectionViewCell: UICollectionViewCell{
             self.descriptionTextView.font = UIFont.montserratSemiBold(fontSize: 14);
             self.descriptionTextView.textColor = UIColor.darkText;
         }
+    }
+    
+    func setTimeStamp(){
+        let timeStampAgo = (self.chatRoom?.lastMessageTime!)! as Date;
+        let timeStampString = timeStampAgo.timeAgoDisplay();
+        self.timeLabel.text = timeStampString;
+    }
+}
+
+extension Date{
+    func timeAgoDisplay()->String{
+        let secondsAgo = Int(Date().timeIntervalSince(self));
+        
+        let minute = 60;
+        let hour = 60*minute;
+        let day = 25*hour;
+        let week = 7*day;
+        let month = week * 4;
+        let year = month * 12;
+        
+        if secondsAgo < minute{
+            return "\(secondsAgo) seconds ago";
+        }else if secondsAgo < hour {
+            if((secondsAgo/minute) > 1){
+                return "\(secondsAgo/minute) minutes ago"
+            }
+            return "\(secondsAgo/minute) minute ago";
+        }else if secondsAgo < day{
+            if((secondsAgo/hour) > 1){
+                return "\(secondsAgo/hour) hours ago";
+            }
+            return "\(secondsAgo/hour) hour ago"
+        }else if secondsAgo < week{
+            if((secondsAgo/day) > 1){
+                return "\(secondsAgo/hour) days ago";
+            }
+            return "\(secondsAgo/day) day ago";
+        }
+        
+        if((secondsAgo/week) > 1){
+            return "\(secondsAgo/week) weeks ago"
+        }
+        return "\(secondsAgo/week) week ago";
     }
 }
