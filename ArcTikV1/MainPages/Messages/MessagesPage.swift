@@ -87,6 +87,8 @@ extension MessagesPage{
          4. show chatPage
          */
         chatRoom.readLastMessage = true;
+        PersistenceManager.shared.save();
+        print("saved chatRoom");
         
         let chatPage = ChatPage();
         chatPage.chatRoom = chatRoom;
@@ -192,7 +194,8 @@ extension MessagesPage{
         var count = 0;
         while(count < 20){
             let friend = Friend(context: PersistenceManager.shared.context);
-            friend.userName = "\(count)"
+//            friend.userName = "\(count)"
+            friend.firstName = "\(count)"
             friend.selected = false;
             friend.userID = Int16(count);
             friends.append(friend);
@@ -369,7 +372,6 @@ extension MessagesPage{
             //but still check
             if(chatRoom != nil){
                 //should return only the new chatRooms
-//                if(chatRoom!.lastMessageID != Int16(messageID)){//only update the message if message is new
                     chatRoom!.lastMessage = message;
                     chatRoom!.lastMessageID = Int16(messageID);
                     

@@ -41,7 +41,7 @@ class ComposeMessageTableView: UITableView, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuse, for: indexPath) as! ComposeUserCell;
         let friend = friendList[indexPath.item];
-        cell.setUserName(userName: friend.userName!);
+        cell.setUserName(userName: friend.firstName!);
         if(friend.selected!){
             cell.checkMarkImage.isHidden = false;
         }else{

@@ -33,6 +33,7 @@ class ChatCell: UITableViewCell{
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier);
+        self.isUserInteractionEnabled = false;
         self.backgroundColor = UIColor.white;
         
         messageLabel.translatesAutoresizingMaskIntoConstraints = false;

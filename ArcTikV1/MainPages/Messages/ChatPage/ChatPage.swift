@@ -48,10 +48,7 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-//        print(messagesDates?.count);
-//        print(messages?.count);
-//
+
         self.view.backgroundColor = UIColor.white;
         tableView.separatorStyle = .none
         
@@ -59,9 +56,9 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
         self.tableView.register(ChatHeaderCell.self, forHeaderFooterViewReuseIdentifier: headerCellReuse);
         setupNavBar();
         self.tableView.keyboardDismissMode = .interactive;
-        setupSocket();
-        // have to sort messages by date
-//        scrollToBottom();
+        if(chatRoomID != nil){
+            setupSocket();
+        }
     }
     
     deinit{
@@ -94,6 +91,7 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
         }else{
             for reciever in recieverList{
                 let friend = reciever.value as! Friend;
+                print(friend.userID);
                 recieversString += friend.firstName!;
             }
         }
@@ -138,12 +136,15 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     override func numberOfSections(in tableView: UITableView) -> Int {
         if(messagesDates != nil){
             if(messagesDates!.count > 0){
-//                print("messagesCount:\(messagesDates!.count)")
                 return messagesDates!.count;
             }
         }
         
         return 1;
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true);
     }
     
     
@@ -152,12 +153,14 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if(messagesDates!.count > 0){
-            let sectionDate = messagesDates![section];
-            
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerCellReuse) as! ChatHeaderCell;
-            header.setDateTitle(title: sectionDate);
-            return header;
+        if(messagesDates != nil){
+            if(messagesDates!.count > 0){
+                let sectionDate = messagesDates![section];
+                
+                let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerCellReuse) as! ChatHeaderCell;
+                header.setDateTitle(title: sectionDate);
+                return header;
+            }
         }
         
         let backgroundView = UIView();
@@ -187,18 +190,20 @@ extension ChatPage{
         //scroll to bottom
         if(self.messagesDates != nil){
 //            if(self.messages!.count>3){
-            let dateString = self.messagesDates!.last;//string
-            print(dateString);
-            let messagesCountArray = self.messages!.value(forKey: dateString!) as! [Message];
-            let indexPath = IndexPath(row: messagesCountArray.count, section: self.messagesDates!.count-1);
-            print(indexPath);
-//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true);
+            if(self.messagesDates!.count > 0){
+                let dateString = self.messagesDates!.last;//string
+    //            print(dateString);
+                let messagesCountArray = self.messages!.value(forKey: dateString!) as! [Message];
+                let indexPath = IndexPath(row: messagesCountArray.count-1, section: self.messagesDates!.count-1);
+    //            print(indexPath);
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true);
+            }
 //            }
         }
     }
     
     func sendMessage(message: String) {
-        print("send message");
+//        print("send message");
         guard let messageDates = self.messagesDates else {
             //error
 //            print("send first message");
@@ -206,7 +211,7 @@ extension ChatPage{
         }
         
         if(messageDates.count < 1){
-            print("send first message");
+//            print("send first message");
             
             sendFirstMessage(message: message);
             
@@ -214,60 +219,15 @@ extension ChatPage{
         }
         
         self.emitMessage(message: message);
-        
-//        if(messageDates.count > 0)
-
-                
-//                if(self.messagesDates!.count == 0){
-//                    //if this is the first message, then basically a new message list
-//                    var newMessageList = [Message]();
-//                    newMessageList.append(newMessage);
-//                    self.messages!.setValue(newMessageList, forKey: "\(newMessageDateString)")
-//
-//                    PersistenceManager.shared.save();
-//
-//                    self.tableView.reloadData();
-////                    self.tableView.insertSections(IndexSet(integer: self.messages!.count - 1), with: .right);
-//                }else{
-//
-//                    let currentSection = self.messagesDates!.count-1;//currentSection - 1
-//                    let dateString = self.messagesDates![currentSection];//
-//
-//                    if(newMessageDateString != dateString){
-//                        //start new message section
-//                        var newMessageList = [Message]();
-//                        newMessageList.append(newMessage);
-//                        self.messages!.setValue(newMessageList, forKey: "\(newMessageDateString)")
-//
-//                        PersistenceManager.shared.save();
-//
-//                        self.tableView.insertSections(IndexSet(integer: self.messages!.count - 1), with: .right);
-//                    }else{
-//                        var messagesList = self.messages!.value(forKey: dateString) as! [Message];
-//
-//                        messagesList.append(newMessage);
-//
-//                        PersistenceManager.shared.save();
-//
-//                        self.tableView.insertRows(at: [IndexPath(item: messagesList.count-1, section: currentSection)], with: UITableViewRowAnimation.right);
-//                    }
-//
-//                    print("success");
-//                }
-//            }
-//            }else{
-//                //show error
-            }
+    }
         //json body
 
     func sendFirstMessage(message: String){
         let date = NSDate();
-        //        print(date);
         let formatter = DateFormatter();
         formatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
         
         let dateString = formatter.string(from: date as Date);
-        //        print(dateString);
         //get the index path of the message
         //messages acts as a queue, first in first out... therefore we append to the end
         
@@ -288,9 +248,6 @@ extension ChatPage{
                     //show error alert in sending the message
                     return;
                 }
-                
-//                print(chatRoomID);
-//                print(message);
                 
                 let newMessage = Message(context: PersistenceManager.shared.context);
                 newMessage.chatRoomID = Int16(chatRoomID);
@@ -322,7 +279,7 @@ extension ChatPage{
     }
     
     func emitMessage(message: String){
-        print("emitMessage");
+//        print("emitMessage");
         let date = NSDate();
         let formatter = DateFormatter();
         formatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
@@ -336,7 +293,7 @@ extension ChatPage{
         }
         
         let socketData = ["userID":user!.userID, "senderName":user!.firstName, "message":message, "chatRoomID":chatRoomID, "date":dateString] as [String : Any]
-        print(socketData);
+//        print(socketData);
         
         self.socket.emit("sendMessage", [socketData]);
         
@@ -344,11 +301,11 @@ extension ChatPage{
     
     func recieveMessage(senderID: Int, chatRoomID: Int, message: String, date: NSDate, messageID: Int){
         
-        print("recieve message");
-        
-        print(chatRoomID);
-        print(messageID);
-        print(senderID);
+//        print("recieve message");
+//
+//        print(chatRoomID);
+//        print(messageID);
+//        print(senderID);
         
         let newMessage = Message(context: PersistenceManager.shared.context);
         newMessage.senderID = Int16(senderID);
@@ -371,8 +328,6 @@ extension ChatPage{
             return;
         }
         
-//        print("passed all checks");
-        
         var count = 0;
         while(count < self.messagesDates!.count){
             let messageDate = self.messagesDates![count];
@@ -385,13 +340,18 @@ extension ChatPage{
                     
                     self.messages!.setValue(messageArray, forKey: messageDate);
                     
-//                    print("messages found with date");
-                    
                     if(newMessage.senderID != user!.userID){
-                        self.tableView.insertRows(at: [IndexPath(item: messageArray.count-1, section: count)], with: .left);//inserts from the left
+                        self.tableView.insertRows(at: [IndexPath(item: messageArray.count-1, section: count)], with: .bottom);//inserts from the left
                     }else{
-                        self.tableView.insertRows(at: [IndexPath(item: messageArray.count-1, section: count)], with: .right);
+                        self.tableView.insertRows(at: [IndexPath(item: messageArray.count-1, section: count)], with: .bottom);
                     }
+                    
+                    //need to change the last message and make it read
+                    self.chatRoom!.lastMessage = newMessage.message!;
+                    self.chatRoom!.lastMessageTime = newMessage.date!;
+                    self.chatRoom!.readLastMessage = true;
+                    PersistenceManager.shared.save();//saves the changes
+                    
                     self.scrollToBottom();
                 }
                 return;
@@ -407,8 +367,16 @@ extension ChatPage{
             self.messages!.setValue(newMessagesArray, forKey: newMessageDateString);
             
 //            self.tableView.reloadData();
-            self.tableView.insertSections(IndexSet(integer: self.messagesDates!.count-1), with: .fade);
+            self.tableView.insertSections(IndexSet(integer: self.messagesDates!.count-1), with: .bottom);
+            
+            self.chatRoom!.lastMessage = newMessage.message!;
+            self.chatRoom!.lastMessageTime = newMessage.date!;
+            self.chatRoom!.readLastMessage = true;
+            
+            PersistenceManager.shared.save();//saves the changes
+            
             self.scrollToBottom();
+            //need to change the last message and make it read
 //            print("messages reload nil");
             return;
         }
@@ -445,9 +413,6 @@ extension ChatPage{
     
     func attemptToSendMessage(jsonData: Data, completion: @escaping (Bool)->()){//bool indicates if there was an error
         DispatchQueue.global(qos: .background).async {
-//            if(self.messagesDates!.count != 0){
-//                self.socket.emit("sendMessage", []);
-//            }else{
                 let url = URL(string: "http://localhost:3000/sendNewMessage")!;
                 var request = URLRequest(url: url);
                 request.httpMethod = "POST";
@@ -481,12 +446,6 @@ extension ChatPage{
                 urlTask.resume();
 //            }
         }//dispatchqueue.global
-        
-    }
-    
-    func filterMessages(){
-        //need to filter by date, so new header/section after each day
-        var filteredMessages = [[Message]]();
         
     }
     

@@ -15,7 +15,7 @@ class EventsAroundYouEmptyCell: UICollectionViewCell{
         messageTextView.translatesAutoresizingMaskIntoConstraints = false;
         messageTextView.font = UIFont.montserratMedium(fontSize: 14);
         messageTextView.isUserInteractionEnabled = false;
-        messageTextView.backgroundColor = UIColor.veryLightGray;
+        messageTextView.backgroundColor = UIColor.white;
         messageTextView.isScrollEnabled = false;
         messageTextView.text = "There aren't any events going on in your area.. You can be the first!! Creating your event is just a couple steps away. Click the plus button in the upper right to get started!";
         return messageTextView;
@@ -24,7 +24,7 @@ class EventsAroundYouEmptyCell: UICollectionViewCell{
     
     override init(frame: CGRect) {
         super.init(frame: frame);
-        self.backgroundColor = UIColor.veryLightGray;
+        self.backgroundColor = UIColor.white;
         setupTextView();
     }
     
