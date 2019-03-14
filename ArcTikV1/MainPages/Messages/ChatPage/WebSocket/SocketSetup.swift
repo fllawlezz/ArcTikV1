@@ -34,13 +34,14 @@ extension ChatPage{
             let message = senderData["message"] as! String;
             let chatRoomID = senderData["chatRoomID"] as! Int;
             let dateString = senderData["date"] as! String;
+            let senderName = senderData["senderName"] as! String;
             
             let formatter = DateFormatter();
             formatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
             
             let date = formatter.date(from: dateString)! as NSDate;
-            print("recieveMessage prior");
-            self.recieveMessage(senderID: senderID, chatRoomID: chatRoomID, message: message, date: date, messageID: messageID);
+//            print("recieveMessage prior");
+            self.recieveMessage(senderID: senderID, chatRoomID: chatRoomID, message: message, date: date, messageID: messageID, senderName: senderName);
         }
         
         self.socket.connect();

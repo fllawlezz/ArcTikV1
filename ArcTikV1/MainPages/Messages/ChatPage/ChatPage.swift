@@ -9,6 +9,10 @@
 import UIKit
 import SocketIO
 
+protocol ChatPageDelegate{
+    func reloadItemsAt(indexPath: IndexPath);
+}
+
 class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelegate{
     
 //    let sendMessageView = SendMessageView();
@@ -24,16 +28,17 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     
     var recieverList = NSMutableDictionary();
     
+    var socket: SocketIOClient!;
     let manager = SocketManager(socketURL: URL(string:"http://localhost:4000/")!, config: [.log(true),.connectParams(["token":"ABC438s"])])
     
-    var socket: SocketIOClient!;
-    
+    var chatPageDelegate: ChatPageDelegate?;
     //messages, chat room id,
 //    var messages = [Message]();
     var messages: NSMutableDictionary?;
     var messagesDates: [String]?;
-    
+    var indexPath: IndexPath?;
     var chatRoomID: Int?;
+    var lastSenderID: Int = user!.userID;
     
     var chatRoom: ChatRoom?{
         didSet{
@@ -105,18 +110,40 @@ class ChatPage: UITableViewController, ComposePageDelegate,SendMessageViewDelega
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //get messages date section
         let dateString = messagesDates![indexPath.section];//dateString
-//        print(dateString);
         let messagesList = messages!.value(forKey: dateString) as! [Message];
-//        print(messagesList.count);
         
         let cell = tableView.dequeueReusableCell(withIdentifier: messageCellReuse, for: indexPath) as! ChatCell;
         let message = messagesList[indexPath.item];
+        cell.message = message;
         cell.setMessageText(message: message.message!);
+        
         if(Int(message.senderID) != user!.userID){
             //not from user
             cell.isIncoming = true;
+            if((indexPath.item-1) >= 0){
+                if(messagesList[indexPath.item-1].senderID != message.senderID){
+                    //if the id's aren't the same, then show the name label
+                    cell.setSenderName(senderName: message.senderName!);
+                }else{
+                    //if messagesList are the same, then hide the name label
+                    cell.hideSenderNameLabel();
+                    cell.setSameSenderConstant();
+                }
+            }else{
+                cell.setSenderName(senderName: message.senderName!);
+            }
+//            cell.setSenderName(senderName: message.senderName!);
+            //need to set the sender's name if the previous sender's name isn't the same
+//            if(Int(message.senderID) != self.lastSenderID){
+//                self.lastSenderID = Int(message.senderID);
+//                cell.setSenderName(senderName: message.senderName!);
+//            }else{
+//                cell.hideSenderNameLabel();
+//            }
         }else{
+            cell.hideSenderNameLabel();
             cell.isIncoming = false;
+            self.lastSenderID = user!.userID;
         }
         return cell;
     }
@@ -203,16 +230,13 @@ extension ChatPage{
     }
     
     func sendMessage(message: String) {
-//        print("send message");
+
         guard let messageDates = self.messagesDates else {
             //error
-//            print("send first message");
             return;
         }
         
         if(messageDates.count < 1){
-//            print("send first message");
-            
             sendFirstMessage(message: message);
             
             return;
@@ -279,7 +303,6 @@ extension ChatPage{
     }
     
     func emitMessage(message: String){
-//        print("emitMessage");
         let date = NSDate();
         let formatter = DateFormatter();
         formatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
@@ -293,34 +316,56 @@ extension ChatPage{
         }
         
         let socketData = ["userID":user!.userID, "senderName":user!.firstName, "message":message, "chatRoomID":chatRoomID, "date":dateString] as [String : Any]
-//        print(socketData);
         
         self.socket.emit("sendMessage", [socketData]);
         
     }
     
-    func recieveMessage(senderID: Int, chatRoomID: Int, message: String, date: NSDate, messageID: Int){
-        
-//        print("recieve message");
-//
-//        print(chatRoomID);
-//        print(messageID);
-//        print(senderID);
-        
+    func recieveMessage(senderID: Int, chatRoomID: Int, message: String, date: NSDate, messageID: Int, senderName: String){
+
         let newMessage = Message(context: PersistenceManager.shared.context);
         newMessage.senderID = Int16(senderID);
         newMessage.messageID = Int16(messageID);
         newMessage.chatRoomID = Int16(chatRoomID);
         newMessage.message = message;
         newMessage.date = date;
+        newMessage.senderName = senderName;
+        
+        self.chatRoom!.lastMessageID = Int16(messageID);
+        self.chatRoom!.lastMessage = message;
+        self.chatRoom!.lastMessageTime = date;
+        if(self.indexPath != nil){
+            self.chatPageDelegate?.reloadItemsAt(indexPath: self.indexPath!);
+        }
         PersistenceManager.shared.save();
+        
+        //need to reload the indices in the chatRooms
+        
         
         let calendar = NSCalendar.current;
         let monthComponent = calendar.component(.month, from: date as Date);
-        let dayComponenet = calendar.component(.day, from: date as Date);
+        let dayComponent = calendar.component(.day, from: date as Date);
         let yearComponent = calendar.component(.year, from: date as Date);
         
-        let newMessageDateString = "\(monthComponent)\(dayComponenet)\(yearComponent)"
+        var month: String;
+        
+        switch(monthComponent){
+        case 1: month = "Jan.";break;
+        case 2: month = "Feb.";break;
+        case 3: month = "Mar.";break;
+        case 4: month = "Apr.";break;
+        case 5: month = "May";break;
+        case 6: month = "June";break;
+        case 7: month = "July";break;
+        case 8: month = "Aug.";break;
+        case 9: month = "Sept.";break;
+        case 10: month = "Oct.";break;
+        case 11: month = "Nov.";break;
+        case 12: month = "Dec.";break;
+        default: month = "Some.";break;
+        }
+        
+        let newMessageDateString = "\(month) \(dayComponent), \(yearComponent)"
         
         //search for the newMessageDateString in the messagesDates
         if(self.messagesDates == nil){

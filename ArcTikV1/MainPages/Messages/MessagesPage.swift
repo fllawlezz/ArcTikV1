@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MessagesPage: UIViewController, MessagesCollectionViewDelegate{
+class MessagesPage: UIViewController, MessagesCollectionViewDelegate, ChatPageDelegate{
     
     var selector = UISegmentedControl(items: ["Direct","Group"]);
     var refreshControl = UIRefreshControl();
@@ -81,21 +81,32 @@ extension MessagesPage{
     func handleSelectedCell(chatRoom: ChatRoom, indexPath: IndexPath) {
         
         /*
+         0. show activity indicator, load messages
          1. set the chatRoom at the index to be equal to read
          2. load the last 20 messages from chat
          3. transfer over data to chat page
          4. show chatPage
          */
+        
         chatRoom.readLastMessage = true;
         PersistenceManager.shared.save();
-        print("saved chatRoom");
-        
+//        print("saved chatRoom");
+            
         let chatPage = ChatPage();
         chatPage.chatRoom = chatRoom;
+        chatPage.indexPath = indexPath;
+        chatPage.chatPageDelegate = self;
         chatPage.hidesBottomBarWhenPushed = true;
         //need to pass over a dictionary of friends
         
-        //the chatroomFriendList already has the friends in its dictionary, so just pass it over
+//        the chatroomFriendList already has the friends in its dictionary, so just pass it over
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message");
+//        let batchDelete = NSBatchDeleteRequest(fetchRequest: fetchRequest);
+//        do{
+//            try PersistenceManager.shared.context.execute(batchDelete);
+//        }catch{
+//
+//        }
         
         //load messages from core data where chatRoomID = chatRoomID
         let messageFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message");
@@ -106,37 +117,56 @@ extension MessagesPage{
         
         do{
             if let results = try PersistenceManager.shared.context.fetch(messageFetchRequest) as? [Message]{
-                
+                print(results.count);
                 //need to reverse the results
                 var reversedResults = [Message]();
+                var lastMessageID: Int16 = 0;
+                if(results.count != 0){
+                    lastMessageID = results.first!.messageID;
+                }
+                
                 for message in results{
                     reversedResults.insert(message, at: 0);//prepends
                 }
                 
-                let messagesInfo = filterMessages(messages: reversedResults);
                 
-                let messageDates = messagesInfo["dates"] as! [String];
-                let messagesDictionary = messagesInfo["messagesDictionary"] as! NSMutableDictionary;
-                
-                print(chatRoom.chatRoomID);
-                for message in results{
-                    print("loadedFromCoreData:\(message.message!)");
+                DispatchQueue.global(qos: .background).async {
+                    self.loadRecentMessages(chatRoomID: Int(chatRoom.chatRoomID), lastMessageID: Int(lastMessageID), completion: { (messages) in
+                        if(messages != nil){
+                            //then append to the reversed results
+                            print("messages not nil");
+                            for message in messages!{
+                                reversedResults.append(message);
+                                print(message);
+                            }
+                        }
+                        
+//                        for message in reversedResults{
+//                            print(message.message!);
+//                        }
+                        
+                        let messagesInfo = self.filterMessages(messages: reversedResults);
+                        
+                        let messageDates = messagesInfo["dates"] as! [String];
+                        let messagesDictionary = messagesInfo["messagesDictionary"] as! NSMutableDictionary;
+                        
+                        chatPage.messagesDates = messageDates;
+                        chatPage.messages = messagesDictionary;
+                        self.navigationController?.pushViewController(chatPage, animated: true);
+                        self.messagesList.reloadItems(at: [indexPath]);
+                    })
                 }
+                print("loading recent messages");
                 
-                chatPage.messagesDates = messageDates;
-                chatPage.messages = messagesDictionary;
-                self.navigationController?.pushViewController(chatPage, animated: true);
             }
         }catch{
             print("error");
             //show error and exit
         }
+            
+            //filter dates by addresses and insert into a hashtable
         
-        //filter dates by addresses and insert into a hashtable
         
-        
-        
-        self.messagesList.reloadItems(at: [indexPath]);
     }
     
     func filterMessages(messages: [Message])->[String : Any]{
@@ -152,12 +182,27 @@ extension MessagesPage{
                 let calendar = NSCalendar.current;
                 let monthComponent = calendar.component(.month, from: date);
                 let dayComponent = calendar.component(.day, from: date);
-                let yearComponenet = calendar.component(.year, from: date);
+                let yearComponent = calendar.component(.year, from: date);
                 
-                let dateString = "\(monthComponent)\(dayComponent)\(yearComponenet)"
-                print(dateString);
+                var month: String;
                 
-//                dates.append(dateString);
+                switch(monthComponent){
+                case 1: month = "Jan.";break;
+                case 2: month = "Feb.";break;
+                case 3: month = "Mar.";break;
+                case 4: month = "Apr.";break;
+                case 5: month = "May";break;
+                case 6: month = "June";break;
+                case 7: month = "July";break;
+                case 8: month = "Aug.";break;
+                case 9: month = "Sept.";break;
+                case 10: month = "Oct.";break;
+                case 11: month = "Nov.";break;
+                case 12: month = "Dec.";break;
+                default: month = "Some.";break;
+                }
+                
+                let dateString = "\(month) \(dayComponent), \(yearComponent)"
                 
                 var messagesForDate = messagesHashTable.value(forKey: dateString) as? [Message];
                 if(messagesForDate == nil){
@@ -237,7 +282,7 @@ extension MessagesPage{
                 return;
             }
             if(data != nil){
-                let response = NSString(data: data!, encoding: 8)! as String;
+                let response = NSString(data: data!, encoding: 8) as String?;
                 if(response == "error"){
                     //print error
                     print("error");
@@ -257,21 +302,28 @@ extension MessagesPage{
     }
     
     @objc func loadChatRooms(){
+        
         DispatchQueue.global(qos: .background).async {
             //load from core data the chat rooms that were previously saved
             let chatRooms = PersistenceManager.shared.fetch(ChatRoom.self);
-            
             let chatRoomsInfo = NSMutableDictionary();
             
             for chatRoom in chatRooms{
 //                let chatRoomInfo = [chatRoom.chatRoomID: chatRoom.lastMessageID];
-                chatRoomsInfo.setValue(chatRoom.lastMessageID, forKey: "\(chatRoom.chatRoomID)");
+//                print("chatRoom: \(chatRoom.chatRoomID), lastMessageID:\(chatRoom.lastMessageID), read: \(chatRoom.readLastMessage)");
+//                chatRoomsInfo.setValue(chatRoom.lastMessageID, forKey: "\(chatRoom.chatRoomID)");//used to compare the chatRoomID from the loaded ones
+                //add the chatRoom to self.chatRooms
+                self.chatRooms.setValue(chatRoom, forKey: "\(chatRoom.chatRoomID)");
+//                PersistenceManager.shared.context.delete(chatRoom);
+//                PersistenceManager.shared.save();
+
             }
             
             self.handleLoadMessages { (dictionary) in
                 guard let dictionary = dictionary else{
                     DispatchQueue.main.async {
                         //do something else here
+                        //no chatRooms
                     }
                     return;
                 }
@@ -293,7 +345,7 @@ extension MessagesPage{
                     add messages
                 */
                 
-                self.addChatRoomPeople(chatRoomArray: chatRoomArray);
+                self.addChatRoomPeople(chatRoomArray: chatRoomArray, loadedChatRooms: chatRoomsInfo);
                 self.addLastMessages(lastMessages: chatRoomLastMessages);
                
                 DispatchQueue.main.async {
@@ -307,13 +359,14 @@ extension MessagesPage{
         
     }
     
-    func addChatRoomPeople(chatRoomArray: NSArray){
+    func addChatRoomPeople(chatRoomArray: NSArray, loadedChatRooms: NSDictionary){
         for peopleInfo in chatRoomArray{
             let infoDictionary = peopleInfo as! NSDictionary;
             let chatRoomID = infoDictionary["chatRoomID"] as! Int;
             
             //need to check to see if the chatRoomExists
             let chatRoom = self.chatRooms.value(forKey: "\(chatRoomID)") as? ChatRoom;
+            
             if(chatRoom == nil){
                 //create new chat room, add the person to the chatRoom
                 let chatRoom = ChatRoom(context: PersistenceManager.shared.context);
@@ -331,11 +384,11 @@ extension MessagesPage{
                 self.chatRooms.setValue(chatRoom, forKey: "\(chatRoomID)");
             }else{
                 //chat room exists
-                
+
                 let firstName = infoDictionary["firstName"] as? String;
                 let lastName = infoDictionary["lastName"] as? String;
                 let userID = infoDictionary["userID"] as! Int;
-                
+
                 self.addFriend(firstName: firstName, lastName: lastName, userID: userID, chatRoom: chatRoom!);
             }
             
@@ -366,12 +419,15 @@ extension MessagesPage{
             let message = lastMessage["lastMessage"] as! String;
             let messageDate = lastMessage["lastMessageDate"] as! String;
             let messageID = lastMessage["messageID"] as! Int;
+            let senderID = lastMessage["senderID"] as! Int;
             
             let chatRoom = self.chatRooms.value(forKey: "\(chatRoomID)") as? ChatRoom;
             //there should already be a chatRoom for the given chatRoomID because we added the friends already
             //but still check
             if(chatRoom != nil){
-                //should return only the new chatRooms
+                //check to see if the chatroom's last messageID equals the latest messageID
+                if(chatRoom!.lastMessageID != Int16(messageID)){
+                    //should return only the new chatRooms
                     chatRoom!.lastMessage = message;
                     chatRoom!.lastMessageID = Int16(messageID);
                     
@@ -380,10 +436,95 @@ extension MessagesPage{
                     
                     let date = dateFormatter.date(from: messageDate);
                     chatRoom!.lastMessageTime = (date! as NSDate);
-                    chatRoom!.readLastMessage = false;
+                    
+                    if(senderID != user!.userID){
+                        chatRoom!.readLastMessage = false;
+                    }
+                }
             }
             
         }
     }
     
+}
+
+extension MessagesPage{
+    func loadRecentMessages(chatRoomID: Int, lastMessageID: Int, completion: @escaping ([Message]?)->()){
+        print("load recent");
+        let url = URL(string: "http://localhost:3000/loadMessages")!;
+        var request = URLRequest(url: url);
+        let body = "chatRoomID=\(chatRoomID)&lastMessageID=\(lastMessageID)";
+        request.httpBody = body.data(using: .utf8);
+        request.httpMethod = "POST";
+        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if(err != nil){
+                DispatchQueue.main.async {
+                    print("error");
+                    completion(nil);
+                }
+                return;
+            }
+            
+            if(data != nil){
+                let response = NSString(data: data!, encoding: 8) as String?;
+                if(response == "none"){
+                    //return nil
+                    DispatchQueue.main.async {
+                        print("response is none");
+                        completion(nil);
+                    }
+                    
+                }else{
+                    do{
+                        let jsonBody = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary;
+                        let messages = jsonBody["messages"] as! NSArray;
+//                        print(messages);
+                        //messageID: row.MessageID, chatRoomID: row.ChatRoomID, senderID: row.SenderID, message: row.Message, date: row.Date
+                        var newMessages = [Message]();
+                        for message in messages{
+                            let messageDictionary = message as! NSDictionary
+                            let newMessage = Message(context: PersistenceManager.shared.context);
+                            newMessage.messageID = messageDictionary["messageID"] as! Int16;
+                            newMessage.chatRoomID = messageDictionary["chatRoomID"] as! Int16;
+                            newMessage.senderID = messageDictionary["senderID"] as! Int16;
+                            newMessage.message = (messageDictionary["message"] as! String);
+                            newMessage.senderName = (messageDictionary["senderName"] as! String);
+                            
+                            let formatter = DateFormatter();
+                            formatter.dateFormat = "h:mm:ss a, MM/dd/yyyy";
+                            
+                            let date = formatter.date(from: messageDictionary["date"] as! String)! as NSDate;
+                            newMessage.date = date;
+                            newMessages.append(newMessage);
+                        }
+                        
+//                        print(messages);
+                        DispatchQueue.main.async {
+                            completion(newMessages);
+                        }
+                        
+                        
+                    }catch{
+                        print(error);
+                        DispatchQueue.main.async {
+                            print("error parsing");
+                            completion(nil);
+                        }
+                    }
+                }
+            }else{
+                DispatchQueue.main.async {
+                    print("data nil");
+                    completion(nil);
+                }
+            }
+        }
+        task.resume();
+    }
+}
+
+extension MessagesPage{
+    func reloadItemsAt(indexPath: IndexPath){
+        self.messagesList.reloadItems(at: [indexPath]);
+    }
 }
